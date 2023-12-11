@@ -1,4 +1,4 @@
-package com.itwillbs.service;
+package com.eatit.service;
 
 public class empty_service {
 

@@ -1,4 +1,4 @@
-package com.itwillbs.persistence;
+package com.eatit.persistence;
 
 public class empty_persistence {
 

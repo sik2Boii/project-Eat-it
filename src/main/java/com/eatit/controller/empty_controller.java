@@ -1,4 +1,4 @@
-package com.itwillbs.controller;
+package com.eatit.controller;
 
 public class empty_controller {
 

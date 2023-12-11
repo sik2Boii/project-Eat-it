@@ -1,4 +1,4 @@
-package com.itwillbs.domain;
+package com.eatit.domain;
 
 public class empty_domain {
 
