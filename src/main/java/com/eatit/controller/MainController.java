@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "/*")
 public class MainController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
-	//http://localhost:8088/main
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void mainPage() {
+	//http://localhost:8088
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String main() {
 		logger.debug("/main 호출  => mainPage()실행");
+		
+		return "main";
 	}
 }
