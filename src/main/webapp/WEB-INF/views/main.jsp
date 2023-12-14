@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
+ <link rel="icon" type="image/png" href="${path}/resources/img/logo.png">
   <title>
     	디저트의 모든 것 EatIt
   </title>
@@ -14,10 +14,9 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link id="pagestyle" href="${path}/resources/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+
 <body class="g-sidenav-show  bg-gray-200">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
@@ -28,41 +27,145 @@
     </div>
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" id="mn">
         <li class="nav-item">
           <a class="nav-link text-white active bg-gradient-primary" href="${path}/main">
             <span class="nav-link-text ms-1">메인</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="${path}/resources/pages/tables.html">
-            <span class="nav-link-text ms-1">기준정보 관리</span>
+          <a class="nav-link text-white">
+          	<span class="nav-link-text ms-1">기준정보 관리</span>
           </a>
-        </li>
+          <!-- 기준정보 관리 서브메뉴 -->
+		  <ul class="navbar-nav" id="sm">
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu1.html">
+		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu2.html">
+		        <span class="nav-link-text ms-1">서브메뉴 2</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu3.html">
+		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      </a>
+		    </li>
+		  </ul>
+		</li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="<%= request.getContextPath() %>pages/billing.html">
+          <a class="nav-link text-white ">
             <span class="nav-link-text ms-1">자재 관리</span>
           </a>
+          
+  		  <ul class="navbar-nav" id="sm">
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu1.html">
+		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu2.html">
+		        <span class="nav-link-text ms-1">서브메뉴 2</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu3.html">
+		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      </a>
+		    </li>
+		  </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="<%= request.getContextPath() %>pages/virtual-reality.html">
+          <a class="nav-link text-white ">
             <span class="nav-link-text ms-1">설비&생산 관리</span>
           </a>
+          		  <ul class="navbar-nav" id="sm">
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu1.html">
+		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu2.html">
+		        <span class="nav-link-text ms-1">서브메뉴 2</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu3.html">
+		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      </a>
+		    </li>
+		  </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="<%= request.getContextPath() %>pages/rtl.html">
+          <a class="nav-link text-white ">
             <span class="nav-link-text ms-1">창고 관리</span>
           </a>
+          		  <ul class="navbar-nav" id="sm">
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu1.html">
+		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu2.html">
+		        <span class="nav-link-text ms-1">서브메뉴 2</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu3.html">
+		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      </a>
+		    </li>
+		  </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="<%= request.getContextPath() %>pages/notifications.html">
+          <a class="nav-link text-white ">
             <span class="nav-link-text ms-1">납품 관리</span>
           </a>
+          		  <ul class="navbar-nav" id="sm">
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu1.html">
+		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu2.html">
+		        <span class="nav-link-text ms-1">서브메뉴 2</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu3.html">
+		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      </a>
+		    </li>
+		  </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="<%= request.getContextPath() %>pages/profile.html">
+          <a class="nav-link text-white ">
             <span class="nav-link-text ms-1">인사 관리</span>
           </a>
+          		  <ul class="navbar-nav" id="sm">
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu1.html">
+		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu2.html">
+		        <span class="nav-link-text ms-1">서브메뉴 2</span>
+		      </a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link text-white" href="${path}/submenu3.html">
+		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      </a>
+		    </li>
+		  </ul>
         </li>
       </ul>
     </div>
@@ -76,10 +179,6 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-              <label class="form-label">Type here...</label>
-              <input type="text" class="form-control">
-            </div>
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
@@ -102,7 +201,11 @@
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">전체 남품액</p>
+                <p class="text-sm mb-0 text-capitalize">
+                	<script>
+                  		document.write(new Date().getFullYear())
+                	</script> 남품액
+                </p>
                 <h4 class="mb-0">190,245,000원</h4>
               </div>
             </div>
@@ -117,7 +220,11 @@
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">전체 납품량</p>
+                <p class="text-sm mb-0 text-capitalize">
+                	<script>
+                  		document.write(new Date().getFullYear())
+                	</script> 납품량
+                </p>
                 <h4 class="mb-0">2,300개</h4>
               </div>
             </div>
@@ -157,7 +264,66 @@
         </div>
       </div>
       <div class="row mt-4">
-
+		<div class="col-lg-4 col-md-6 mt-4 mb-4">
+          <div class="card z-index-2 ">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                <div class="chart">
+                  <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="mb-0 ">연도별 납품량</h6>
+              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) 전년도 대비 </p>
+              <hr class="dark horizontal">
+              <div class="d-flex ">
+                <i class="material-icons text-sm my-auto me-1">schedule</i>
+                <p class="mb-0 text-sm"> 수정 일자 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mt-4 mb-4">
+          <div class="card z-index-2  ">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                <div class="chart">
+                  <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="mb-0 ">월별 납품액 </h6>
+              <p class="text-sm "> (<span class="font-weight-bolder">-5%</span>) 전달 대비</p>
+              <hr class="dark horizontal">
+              <div class="d-flex ">
+                <i class="material-icons text-sm my-auto me-1">schedule</i>
+                <p class="mb-0 text-sm"> 수정 일자 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4 mb-3">
+          <div class="card z-index-2 ">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="bg-gradient-info shadow-dark border-radius-lg py-3 pe-1">
+                <div class="chart">
+                  <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="mb-0 ">월별 납품량</h6>
+              <p class="text-sm "> (<span class="font-weight-bolder">+5%</span>) 전달 대비</p>
+              <hr class="dark horizontal">
+              <div class="d-flex ">
+                <i class="material-icons text-sm my-auto me-1">schedule</i>
+                <p class="mb-0 text-sm">수정 일자</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row mb-4">
         <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
@@ -346,16 +512,145 @@
         <div class="col-lg-4 col-md-6">
           <div class="card h-100">
             <div class="card-header pb-0">
-              <h6>월별 출고량 그래프</h6>
-              <p class="text-sm">
-                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                <span class="font-weight-bold">24%</span> 전달 대비
-              </p>
+              <h6>이번달 우수사원</h6>
             </div>
             <div class="card-body p-3">
-              <div>
-                <canvas id="myChart"></canvas>
-              </div>
+               <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+						<th
+							class="text-secondary text-xxs font-weight-bolder opacity-7"
+							style="width: 20px;">부서</th>
+						<th
+							class="text-center text-secondary text-xxs font-weight-bolder opacity-7">직책</th>
+						<th
+							class="text-center text-secondary text-xxs font-weight-bolder opacity-7"
+							style="width: 20px;">이름</th>
+					</tr>
+                  </thead>
+                  <tbody>
+                   <tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">인사</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>인사관리담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">이병헌</p>
+					   </td>
+					</tr>
+					<tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">인사</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>인사OO담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">이민정</p>
+					   </td>
+					</tr>
+					<tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">자재</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>자재OO담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">정우성</p>
+					   </td>
+					</tr>
+					<tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">생산</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>생산OO담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">이정재</p>
+					   </td>
+					</tr>
+					<tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">창고</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>창고OO담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">황정민</p>
+					   </td>
+					</tr>
+					<tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">납품</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>납품OO담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">안내상</p>
+					   </td>
+					</tr>
+					<tr>
+					  <td>
+						<div class="d-flex px-2 py-1">
+							<div class="d-flex flex-column justify-content-center">
+								<h6
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+									style="margin-left: 7px;">설비</h6>
+							</div>
+						</div>
+					   </td>
+					   <td class="align-middle text-center text-sm ">
+							<h6>설비OO담당</h6>						 
+					   </td>
+					   <td class="align-middle text-center text-sm">
+						  <p class="text-xs font-weight-bold mb-0">김태희</p>
+					   </td>
+					</tr>
+                  </tbody>
+                </table>
             </div>
           </div>
         </div>
@@ -378,47 +673,265 @@
         </div>
       </footer>
     </div>
+    </div>
   </main>
   <!--   Core JS Files   -->
   <script src="${path}/resources/js/core/popper.min.js"></script>
   <script src="${path}/resources/js/core/bootstrap.min.js"></script>
   <script src="${path}/resources/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${path}/resources/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="${path}/resources/js/plugins/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/smooth-scrollbar"></script>
+
   <script>
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'line',  // 그래프 타입을 'line'으로 변경
-    data: {
-      labels: ['2023-08', '2023-09', '2023-10', '2023-11', '2023-12'],
-      datasets: [{
-        label: '월별 출고량',
-        data: [350, 200, 450, 320, 410],  // 실제 데이터
-        backgroundColor: 'rgba(255, 99, 132, 0.2)', // 곡선 아래의 영역을 색칠할 때 사용
-        borderColor: 'rgba(255, 99, 132, 1)', // 곡선의 색상
-        borderWidth: 1,
-        pointBackgroundColor: 'rgba(255, 99, 132, 1)', // 데이터 포인트의 배경 색상
-        pointBorderColor: 'rgba(255, 99, 132, 1)', // 데이터 포인트의 테두리 색상
-        pointRadius: 5, // 데이터 포인트의 반지름
-        pointHoverRadius: 8 // 마우스를 가져갔을 때 데이터 포인트의 반지름
-      }]
-    },
-    options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        },
-        elements: {
-          line: {
-            tension: 0.4 // 곡선의 강도를 조절하는 값, 0에 가까울수록 곡선이 부드러워짐
-          }
-        },
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ['2020', '2021', '2022', '2023'],
+        datasets: [{
+          label: "전체 납품량",
+          tension: 0.4,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+          backgroundColor: "rgba(255, 255, 255, .8)",
+          data: [500, 1200, 1700, 2300],
+          maxBarThickness: 6
+        }, ],
+      },
+      options: {
         responsive: true,
         maintainAspectRatio: false,
-        aspectRatio: 1
-      }
-  });
-</script>
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5],
+              color: 'rgba(255, 255, 255, .2)'
+            },
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 500,
+              beginAtZero: true,
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 300,
+                family: "Roboto",
+                style: 'normal',
+                lineHeight: 2
+              },
+              color: "#fff"
+            },
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5],
+              color: 'rgba(255, 255, 255, .2)'
+            },
+            ticks: {
+              display: true,
+              color: '#f8f9fa',
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 300,
+                family: "Roboto",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+
+
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+    new Chart(ctx2, {
+      type: "line",
+      data: {
+        labels: ['2023-08', '2023-09', '2023-10', '2023-11', '2023-12'],
+        datasets: [{
+          label: "이번달 납품액",
+          tension: 0,
+          borderWidth: 0,
+          pointRadius: 5,
+          pointBackgroundColor: "rgba(255, 255, 255, .8)",
+          pointBorderColor: "transparent",
+          borderColor: "rgba(255, 255, 255, .8)",
+          borderColor: "rgba(255, 255, 255, .8)",
+          borderWidth: 4,
+          backgroundColor: "transparent",
+          fill: true,
+          data: [5900000, 4900000, 6800000,7300000,6900000],
+          maxBarThickness: 6
+
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5],
+              color: 'rgba(255, 255, 255, .2)'
+            },
+            ticks: {
+              display: true,
+              color: '#f8f9fa',
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 300,
+                family: "Roboto",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#f8f9fa',
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 300,
+                family: "Roboto",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+
+    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+
+    new Chart(ctx3, {
+      type: "line",
+      data: {
+        labels: ['2023-08', '2023-09', '2023-10', '2023-11', '2023-12'],
+        datasets: [{
+          label: "이번달 납품량",
+          tension: 0,
+          borderWidth: 0,
+          pointRadius: 5,
+          pointBackgroundColor: "rgba(255, 255, 255, .8)",
+          pointBorderColor: "transparent",
+          borderColor: "rgba(255, 255, 255, .8)",
+          borderWidth: 4,
+          backgroundColor: "transparent",
+          fill: true,
+          data: [100, 200,500,300,320],
+          maxBarThickness: 6
+
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5],
+              color: 'rgba(255, 255, 255, .2)'
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#f8f9fa',
+              font: {
+                size: 14,
+                weight: 300,
+                family: "Roboto",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#f8f9fa',
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 300,
+                family: "Roboto",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -428,5 +941,21 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+  
+	<script>
+	$(document).ready(function () {
+	  $("#sm").hide();
+	
+	  $("ul#mn > li").mouseenter(function () {
+	    $("#sm").stop().hide(); // 다른 메뉴 항목에 대한 서브메뉴 감추기
+	    $(this).find("#sm").show().css({ height: "0px" }).animate({ height: "125px" });
+	  });
+	
+	  // 마우스가 메뉴 항목에서 벗어날 때 서브메뉴 감추기
+	  $("ul#mn > li").mouseleave(function () {
+	    $(this).find("#sm").stop().hide();
+	  });
+	});
+	</script>
 </body>
 </html>
