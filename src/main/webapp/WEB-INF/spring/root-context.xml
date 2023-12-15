@@ -45,8 +45,6 @@
 	<!-- sqlSession : 자동 DB 연결, 데이터처리(SQL실행, Mybatis설정), 자동 자원해제처리 -->
 	
 	<!--  com.itwillbs.persistence 패키지 등록 -->
-	<context:component-scan base-package="com.eatit.persistence"/>
+	<context:component-scan base-package="com.eatit.*"/>
 	
-	<!--  com.itwillbs.service패키지 등록 -->
-	<context:component-scan base-package="com.eatit.service"/>
 </beans>
