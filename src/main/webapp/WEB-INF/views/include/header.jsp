@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/png" href="${path}/resources/img/logo.png">
@@ -31,11 +32,31 @@
 					id="navbar">
 					<div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
 					<ul class="navbar-nav  justify-content-end">
-						<li class="nav-item d-flex align-items-center"><a
-							href="${path }/members/memberLogin"
-							class="nav-link text-body font-weight-bold px-0"> <i
-								class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Login</span>
-						</a></li>
+						<li class="nav-item d-flex align-items-center">
+							<c:choose>
+							  <c:when test="${empty sessionScope.id}">
+								  <a href="${path}/members/memberLogin" class="nav-link text-body font-weight-bold px-0">
+									  <i class="fa fa-user me-sm-1"></i>
+									  <span class="d-sm-inline d-none">로그인</span>
+								  </a>
+							  </c:when>
+							  <c:otherwise>
+								  <a href="#" class="nav-link text-body font-weight-bold px-0">
+									  <i class="fa fa-user me-sm-1"></i>
+									  <span class="d-sm-inline d-none">${sessionScope.name}님</span>
+								  </a>
+								  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="userDropdown">
+										<a class="dropdown-item" onclick="openProfile('${sessionScope.name}')">
+											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내 정보
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="/keypoint/employee/logout"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+											로그아웃
+										</a>
+								  </div>
+							  </c:otherwise>
+						  </c:choose> 
+						</li>
 					</ul>
 				</div>
 			</div>
