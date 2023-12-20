@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-  <script src="/resources/js/core/popper.min.js"></script>
-  <script src="/resources/js/core/bootstrap.min.js"></script>
-  <script src="/resources/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="/resources/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="/resources/js/plugins/jquery.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="./resources/js/core/popper.min.js"></script>
+  <script src="./resources/js/core/bootstrap.min.js"></script>
+  <script src="./resources/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="./resources/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://unpkg.com/smooth-scrollbar"></script>
-  
+
 <script>
   $(document).ready(function () {
     // 초기에는 모든 서브메뉴 목록을 숨김
