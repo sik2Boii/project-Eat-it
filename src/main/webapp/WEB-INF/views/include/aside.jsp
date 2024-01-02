@@ -19,18 +19,13 @@
        	  <span class="nav-link text-white " style="cursor: default;">기준정보 관리</span>
 		  <ul class="navbar-nav" id="sm1">
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="/submenu1.html">
-		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      <a class="nav-link text-white sm-hv" href="${path}/masterdata/BomMain">
+		        <span class="nav-link-text ms-1">BOM관리</span>
 		      </a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="/submenu2.html">
-		        <span class="nav-link-text ms-1">서브메뉴 2</span>
-		      </a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="/submenu3.html">
-		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      <a class="nav-link text-white sm-hv" href="${path}/masterdata/QualityManagement">
+		        <span class="nav-link-text ms-1">설비정보관리</span>
 		      </a>
 		    </li>
 		  </ul>
@@ -59,8 +54,8 @@
            <span class="nav-link text-white" style="cursor: default;">설비&생산 관리</span>
    	       <ul class="navbar-nav" id="sm3">
 			    <li class="nav-item">
-			      <a class="nav-link text-white sm-hv" href="${path}/submenu1.html">
-			        <span class="nav-link-text ms-1">서브메뉴 1</span>
+			      <a class="nav-link text-white sm-hv" href="/machine/machine">
+			        <span class="nav-link-text ms-1">설비 관리</span>
 			      </a>
 			    </li>
 			    <li class="nav-item">
@@ -79,13 +74,13 @@
            <span class="nav-link text-white" style="cursor: default;">창고 관리</span>
 		   <ul class="navbar-nav" id="sm4">
 			    <li class="nav-item">
-			      <a class="nav-link text-white sm-hv" href="${path}/submenu1.html">
-			        <span class="nav-link-text ms-1">서브메뉴 1</span>
+			      <a class="nav-link text-white sm-hv" href="/warehouse/warehouseMain">
+			        <span class="nav-link-text ms-1">창고목록</span>
 			      </a>
 			    </li>
 			    <li class="nav-item">
-			      <a class="nav-link text-white sm-hv" href="${path}/submenu2.html">
-			        <span class="nav-link-text ms-1">서브메뉴 2</span>
+			      <a class="nav-link text-white sm-hv" href="/warehouse/warehouseStockMain">
+			        <span class="nav-link-text ms-1">창고 재고 현황</span>
 			      </a>
 			    </li>
 			    <li class="nav-item">
@@ -99,13 +94,13 @@
            <span class="nav-link text-white" style="cursor: default;">납품 관리</span>
            <ul class="navbar-nav" id="sm5">
 			    <li class="nav-item">
-			      <a class="nav-link text-white sm-hv" href="${path}/submenu1.html">
-			        <span class="nav-link-text ms-1">서브메뉴 1</span>
+			      <a class="nav-link text-white sm-hv" href="/purchaseOrder/orderList">
+			        <span class="nav-link-text ms-1">발주 관리</span>
 			      </a>
 			    </li>
 			    <li class="nav-item">
-			      <a class="nav-link text-white sm-hv" href="${path}/submenu2.html">
-			        <span class="nav-link-text ms-1">서브메뉴 2</span>
+			      <a class="nav-link text-white sm-hv" href="/saleOrder/orderList">
+			        <span class="nav-link-text ms-1">수주 관리</span>
 			      </a>
 			    </li>
 			    <li class="nav-item">

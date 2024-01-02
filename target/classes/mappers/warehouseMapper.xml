@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.eatit.mapper.warehouseMapper">
+  	<!--창고 정보 리스트 조회 -->
+  	<select id="getWarehouseListAll" resultType="WarehouseVO">
+  		select * from warehouse
+  	</select>
+  	
+  	<!--회원 정보 리스트 조회 -->
+  	<select id="getMemberListAll" resultType="com.eatit.memberDomain.MemberVO">
+  		select * from member
+  	</select>
+  	
+  	<!--직책 정보 가져오기(Ajax)-->
+	<select id="getPositionName" resultType="String">
+		select position_name
+		from member
+		group by position_name
+	</select>
+	
+	<!--직책에 해당하는 회원이름 리스트 가져오기(Ajax)-->
+	<select id="getMembersOfPosition" resultType="String">
+		select name from member where position_name =#{position_name}
+	</select>
+	
+	<!--이름에 해당하는 회원정보 리스트 가져오기(Ajax)-->
+	<select id="getMemberInfoByName" resultType="com.eatit.memberDomain.MemberVO">
+		select name, contact, email from member where name =#{name}
+	</select>
+	  	
+  	<!--창고 정보 리스트 조회(main) -->
+  	<select id="getWarehouseMainList" resultType="WarehouseVO">
+  		SELECT warehouse_no,location_name,warehouse_name,category,w.admin_no,m.name,use_status
+		FROM warehouse w JOIN member m
+		on w.admin_no=m.employee_no
+		order by warehouse_no asc;
+  	</select>
+  	
+  	<!--특정 창고 정보 조회(Ajax)-->
+  	<select id="getWarehouseInfo" resultType="WarehouseVO">
+  		select warehouse_no, location_name, warehouse_name, category, admin_no, use_status, note, updater, updatedate, name, contact, email 
+  		from warehouse w join member m
+  		on w.admin_no = m.employee_no
+  		where warehouse_no = #{warehouse_no};
+  	</select>
+  	
+  	<!--세션 아이디에 해당하는 회원정보-->
+  	<select id="getWarehouseAdminInfo" resultType="com.eatit.memberDomain.MemberVO">
+  		select employee_no, name, contact, email from member where employee_no = #{no} 
+  	</select>
+  	
+  	<!--창고 등록-->
+  	<select id="insertWarehouse" >
+  		insert into warehouse(location_name,warehouse_name,category,admin_no,note) 
+  		values(#{location_name},#{warehouse_name},#{category},#{admin_no},#{note})
+  	</select>
+  	
+  	<!--창고 수정-->
+  	<update id="updateDetailInfo">
+  	<![CDATA[
+  		update warehouse set 
+  		category=#{category},warehouse_name=#{warehouse_name},note=#{note},
+  		updater=(select name from member where employee_no = #{admin_no}), updatedate=now(),
+  		admin_no=(select employee_no from member where name = #{name}) 
+  		where warehouse_no = #{warehouse_no}
+  	]]>
+  	</update>
+  	
+  	<!--창고 삭제-->
+  	<delete id="deleteWarehouse" parameterType="java.util.Map">
+  		delete from warehouse where warehouse_no in
+  		 <foreach collection="warehouse_no" item="no" open="(" separator="," close=")">
+            #{no}
+        </foreach>
+  	</delete>
+  </mapper>	  
+  

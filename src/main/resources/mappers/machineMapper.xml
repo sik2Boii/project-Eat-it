@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.eatit.mapper.machineMapper">
+  
+  <resultMap type="com.eatit.machineDomain.machineVO" id="machineVO">
+  	<result property="machine_code" column="machine_code"/>
+  	<result property="machine_name" column="machine_name"/>
+  	<result property="machine_status" column="machine_status"/>
+  	<result property="employee_no" column="employee_no"/>
+  	<result property="purpose_of_use" column="purpose_of_use"/>
+  	<result property="installation_date" column="installation_date"/>
+  	<result property="machine_location" column="machine_location"/>
+  	<result property="name" column="name"/>
+  	<collection property="infolist" resultMap="machinehistoryVO">
+  	</collection>
+  </resultMap>
+  
+<resultMap type="com.eatit.machineDomain.machinehistoryVO" id="machinehistoryVO">
+  	<result property="history_no" column="history_no"/>
+  	<result property="machine_code" column="machine_code"/>
+  	<result property="operating_time" column="operating_time"/>
+  	<result property="use_history" column="use_history"/>
+  	<result property="check_purpose" column="check_purpose"/>
+  	<result property="check_time" column="check_time"/>
+  	<result property="employee_no" column="employee_no"/>
+  	<result property="machine_update" column="machine_update"/>
+  	<result property="machine_update_date" column="machine_update_date"/>
+</resultMap>  
+
+
+  <!-- 설비 추가  -->
+  <insert id="insertmachine">
+  insert into machine(machine_name,employee_no,installation_date,machine_location)
+  values(#{machine_name},#{employee_no},#{installation_date},#{machine_location})
+  </insert>
+  
+  <!-- 설비 추가 기록 -->
+  <insert id="machinehistory">
+   insert into machine_history(machine_code,operating_time, use_history, check_purpose, check_time, employee_no, machine_update, machine_update_date)
+   values(#{machine_code},now(),'설치 후 작동 테스트', '설치 후 작동 점검',now() ,#{employee_no},'추가',now())
+   </insert>
+  
+  <!-- 설비 조회 -->
+  <select id="getmachinelist" resultType="machineVO">
+  SELECT * 
+  FROM machine as a
+  join member as b
+  on a.employee_no = b.employee_no
+  </select>
+  
+  <!-- 설비 상세 조회 -->
+  <select id="machineinfo" resultMap="machineVO">
+  SELECT *
+  FROM machine as a
+  JOIN machine_history as b 
+  ON a.machine_code = b.machine_code
+  join member as c
+  on a.employee_no = c.employee_no
+  where a.machine_code = #{machine_code}
+  </select>
+  
+  
+  <!-- 설비 최신 코드 -->
+  <select id="getmachinecode"  resultType="int">
+  select max(machine_code)+1
+  from machine
+  </select>
+  
+  
+  <!-- 직책이 설비인 사람 조회 -->
+  <select id="member" resultType="com.eatit.memberDomain.MemberVO">
+  select *
+  from member
+  where position_name = '설비' and status = '재직'
+  </select>
+  
+  <!-- 설비 정보 업데이트 -->
+  <update id="machineupdate">
+  UPDATE machine
+  SET machine_status = #{machine_status}, employee_no = (SELECT employee_no FROM member WHERE name = #{name})
+  WHERE machine_code = #{machine_code}
+  </update>
+  
+  <!--  -->
+  
+  
+  
+  
+  
+  </mapper>

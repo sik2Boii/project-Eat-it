@@ -6,6 +6,7 @@
   <script src="./resources/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="./resources/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
   $(document).ready(function () {

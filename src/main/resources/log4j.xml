@@ -23,7 +23,24 @@
 	<logger name="com.eatit.mainController">
 		<level value="debug" />
 	</logger>
-	
+	<logger name="com.eatit.warehouseController">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.warehousePersistence">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.warehouseService">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.orderController">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.orderPersistence">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.orderService">
+		<level value="debug"/>
+	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
