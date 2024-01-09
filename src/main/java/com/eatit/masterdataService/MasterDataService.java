@@ -80,4 +80,8 @@ public interface MasterDataService {
 	public MasterdataVO getRecipeContent(MasterdataVO pvo);
 
 	public MasterdataVO getCIMContent(MasterdataVO vo);
+	
+	public List<String> getMaterialNames();
+	
+	public void editRequires();
 }

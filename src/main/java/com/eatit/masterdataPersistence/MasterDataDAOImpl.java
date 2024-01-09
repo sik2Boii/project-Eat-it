@@ -295,4 +295,16 @@ public class MasterDataDAOImpl implements MasterDataDAO {
 		return sqlSession.selectOne(NAMESPACE + ".selectCIMContent", vo);
 	}
 
+	@Override
+	public List<String> selectMaterialNames() {
+		logger.debug("Service(selectMaterialNames) 호출");
+		return sqlSession.selectList(NAMESPACE + ".selectMaterialNames");
+	}
+
+	@Override
+	public void updateRequires() {
+		logger.debug("Service(updateRequires) 호출");
+		sqlSession.update(NAMESPACE + ".selectMaterialNames",vo);
+	}
+	
 }

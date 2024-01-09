@@ -132,7 +132,7 @@
 			</div>
 			<div class="modal-body p-5">
 				<div id="tableContainer" class="modal-body">
-					<form id="editForm" method="post" action="/masterdata/PIMedit" class="d-flex">
+					<form id="editform" method="post" action="/masterdata/requires" class="d-flex">
 						<table class="table me-3">
 							<tbody>
 								<tr>
@@ -187,9 +187,11 @@
 							</tbody>
 						</table>
 						<table id="view-table" class="table h-25 ms-3">
-							<tbody>								
+							<tbody>
 								<tr class="row">
-									<th class="fs-5 text-center col" colspan="2">레시피</th>
+									<th class="fs-5 text-center col" colspan="3">
+										레시피
+									</th>
 								</tr>
 								<tr class="row">									
 									<th class="fs-6 text-center col">
@@ -198,24 +200,48 @@
 									<th class="fs-6 text-center col">
 										소요량
 									</th>
+									<th class="fs-6 text-center col col-1">
+									</th>
 								</tr>
 								<tr class="row">
 									<td class="col w-50">
-										<select class="w-100">
-											<option>표시용 데이터</option>
-										</select>
+										<input type="text" class="w-100 form-control text-center" value="뷰 테이블">
 									</td>
 									<td class="col w-50">
-										<input type="text" class="w-100">
+										<input type="text" class="w-100 form-control text-center" value="입니다">
 									</td>
+									<td class="col col-1">
+									</td>
+								</tr>	
+							</tbody>
+						</table>
+						<table id="edit-table" class="table h-25 ms-3 d-none">
+							<tbody>
+								<tr class="row">
+									<th class="fs-5 text-center col" colspan="3">
+										레시피														
+										<button type="button" id="addbtn" class="btn bg-gradient-success btn-sm fs-6 py-0 px-2 mb-0 end-0 position-absolute">
+											+
+										</button>
+									</th>
+								</tr>
+								<tr class="row">									
+									<th class="fs-6 text-center col">
+										자재명
+									</th>
+									<th class="fs-6 text-center col">
+										소요량
+									</th>
+									<th class="fs-6 text-center col col-1">
+									</th>
 								</tr>
 							</tbody>
 						</table>
-					</form>					
+					</form>		
 					<div class="text-center">
-						<button id="editbtn"
-							class="btn bg-gradient-danger fs-6 mb-0 py-2 px-3" type="submit">소요량정보
-							수정</button>
+						<button id="editbtn" class="btn bg-gradient-danger fs-6 mb-0 py-2 px-3">
+							소요 수정
+						</button>
 					</div>
 				</div>
 			</div>
@@ -300,22 +326,22 @@ function goToPageWithKeyword(page) {
         });
     });
 </script>
-
-<script>
-    function openRecipeInput() {
-        // 입력을 위한 텍스트 창 보이기
-        const recipeInput = document.getElementById('recipeInput');
-        const userInput = prompt('레시피를 입력하세요:');
-        
-        // 사용자가 입력한 레시피를 텍스트 창에 설정
-        if (userInput !== null) {
-            recipeInput.value = userInput;
-        }
-    }
-</script>
-
 <script>
 $(document).ready(function() {    
+	var materialNamesArr;
+	
+	$.ajax({
+        url: '/masterdata/materialNames',
+		method : 'GET',
+		dataType: 'json',
+		success : function(data) { 
+			materialNamesArr = data;
+		},
+		error : function(error) {
+			console.log('실패:', error);
+		}
+	});
+	
 	$("#required_table").on("click", "tr td", function(event) {
         var value = $(this).closest("tr").find("td.identify-no").text();
         $.ajax({
@@ -339,40 +365,75 @@ $(document).ready(function() {
 			}
 		});
     });
+	
+	$("#editbtn").click(function(){
+		if ($("#edit-table").hasClass("d-none")) {
+			$("#editbtn").text("수정 완료");
+			toggleTable();
+		} else {
+			swal({
+				  title: "정말 수정하시겠습니까?",
+				  text: "이 사람도 누군가의 가장입니다",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					swal("당신은 정말 잔인한 사람이에요!", {icon: "success"}).then(function(){
+						/* if('${param.searchword}'!=""){
+							$("#searchword-forSubmit").val('${param.searchword}');
+						}		
+						$("#filter-forSubmit").val($("#dropdown-selected").text()); */					
+						$("#editform").submit();                
+					});							
+				  } else {
+				    swal("우유부단 하시군요!");
+				  }
+			});		    
+		}		    
+	});	
+	
+	$("#addbtn").click(function(){
+	    var newRow = $("<tr>").addClass("row");
+	    var selectTd = $("<td>").addClass("col w-50").appendTo(newRow);
+	    var newSelect = $("<select>").attr("name", "materialGroup").addClass("w-100");
+	    var inputTd = $("<td>").addClass("col w-50").appendTo(newRow);
+	    var buttonTd = $("<td>").addClass("col col-1").appendTo(newRow);
+	    
+	    addOptionsToSelect(newSelect,materialNamesArr);
+		newSelect.appendTo(selectTd);
+	    
+	    $("<input>").attr({
+	        "type": "text",
+	        "name": "requiredGroup"
+	    }).addClass("w-100").appendTo(inputTd);
+
+	    $("<button>").attr("type", "button").addClass("btn bg-gradient-warning btn-sm fs-6 py-0 px-2 mb-0 removebtn").text("-").appendTo(buttonTd);
+
+	    $("#edit-table tbody").append(newRow);
+	});	
+
+	$("#edit-table").on("click", ".removebtn", function() {
+	    $(this).closest("tr").remove();
+	});
+	
 });
 
-/*     function openEditModal(event) {
-        // 수정 버튼이 속한 <tr> 요소를 찾습니다.
-        const selectedRow = event.target.closest('tr');
-
-        // 각 셀의 데이터를 가져와 변수에 저장합니다.
-        const productNo = selectedRow.cells[0].innerText;
-        const productCode = selectedRow.cells[1].innerText;
-        const productName = selectedRow.cells[2].innerText;
-        const productCategory = selectedRow.cells[3].innerText;
-        const productCategoryDetail = selectedRow.cells[4].innerText;
-        const companyNo = selectedRow.cells[5].innerText;
-        const productUnit = selectedRow.cells[6].innerText;
-        const productPrice = selectedRow.cells[7].innerText;
-        const expiryDate = selectedRow.cells[8].innerText;
-        const recipe = selectedRow.cells[9].innerText;
-
-        // 가져온 데이터를 수정 모달에 넣어줍니다.
-        document.getElementById("editModal").style.display = "block";
-        document.querySelector('#editForm [name="product_no"]').value = productNo;
-        document.querySelector('#editForm [name="product_code"]').value = productCode;
-        document.querySelector('#editForm [name="product_name"]').value = productName;
-        document.querySelector('#editForm [name="product_category_detail"]').value = productCategoryDetail;
-        document.querySelector('#editForm [name="company_no"]').value = companyNo;
-        document.querySelector('#editForm [name="product_unit"]').value = productUnit;
-        document.querySelector('#editForm [name="product_price"]').value = productPrice;
-        document.querySelector('#editForm [name="expiry_date"]').value = expiryDate;        
-        document.querySelector('#editForm [name="recipe"]').value = recipe;
-    } */
+	function toggleTable(){
+		$("#view-table").toggleClass("d-none");
+	    $("#edit-table").toggleClass("d-none");			
+	}
+	
+	function addOptionsToSelect(selectElement, optionsArray) {
+	    optionsArray.forEach(function(optionValue) {
+	        $("<option>").text(optionValue).appendTo(selectElement);
+	    });
+	}
     
     function closeEditModal() {
         document.getElementById("editModal").style.display = "none";
-        
+        location.reload();
     }
     function validateForm(formId) {
         const form = document.getElementById(formId);
@@ -414,35 +475,6 @@ $(document).ready(function() {
  	            swal('등록 취소', '등록이 취소되었습니다.', 'info');
  	        }
  	    });
-    });
-
-    document.getElementById('editForm').addEventListener('submit', function (event) {
-    	 event.preventDefault(); // 기본 제출 동작 방지
-
-    	    if (!validateForm('editForm')) {
-    	        // 폼이 유효하지 않은 경우
-    	        swal('입력하지 않은 칸이 있습니다!', '', 'warning');
-    	        return;
-    	    }
-
-    	    // 유효한 경우 SweetAlert로 사용자에게 확인 요청
-    	    swal({
-    	        title: '품목정보 수정',
-    	        text: '정말 수정하시겠습니까? 한 번 더 정보를 확인해 주세요',
-    	        icon: 'info',
-    	        buttons: true,
-    	        dangerMode: false,
-    	    })
-    	    .then((willSubmit) => {
-    	        if (willSubmit) {
-    	            swal('수정이 성공적으로 완료됐습니다!', '', 'success')
-    	            .then(() => {
-    	                event.target.submit(); // 확인을 누르면 submit 실행
-    	            });
-    	        } else {
-    	            swal('수정 취소', '수정이 취소되었습니다.', 'info');
-    	        }
-    	    });
     });
    
     

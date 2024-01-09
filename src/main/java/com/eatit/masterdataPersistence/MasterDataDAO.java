@@ -88,5 +88,8 @@ public interface MasterDataDAO {
 	public MasterdataVO selectRecipeContent(MasterdataVO pvo);
 	
 	public MasterdataVO selectCIMContent(MasterdataVO vo);
+	
+	public List<String> selectMaterialNames();
 
+	public void updateRequires();
 }

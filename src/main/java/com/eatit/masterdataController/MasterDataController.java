@@ -1,5 +1,6 @@
 package com.eatit.masterdataController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -257,32 +260,19 @@ public class MasterDataController {
 
 		return "/masterdata/FIM";
 	}
-
-//// http://localhost:8088/masterdata/PIM
-//   //PIM 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙트
-//   @RequestMapping(value="/PIM",method=RequestMethod.GET)
-//   public String productListGET(Model model) throws Exception {
-//	   logger.debug(" /masterdata/PIM -> ProductListGet()");
-//	   List<MasterdataVO> productList = mdService.ProductList();
-//	   model.addAttribute("productList",productList );
-//	   return "/masterdata/PIM";
-//   }
+	
 	@RequestMapping(value = "/CIM", method = RequestMethod.GET)
 	public String CIMListPageGet(Model model, HttpSession session, Criteria cri) throws Exception {
 		session.setAttribute("viewcntCheck", true);
 
-		// �럹�씠吏�蹂� �젣�뭹 紐⑸줉 媛��졇�삤湲�
 		List<MasterdataVO> CIMList = mdService.CIMListPage(cri);
 
-		// 珥� �젣�뭹 �닔 �꽕�젙
 		int totalProductCount = mdService.totalProductCount();
 
-		// PageVO 媛앹껜 �깮�꽦 諛� �꽕�젙
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(totalProductCount);
 
-		// �럹�씠吏� 釉붾줉�떦 10媛쒖쓽 �럹�씠吏� �꽕�젙
 		pageVO.setDisplayPageNum(10);
 
 		model.addAttribute("pageVO", pageVO);
@@ -401,5 +391,29 @@ public class MasterDataController {
 		logger.debug("/masterdata/cimContent 호출 -> cimContentGET() 실행");
 
 		return mdService.getCIMContent(vo);
+	}
+	
+	@RequestMapping(value = "/materialNames", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public List<String> materialNamesGET() {
+		logger.debug("/masterdata/materialNames 호출 -> getMaterialNames() 실행");
+		return mdService.getMaterialNames();
+	}
+	
+	@RequestMapping(value = "/masterdata/requires", method = RequestMethod.POST)
+	public String editRequiresPOST(MasterdataVO vo, @RequestParam("materialGroup") String[] materialGroup,
+		@RequestParam("requiredGroup") String[] requiredGroup) {
+		logger.debug("/masterdata/materialNames 호출 -> requiresGET() 실행");
+		String jsonRecipe = "{\""+vo.getProduct_no()+"\":{";
+		for(int i=0; i<materialGroup.length; i++) {
+			jsonRecipe += "\""+materialGroup[i]+"\":"+requiredGroup[i];
+			if(i != materialGroup.length-1) {
+				jsonRecipe += ",";
+			}
+		}
+		jsonRecipe += "}}";
+		logger.debug("jsonRecipe : "+jsonRecipe);
+//		mdService.editRequires();
+		return "/masterdata/CIM";
 	}
 }

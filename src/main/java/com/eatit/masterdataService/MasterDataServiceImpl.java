@@ -241,4 +241,16 @@ public class MasterDataServiceImpl implements MasterDataService {
 		logger.debug("Service(getCIMContent) 호출");
 		return mddao.selectCIMContent(vo);
 	}
+
+	@Override
+	public List<String> getMaterialNames() {
+		logger.debug("Service(getMaterialNames) 호출");
+		return mddao.selectMaterialNames();
+	}
+
+	@Override
+	public void editRequires() {
+		logger.debug("Service(editRequires) 호출");
+		mddao.selectMaterialNames();
+	}
 }
