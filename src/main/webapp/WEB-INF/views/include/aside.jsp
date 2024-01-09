@@ -24,7 +24,7 @@
 		      </a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="${path}/masterdata/QualityManagement">
+		      <a class="nav-link text-white sm-hv" href="${path}/masterdata/FIM">
 		        <span class="nav-link-text ms-1">설비정보관리</span>
 		      </a>
 		    </li>
@@ -34,17 +34,17 @@
          <span class="nav-link text-white" style="cursor: default;">자재 관리</span>
  		 <ul class="navbar-nav" id="sm2">
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="/submenu1.html">
+		      <a class="nav-link text-white sm-hv" href="${path}/Material/manage">
 		        <span class="nav-link-text ms-1">서브메뉴 1</span>
 		      </a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="${path}/submenu2.html">
+		      <a class="nav-link text-white sm-hv" href="${path}/Material/add">
 		        <span class="nav-link-text ms-1">서브메뉴 2</span>
 		      </a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="${path}/submenu3.html">
+		      <a class="nav-link text-white sm-hv" href="${path}/MaterialList/list">
 		        <span class="nav-link-text ms-1">서브메뉴 3</span>
 		      </a>
 		    </li>
@@ -99,7 +99,7 @@
 			      </a>
 			    </li>
 			    <li class="nav-item">
-			      <a class="nav-link text-white sm-hv" href="/saleOrder/orderList">
+			      <a class="nav-link text-white sm-hv" href="/purchaseOrder/orderList">
 			        <span class="nav-link-text ms-1">수주 관리</span>
 			      </a>
 			    </li>
@@ -114,18 +114,13 @@
          <span class="nav-link text-white" style="cursor: default;">인사 관리</span>
  		  <ul class="navbar-nav" id="sm6">
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="${path}/submenu1.html">
-		        <span class="nav-link-text ms-1">서브메뉴 1</span>
+		      <a class="nav-link text-white sm-hv" href="${path}/hr/list">
+		        <span class="nav-link-text ms-1">사원 관리</span>
 		      </a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="${path}/submenu2.html">
-		        <span class="nav-link-text ms-1">서브메뉴 2</span>
-		      </a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link text-white sm-hv" href="${path}/submenu3.html">
-		        <span class="nav-link-text ms-1">서브메뉴 3</span>
+		      <a class="nav-link text-white sm-hv" href="${path}/hr/reglist">
+		        <span class="nav-link-text ms-1">등록 관리</span>
 		      </a>
 		    </li>
 		  </ul>

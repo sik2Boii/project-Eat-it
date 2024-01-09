@@ -45,15 +45,15 @@ public class HumanResourceServiceImpl implements HumanResourceService {
 	}
 
 	@Override
-	public List<MemberVO> getSearchList(Map<String, Object> params, Criteria cri, String searchword) {
+	public List<MemberVO> getSearchList(Map<String, Object> params) {
 		logger.debug("Service(getSearchList) -> DAO 호출");
-		return hrDAO.selectSearchList(params, cri, searchword);
+		return hrDAO.selectSearchList(params);
 	}
 
 	@Override
-	public int getSearchCount(String searchword) {
+	public int getSearchCount(Map<String, Object> params) {
 		logger.debug("Service(getSearchCount) -> DAO 호출");
-		return hrDAO.getSearchCount(searchword);
+		return hrDAO.getSearchCount(params);
 	}
 
 	@Override

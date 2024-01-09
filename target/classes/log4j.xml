@@ -41,6 +41,15 @@
 	<logger name="com.eatit.orderService">
 		<level value="debug"/>
 	</logger>
+	<logger name="com.eatit.masterdataController">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.masterdataPersistence">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.masterdataService">
+		<level value="debug"/>
+	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

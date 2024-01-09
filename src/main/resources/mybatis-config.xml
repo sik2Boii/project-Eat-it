@@ -9,8 +9,8 @@
   		<package name="com.eatit.memberDomain"/>
   		<package name="com.eatit.warehouseDomain"/>
   		<package name="com.eatit.orderDomain"/>
-  		<package name="com.eatit.productDomain"/>
   		<package name="com.eatit.machineDomain"/>
+  		<package name="com.eatit.masterdataDomain"/>  		
   		<package name="com.eatit.MaterialDomain"/>
   	</typeAliases>
   </configuration>

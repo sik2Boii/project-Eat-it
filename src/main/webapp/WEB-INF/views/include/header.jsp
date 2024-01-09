@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="UTF-8">
- <link rel="icon" type="image/png" href="${path}/resources/img/logo.png">
+ <link rel="icon" type="image/png" href="/resources/img/logo.png">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <link href="/resources/css/nucleo-icons.css" rel="stylesheet" />
   <link href="/resources/css/nucleo-svg.css" rel="stylesheet" />
@@ -33,7 +33,7 @@
 			  </c:when>
 			  <c:otherwise>
 				  <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="img-profile rounded-circle" src=".${sessionScope.photo }" style="position: relative; top: -3px; border: solid 1px black;">
+					<img class="img-profile rounded-circle" src="${sessionScope.photo }" style="position: relative; top: -3px; border: solid 1px black;">
 					<span class="d-sm-inline d-none" style="font-size: 20px; margin-left: 10px;">${sessionScope.name }</span>
 				  </a>
 				  <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">

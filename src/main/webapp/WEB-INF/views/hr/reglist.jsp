@@ -3,11 +3,11 @@
 
 <%@ include file="../include/header.jsp"%>
 <!-- 본문 시작 -->
-<div class="col-11 mx-auto">
-	<div class="card my-3 mx-auto pt-5 px-6 pb-2 d-flex">
-		<div class="card-header p-0 position-relative mx-3 z-index-2">
-			<div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3 pe-3 d-flex">
-				<h3 class="text-white text-capitalize ps-5 align-items-center mb-0 py-1">인사 승인 관리 테이블</h3>
+<div class="col-12">
+	<div class="card my-4 mx-4">
+		<div class="card-header position-relative p-0 mt-n4 mx-3 z-index-2">
+			<div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3 pe-3 d-flex align-items-center">
+				<h3 class="text-white text-capitalize ps-5 my-2 py-1">인사 승인 관리 테이블</h3>
 			</div>
 		</div>		
 		<div class="row">
@@ -17,27 +17,27 @@
 						<table id="hr-table" class="table table-hover mb-0">
 							<thead>
 								<tr>
-									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-										<input type="checkbox" id="selectAll">
+									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
+										<input type="checkbox" class="m-1" id="selectAll">
 									</th>
-									<th class="text-center font-weight-bolder col-2">사원번호</th>
-									<th class="text-center font-weight-bolder col-1">아이디</th>
-									<th class="text-center font-weight-bolder col-1">이름</th>
-									<th class="text-center font-weight-bolder col-3">이메일</th>
-									<th class="text-center font-weight-bolder col-3">연락처</th>
+									<th class="text-center font-weight-bolder py-3 col-2">사원번호</th>
+									<th class="text-center font-weight-bolder py-3 col-1">아이디</th>
+									<th class="text-center font-weight-bolder py-3 col-1">이름</th>
+									<th class="text-center font-weight-bolder py-3 col-3">이메일</th>
+									<th class="text-center font-weight-bolder py-3 col-3">연락처</th>
 								</tr>
 							</thead>
 			 				<tbody id="employeeTableBody">
 								<c:forEach var="vo" items="${list}">
 									<tr class="memList">
 										<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
-											<input type="checkbox" class="checkbox" name="checkgroup" value="${vo.employee_no}">
+											<input type="checkbox" class="checkbox m-1" name="checkgroup" value="${vo.employee_no}">
 										</td>
-										<td class="text-center identify-no">${vo.employee_no}</td>
-										<td class="text-center">${vo.id}</td>
-										<td class="text-center">${vo.name}</td>
-										<td class="text-center">${vo.email}</td>
-										<td class="text-center">${vo.contact}</td>
+										<td class="text-center py-3 identify-no">${vo.employee_no}</td>
+										<td class="text-center py-3">${vo.id}</td>
+										<td class="text-center py-3">${vo.name}</td>
+										<td class="text-center py-3">${vo.email}</td>
+										<td class="text-center py-3">${vo.contact}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
