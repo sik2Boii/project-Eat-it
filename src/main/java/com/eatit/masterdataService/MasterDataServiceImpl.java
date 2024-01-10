@@ -249,8 +249,8 @@ public class MasterDataServiceImpl implements MasterDataService {
 	}
 
 	@Override
-	public void editRequires() {
+	public void editRequires(MasterdataVO vo) {
 		logger.debug("Service(editRequires) 호출");
-		mddao.selectMaterialNames();
+		mddao.updateRequires(vo);
 	}
 }

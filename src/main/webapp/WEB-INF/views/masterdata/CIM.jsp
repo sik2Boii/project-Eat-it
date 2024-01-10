@@ -8,9 +8,8 @@
 <div class="col-12">
 	<div class="card my-4 mx-4">
 		<div class="card-header position-relative p-0 mt-n4 mx-3 z-index-2">
-			<div
-				class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-3 d-flex align-items-center">
-				<h3 class="text-white text-capitalize ps-5 my-2 py-1">소요량 정보 관리</h3>
+			<div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-3 d-flex align-items-center">
+				<h3 class="text-white text-capitalize ps-5 my-2 py-1">소요 정보 관리</h3>
 				<form action="/masterdata/search"
 					class="ms-md-auto bg-white rounded p-2 mb-0 d-flex align-items-center"
 					method="GET">
@@ -30,11 +29,13 @@
 		</div>
 
 		<div class="card-body mx-5 px-0 pb-4">
-			<div class="p-0">
-				<table id="required_table"
-					class="table table-hover align-items-center mb-0">
+			<div class="table-responsive p-0">
+				<table id="required_table" class="table table-hover align-items-center mb-0">
 					<thead>
 						<tr>
+							<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
+								<input type="checkbox" class="m-1" id="selectAll">
+							</th>
 							<th class="text-center py-3 font-weight-bolder col-2">품목정보번호</th>
 							<th class="text-center font-weight-bolder col-1">품목코드</th>
 							<th class="text-center font-weight-bolder col-1">품목이름</th>
@@ -44,22 +45,14 @@
 							<th class="text-center font-weight-bolder col-3">단위</th>
 							<th class="text-center font-weight-bolder col-3">납품 단가</th>
 							<th class="text-center font-weight-bolder col-3">레시피</th>
-							<th class="text-center font-weight-bolder col-1">
-								<ul class="navbar-nav  justify-content-end">
-									<li class="nav-item d-flex align-items-center">
-										<span class="d-sm-inline d-none">
-											<button onclick="openModal()" class="btn btn-dark">
-												소요량정보등록
-											</button>
-										</span>
-									</li>
-								</ul>
-							</th>
 						</tr>
 					</thead>
 					<tbody id="productTableBody">
 						<c:forEach var="product" items="${CIMList}">
 							<tr>
+								<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
+									<input type="checkbox" class="checkbox m-1" name="checkgroup" value="${product.product_no}">
+								</td>
 								<td class="text-center py-2-3 identify-no">${product.product_no}</td>
 								<td class="text-center py-2-3">${product.code}</td>
 								<td class="text-center py-2-3">${product.name}</td>
@@ -68,14 +61,7 @@
 								<td class="text-center py-2-3">${product.company_no}</td>
 								<td class="text-center py-2-3">${product.unit}</td>
 								<td class="text-center py-2-3">${product.price}</td>								
-								<td class="text-center py-2-3">${product.recipe}</td>
-								<td class="text-center py-2-3">
-									<form action="/masterdata/CIMdelete" method="post">
-										<input type="hidden" name="product_no" value="${product.product_no}">
-										<input type="hidden" name="code" value="${product.code}">
-										<button type="submit" class="btn btn-dark">소요량정보삭제</button>
-									</form>
-								</td>
+								<td class="text-center py-2-3">${product.recipe != "미등록" ? '등록' : product.recipe}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -112,7 +98,10 @@
 							class="page-link rounded fw-bolder${pageVO.cri.page == pageVO.endPage + 1 ? ' link-white' : ''}">>></a></li>
 					</c:if>
 				</ul>
-			</div>
+			</div>			
+			<div class="px-0 col w-auto text-end me-5">
+	            <button type="button" id="deleteBtn" class="btn bg-gradient-dark py-2" >선택 삭제</button>
+	        </div>
 		</div>
 	</div>
 </div>
@@ -128,7 +117,7 @@
 				<button id="closebtn"
 					class="btn bg-gradient-primary position-absolute py-1 px-2 mt-2 end-5"
 					onclick="closeEditModal()">X</button>
-				<h3 class="modal-title mx-auto">소요량정보 수정</h3>
+				<h3 class="modal-title mx-auto">소요 정보</h3>
 			</div>
 			<div class="modal-body p-5">
 				<div id="tableContainer" class="modal-body">
@@ -187,7 +176,7 @@
 							</tbody>
 						</table>
 						<table id="view-table" class="table h-25 ms-3">
-							<tbody>
+							<thead>
 								<tr class="row">
 									<th class="fs-5 text-center col" colspan="3">
 										레시피
@@ -200,23 +189,15 @@
 									<th class="fs-6 text-center col">
 										소요량
 									</th>
-									<th class="fs-6 text-center col col-1">
+									<th class="fs-6 text-center col col-1 px-0">
 									</th>
 								</tr>
-								<tr class="row">
-									<td class="col w-50">
-										<input type="text" class="w-100 form-control text-center" value="뷰 테이블">
-									</td>
-									<td class="col w-50">
-										<input type="text" class="w-100 form-control text-center" value="입니다">
-									</td>
-									<td class="col col-1">
-									</td>
-								</tr>	
+							</thead>
+							<tbody>
 							</tbody>
 						</table>
 						<table id="edit-table" class="table h-25 ms-3 d-none">
-							<tbody>
+							<thead>
 								<tr class="row">
 									<th class="fs-5 text-center col" colspan="3">
 										레시피														
@@ -224,7 +205,7 @@
 											+
 										</button>
 									</th>
-								</tr>
+								</tr>							
 								<tr class="row">									
 									<th class="fs-6 text-center col">
 										자재명
@@ -232,9 +213,11 @@
 									<th class="fs-6 text-center col">
 										소요량
 									</th>
-									<th class="fs-6 text-center col col-1">
+									<th class="fs-6 text-center col col-1 px-0">
 									</th>
 								</tr>
+							</thead>
+							<tbody>
 							</tbody>
 						</table>
 					</form>		
@@ -276,10 +259,7 @@ window.onload = function() {
         });
     }
 };
-
-
 </script>
-
 <script>
 function goToPageWithKeyword(page) {
     var keyword = new URLSearchParams(window.location.search).get('keyword');
@@ -295,37 +275,6 @@ function goToPageWithKeyword(page) {
     window.location.href = url;
 }
 </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const deleteForms = document.querySelectorAll('form[action="/masterdata/PIMdelete"]');
-
-        deleteForms.forEach(form => {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // 기본 제출 동작 막기
-
-                const product_no = this.querySelector('input[name="product_no"]').value;
-
-                swal({
-                    title: '품목정보 삭제',
-                    text: '정말 삭제하시겠습니까?',
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        swal('삭제 성공', '삭제가 완료되었습니다', 'info').then(() => {
-                            this.submit(); // 확인 시 폼 제출
-                        });
-                    } else {
-                        swal('삭제 취소', '삭제가 취소되었습니다.', 'info');
-                    }
-                });
-
-            });
-        });
-    });
-</script>
 <script>
 $(document).ready(function() {    
 	var materialNamesArr;
@@ -340,6 +289,10 @@ $(document).ready(function() {
 		error : function(error) {
 			console.log('실패:', error);
 		}
+	});
+	
+	$('#selectAll').change(function () {
+        $('.checkbox').prop('checked', $(this).prop('checked'));
 	});
 	
 	$("#required_table").on("click", "tr td", function(event) {
@@ -358,6 +311,17 @@ $(document).ready(function() {
 				$("#unit_forEdit").val(data.unit);
 				$("#unit_quantity_forEdit").val(data.unit_quantity);
 				$("#price_forEdit").val(data.price);
+				
+				if (data.recipe !== '미등록') {		
+					var recipe = JSON.parse(data.recipe)[data.product_no];
+					
+			        for (var key in recipe) {
+						var value = recipe[key];
+						setRequiredTr(key,value);
+					}			        
+				} else {
+				    console.error('소요 정보가 등록 되어있지 않습니다!');
+				}							
 			    document.getElementById("editModal").style.display = "block";
 			},
 			error : function(error) {
@@ -369,6 +333,14 @@ $(document).ready(function() {
 	$("#editbtn").click(function(){
 		if ($("#edit-table").hasClass("d-none")) {
 			$("#editbtn").text("수정 완료");
+			
+			$("#view-table").find('tbody tr').each(function() {		       
+		            var material = $(this).find('td').find('.material-input');
+		            var required = $(this).find('td').find('.required-input');
+		           
+		            addRequiredEditTr(materialNamesArr, material.val(), required.val());
+		    });
+			
 			toggleTable();
 		} else {
 			swal({
@@ -395,23 +367,7 @@ $(document).ready(function() {
 	});	
 	
 	$("#addbtn").click(function(){
-	    var newRow = $("<tr>").addClass("row");
-	    var selectTd = $("<td>").addClass("col w-50").appendTo(newRow);
-	    var newSelect = $("<select>").attr("name", "materialGroup").addClass("w-100");
-	    var inputTd = $("<td>").addClass("col w-50").appendTo(newRow);
-	    var buttonTd = $("<td>").addClass("col col-1").appendTo(newRow);
-	    
-	    addOptionsToSelect(newSelect,materialNamesArr);
-		newSelect.appendTo(selectTd);
-	    
-	    $("<input>").attr({
-	        "type": "text",
-	        "name": "requiredGroup"
-	    }).addClass("w-100").appendTo(inputTd);
-
-	    $("<button>").attr("type", "button").addClass("btn bg-gradient-warning btn-sm fs-6 py-0 px-2 mb-0 removebtn").text("-").appendTo(buttonTd);
-
-	    $("#edit-table tbody").append(newRow);
+		addRequiredEditTr(materialNamesArr,"","");
 	});	
 
 	$("#edit-table").on("click", ".removebtn", function() {
@@ -420,14 +376,70 @@ $(document).ready(function() {
 	
 });
 
+	// Modal 에디트 테이블에 데이터 추가
+	function addRequiredEditTr(materialNamesArr, key, value){
+        console.log('key:', key);
+        console.log('value:', value);
+		var newRow = $("<tr>").addClass("row");
+	    var selectTd = $("<td>").addClass("col w-50").appendTo(newRow);
+	    var newSelect = $("<select>").attr("name", "materialGroup").addClass("w-100 text-center");
+	    var inputTd = $("<td>").addClass("col w-50").appendTo(newRow);
+	    var buttonTd = $("<td>").addClass("col col-1").appendTo(newRow);
+	    
+	    addOptionsToSelect(newSelect, materialNamesArr, key);
+		newSelect.appendTo(selectTd);
+	    
+	    $("<input>").attr({
+	        "type": "text",
+	        "name": "requiredGroup",
+	        "value": (value == "" ? "" : value)
+	    }).addClass("w-100 text-center").appendTo(inputTd);
+
+	    $("<button>").attr("type", "button").addClass("btn bg-gradient-warning btn-sm fs-6 py-0 px-2 mb-0 removebtn").text("-").appendTo(buttonTd);
+
+	    $("#edit-table tbody").append(newRow);
+	}
+
+	// Modal 뷰 테이블에 초기부터 표기할 데이터
+	function setRequiredTr(key, value){
+		var newRow = $("<tr>").addClass("row");
+		
+	    var materialInput = $("<td>").addClass("col w-50 border-end");
+	    $("<input>").attr({
+	    	"type": "text",
+	    	"value": key,
+	    	"readonly": "readonly"
+	    }).addClass("w-100 py-0 form-control text-center material-input").appendTo(materialInput);
+
+	    var requiredInput = $("<td>").addClass("col w-50");
+	    $("<input>").attr({
+	    	"type": "text",
+	    	"value": value,
+	    	"readonly": "readonly"
+	    }).addClass("w-100 py-0 form-control text-center required-input").appendTo(requiredInput);
+	    
+	    var emptyTdforBtn = $("<td>").addClass("col col-1 px-0");
+	    
+	    newRow.append(materialInput, requiredInput, emptyTdforBtn);
+		$("#view-table tbody").append(newRow);
+	}
+	
+	// 보이는 테이블 전환
 	function toggleTable(){
 		$("#view-table").toggleClass("d-none");
 	    $("#edit-table").toggleClass("d-none");			
 	}
 	
-	function addOptionsToSelect(selectElement, optionsArray) {
+	// 드롭다운에 동적으로 옵션 추가
+	function addOptionsToSelect(selectElement, optionsArray, key) {
 	    optionsArray.forEach(function(optionValue) {
-	        $("<option>").text(optionValue).appendTo(selectElement);
+	        var newOption = $("<option>");
+	        
+	        if(key == optionValue){
+	        	newOption.attr("selected", "selected");
+	        }
+	        
+	        newOption.text(optionValue).appendTo(selectElement);
 	    });
 	}
     
@@ -435,6 +447,7 @@ $(document).ready(function() {
         document.getElementById("editModal").style.display = "none";
         location.reload();
     }
+    
     function validateForm(formId) {
         const form = document.getElementById(formId);
         const inputs = form.getElementsByTagName('input');
@@ -446,37 +459,5 @@ $(document).ready(function() {
             }
         }
         return true;
-    }
-
-    document.getElementById('myForm').addEventListener('submit', function (event) {
-    	 event.preventDefault(); // 기본 제출 동작 방지
-
- 	    if (!validateForm('myForm')) {
- 	        // 폼이 유효하지 않은 경우
- 	        swal('입력하지 않은 칸이 있습니다!', '', 'warning');
- 	        return;
- 	    }
-
- 	    // 유효한 경우 SweetAlert로 사용자에게 확인 요청
- 	    swal({
- 	        title: '품목정보 등록',
- 	        text: '정말 등록하시겠습니까? 한 번 더 정보를 확인해 주세요',
- 	        icon: 'info',
- 	        buttons: true,
- 	        dangerMode: false,
- 	    })
- 	    .then((willSubmit) => {
- 	        if (willSubmit) {
- 	            swal('등록이 성공적으로 완료됐습니다!', '', 'success')
- 	            .then(() => {
- 	                event.target.submit(); // 확인을 누르면 submit 실행
- 	            });
- 	        } else {
- 	            swal('등록 취소', '등록이 취소되었습니다.', 'info');
- 	        }
- 	    });
-    });
-   
-    
-    
+    }    
 </script>

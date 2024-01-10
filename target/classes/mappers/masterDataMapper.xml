@@ -472,13 +472,20 @@
 		where code = #{code}
 	</select>
 	
+	
+	
+	
+	<select id="selectCIMList" resultType="MasterdataVO">
+		SELECT *
+		FROM masterdata_information
+		WHERE category='완제품'
+	</select>
+	
 	<select id="selectCIMContent" resultType="MasterdataVO">
-		SELECT mi.*, r.*
-		FROM masterdata_information mi
-		LEFT JOIN recipe r
-		ON mi.code=r.code
-		WHERE mi.category='완제품'
-		AND mi.product_no=#{product_no}
+		SELECT *
+		FROM masterdata_information
+		WHERE category='완제품'
+		AND product_no=#{product_no}
 	</select>
 	
 	<select id="selectMaterialNames" resultType="String">
@@ -486,5 +493,11 @@
 		FROM masterdata_information
 		WHERE category='자재'
 	</select>
+	
+	<update id="updateRequires">
+		UPDATE masterdata_information
+		SET recipe=#{recipe}
+		WHERE code=#{code}
+	</update>
 
 </mapper>

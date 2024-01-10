@@ -91,5 +91,5 @@ public interface MasterDataDAO {
 	
 	public List<String> selectMaterialNames();
 
-	public void updateRequires();
+	public void updateRequires(MasterdataVO vo);
 }

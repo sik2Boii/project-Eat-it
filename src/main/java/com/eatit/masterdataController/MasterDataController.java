@@ -141,7 +141,6 @@ public class MasterDataController {
 		return "redirect:/masterdata/PIM";
 	}
 
-	// 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙트占싼뤄옙
 	@RequestMapping(value = "/masterdata/MIMdelete", method = RequestMethod.POST)
 	public String MIMdelete(@RequestParam("product_no") int product_no) throws Exception {
 
@@ -158,23 +157,18 @@ public class MasterDataController {
 		return "redirect:/masterdata/FIM";
 	}
 
-	// PIM占쏙옙占쏙옙징처占쏙옙
 	@RequestMapping(value = "/PIM", method = RequestMethod.GET)
 	public String MdListPageGet(Model model, HttpSession session, Criteria cri) throws Exception {
 		session.setAttribute("viewcntCheck", true);
 
-		// �럹�씠吏�蹂� �젣�뭹 紐⑸줉 媛��졇�삤湲�
 		List<MasterdataVO> productList = mdService.productListPage(cri);
 
-		// 珥� �젣�뭹 �닔 �꽕�젙
 		int totalProductCount = mdService.totalProductCount();
 
-		// PageVO 媛앹껜 �깮�꽦 諛� �꽕�젙
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(totalProductCount);
 
-		// �럹�씠吏� 釉붾줉�떦 10媛쒖쓽 �럹�씠吏� �꽕�젙
 		pageVO.setDisplayPageNum(10);
 
 		model.addAttribute("pageVO", pageVO);
@@ -187,20 +181,15 @@ public class MasterDataController {
 	public String QIMListPageGet(Model model, HttpSession session, Criteria cri) throws Exception {
 		session.setAttribute("viewcntCheck", true);
 
-		// �럹�씠吏�蹂� �젣�뭹 紐⑸줉 媛��졇�삤湲�
 		List<MasterdataVO> QIMList = mdService.QIMListPage(cri);
 		List<MasterdataVO> categoryList = mdService.categoryList();
 		List<MasterdataVO> data = mdService.dataList();
 
-		// 珥� �젣�뭹 �닔 �꽕�젙
 		int totalQIMCount = mdService.totalQIMCount();
 
-		// PageVO 媛앹껜 �깮�꽦 諛� �꽕�젙
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(totalQIMCount);
-
-		// �럹�씠吏� 釉붾줉�떦 10媛쒖쓽 �럹�씠吏� �꽕�젙
 
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("data", data);
@@ -212,23 +201,18 @@ public class MasterDataController {
 		return "/masterdata/QIM";
 	}
 
-	// MIM 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙트
 	@RequestMapping(value = "/MIM", method = RequestMethod.GET)
 	public String materialListGET(Model model, HttpSession session, Criteria cri) throws Exception {
 		session.setAttribute("viewcntCheck", true);
 
-		// �럹�씠吏�蹂� �젣�뭹 紐⑸줉 媛��졇�삤湲�
 		List<MasterdataVO> MIMList = mdService.MIMListPage(cri);
 
-		// 珥� �젣�뭹 �닔 �꽕�젙
 		int totalMIMCount = mdService.getMIMCount();
 
-		// PageVO 媛앹껜 �깮�꽦 諛� �꽕�젙
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(totalMIMCount);
 
-		// �럹�씠吏� 釉붾줉�떦 10媛쒖쓽 �럹�씠吏� �꽕�젙
 		pageVO.setDisplayPageNum(10);
 
 		model.addAttribute("pageVO", pageVO);
@@ -241,18 +225,14 @@ public class MasterDataController {
 	public String FIMListPageGet(Model model, HttpSession session, Criteria cri) throws Exception {
 		session.setAttribute("viewcntCheck", true);
 
-		// �럹�씠吏�蹂� �젣�뭹 紐⑸줉 媛��졇�삤湲�
 		List<MasterdataVO> FIMList = mdService.FIMListPage(cri);
 
-		// 珥� �젣�뭹 �닔 �꽕�젙
 		int totalFIMCount = mdService.totalFIMCount();
 
-		// PageVO 媛앹껜 �깮�꽦 諛� �꽕�젙
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(totalFIMCount);
 
-		// �럹�씠吏� 釉붾줉�떦 10媛쒖쓽 �럹�씠吏� �꽕�젙
 		pageVO.setDisplayPageNum(10);
 
 		model.addAttribute("pageVO", pageVO);
@@ -290,7 +270,6 @@ public class MasterDataController {
 			model.addAttribute("searchError", true);
 		} else {
 			model.addAttribute("productList", searchedProducts);
-			// 寃��깋 �썑�뿉 referer瑜� ���옣
 			String referer = request.getHeader("Referer");
 			model.addAttribute("referer", referer);
 		}
@@ -309,7 +288,6 @@ public class MasterDataController {
 		List<MasterdataVO> searchMIM = mdService.searchMIM(keyword);
 
 		if (searchMIM.isEmpty()) {
-
 			model.addAttribute("searchError", true);
 		} else {
 			model.addAttribute("MIMList", searchMIM);
@@ -331,7 +309,6 @@ public class MasterDataController {
 		List<MasterdataVO> searchFIM = mdService.searchFIM(keyword);
 
 		if (searchFIM.isEmpty()) {
-
 			model.addAttribute("searchError", true);
 		} else {
 			model.addAttribute("FIMList", searchFIM);
@@ -353,7 +330,6 @@ public class MasterDataController {
 		List<MasterdataVO> searchQIM = mdService.searchQIM(keyword);
 
 		if (searchQIM.isEmpty()) {
-
 			model.addAttribute("searchError", true);
 		} else {
 			model.addAttribute("QIMList", searchQIM);
@@ -384,12 +360,14 @@ public class MasterDataController {
 
 		return mdService.getRecipeContent(pvo);
 	}
+	
+	
+	
 
 	@RequestMapping(value = "/cimContent", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public MasterdataVO cimContentGET(MasterdataVO vo) {
 		logger.debug("/masterdata/cimContent 호출 -> cimContentGET() 실행");
-
 		return mdService.getCIMContent(vo);
 	}
 	
@@ -400,10 +378,11 @@ public class MasterDataController {
 		return mdService.getMaterialNames();
 	}
 	
-	@RequestMapping(value = "/masterdata/requires", method = RequestMethod.POST)
+	@RequestMapping(value = "/requires", method = RequestMethod.POST)
 	public String editRequiresPOST(MasterdataVO vo, @RequestParam("materialGroup") String[] materialGroup,
 		@RequestParam("requiredGroup") String[] requiredGroup) {
 		logger.debug("/masterdata/materialNames 호출 -> requiresGET() 실행");
+		
 		String jsonRecipe = "{\""+vo.getProduct_no()+"\":{";
 		for(int i=0; i<materialGroup.length; i++) {
 			jsonRecipe += "\""+materialGroup[i]+"\":"+requiredGroup[i];
@@ -412,8 +391,8 @@ public class MasterDataController {
 			}
 		}
 		jsonRecipe += "}}";
-		logger.debug("jsonRecipe : "+jsonRecipe);
-//		mdService.editRequires();
-		return "/masterdata/CIM";
+		vo.setRecipe(jsonRecipe);
+		mdService.editRequires(vo);
+		return "redirect:/masterdata/CIM";
 	}
 }

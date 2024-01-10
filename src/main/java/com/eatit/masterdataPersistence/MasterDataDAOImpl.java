@@ -154,7 +154,7 @@ public class MasterDataDAOImpl implements MasterDataDAO {
 	@Override
 	public List<MasterdataVO> getCIMListPage(Criteria cri) {
 
-		return sqlSession.selectList(NAMESPACE + ".getCIMList");
+		return sqlSession.selectList(NAMESPACE + ".selectCIMList");
 	}
 
 	@Override
@@ -302,9 +302,9 @@ public class MasterDataDAOImpl implements MasterDataDAO {
 	}
 
 	@Override
-	public void updateRequires() {
+	public void updateRequires(MasterdataVO vo) {
 		logger.debug("Service(updateRequires) 호출");
-		sqlSession.update(NAMESPACE + ".selectMaterialNames",vo);
+		sqlSession.update(NAMESPACE + ".updateRequires",vo);
 	}
 	
 }

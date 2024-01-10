@@ -83,5 +83,5 @@ public interface MasterDataService {
 	
 	public List<String> getMaterialNames();
 	
-	public void editRequires();
+	public void editRequires(MasterdataVO vo);
 }
