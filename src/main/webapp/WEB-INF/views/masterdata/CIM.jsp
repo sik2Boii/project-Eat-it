@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="../include/header.jsp"%>
 
@@ -10,98 +11,103 @@
 		<div class="card-header position-relative p-0 mt-n4 mx-3 z-index-2">
 			<div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-3 d-flex align-items-center">
 				<h3 class="text-white text-capitalize ps-5 my-2 py-1">소요 정보 관리</h3>
-				<form action="/masterdata/search"
-					class="ms-md-auto bg-white rounded p-2 mb-0 d-flex align-items-center"
-					method="GET">
+				<form id="searchForm" class="ms-md-auto bg-white rounded p-2 mb-0 d-flex align-items-center">
 					<div class="align-items-center d-flex flex-column mx-1">
 						<div class="input-group input-group-outline">
 							<label class="form-label">검색어</label>
-							<input type="text" name="keyword" class="form-control" value="${keyword }">
+							<input type="text" id="query" name="query" class="form-control" value="${param.query }">
+							<input type="hidden" id="filter" name="filter" value="${param.filter }">
 						</div>
 					</div>
 					<div class="align-items-center d-flex flex-column py-1 ct-example">
-						<button type="submit" id="searchbtn" class="btn btn-outline-primary mb-0 py-2 mx-1 fs-6">
-							검색
-						</button>
+						<div class="align-items-center d-flex flex-column py-1 ct-example">
+							<button type="button" id="searchbtn" class="btn btn-outline-primary mb-0 py-2 mx-1 fs-6">검색</button>
+						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 
-		<div class="card-body mx-5 px-0 pb-4">
-			<div class="table-responsive p-0">
-				<table id="required_table" class="table table-hover align-items-center mb-0">
-					<thead>
-						<tr>
-							<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
-								<input type="checkbox" class="m-1" id="selectAll">
-							</th>
-							<th class="text-center py-3 font-weight-bolder col-2">품목정보번호</th>
-							<th class="text-center font-weight-bolder col-1">품목코드</th>
-							<th class="text-center font-weight-bolder col-1">품목이름</th>
-							<th class="text-center font-weight-bolder col-1">대분류</th>
-							<th class="text-center font-weight-bolder col-3">소분류</th>
-							<th class="text-center font-weight-bolder col-2">거래처</th>
-							<th class="text-center font-weight-bolder col-3">단위</th>
-							<th class="text-center font-weight-bolder col-3">납품 단가</th>
-							<th class="text-center font-weight-bolder col-3">레시피</th>
-						</tr>
-					</thead>
-					<tbody id="productTableBody">
-						<c:forEach var="product" items="${CIMList}">
+		<div class="card-body mx-5 px-0 py-3">
+			<div class="table-responsive p-0 mx-4">
+				<form action="/masterdata/delRequires" id="batchForm" method="post">
+					<table id="required_table" class="table table-hover align-items-center mb-0">
+						<thead>
 							<tr>
-								<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
-									<input type="checkbox" class="checkbox m-1" name="checkgroup" value="${product.product_no}">
-								</td>
-								<td class="text-center py-2-3 identify-no">${product.product_no}</td>
-								<td class="text-center py-2-3">${product.code}</td>
-								<td class="text-center py-2-3">${product.name}</td>
-								<td class="text-center py-2-3">${product.category}</td>
-								<td class="text-center py-2-3">${product.category_detail}</td>
-								<td class="text-center py-2-3">${product.company_no}</td>
-								<td class="text-center py-2-3">${product.unit}</td>
-								<td class="text-center py-2-3">${product.price}</td>								
-								<td class="text-center py-2-3">${product.recipe != "미등록" ? '등록' : product.recipe}</td>
+								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
+									<input type="checkbox" class="m-1" id="selectAll">
+								</th>
+								<th class="text-center py-3 font-weight-bolder col-1">품목정보번호</th>
+								<th class="text-center font-weight-bolder col-1">품목코드</th>
+								<th class="text-center font-weight-bolder col-2">품목이름</th>
+								<th class="text-center font-weight-bolder col-1">대분류</th>
+								<th class="text-center font-weight-bolder col-1">소분류</th>
+								<th class="text-center font-weight-bolder col-2">거래처</th>
+								<th class="text-center font-weight-bolder col-1">단위</th>
+								<th class="text-center font-weight-bolder col-1">단위 단가</th>
+								<th class="text-center font-weight-bolder col-1">
+									<div class="dropdown">
+										<button class="btn btn-outline-secondary dropdown-toggle mb-0 fs-6"
+										type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+											<span id="dropdown-selected">${empty param.filter ? "전체" : param.filter }</span>
+										</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<li><a class="dropdown-item">전체</a></li>
+											<li><a class="dropdown-item">등록</a></li>
+											<li><a class="dropdown-item">미등록</a></li>
+										</ul>
+									</div>
+								</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody id="productTableBody">
+							<c:forEach var="product" items="${CIMList}">
+								<tr>
+									<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
+										<input type="checkbox" class="checkbox m-1" name="checkgroup" value="${product.product_no}">
+									</td>
+									<td class="text-center py-2-3 identify-no">${product.product_no}</td>
+									<td class="text-center py-2-3">${product.code}</td>
+									<td class="text-center py-2-3">${product.name}</td>
+									<td class="text-center py-2-3">${product.category}</td>
+									<td class="text-center py-2-3">${product.category_detail}</td>
+									<td class="text-center py-2-3">${product.company_name}</td>
+									<td class="text-center py-2-3">${product.unit}</td>
+									<td class="text-center py-2-3"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="₩" /></td>							
+									<td class="text-center py-2-3">${product.recipe != "미등록" ? '등록' : product.recipe}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</form>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mb-2">
 			<div class="col-sm-5">
-				<div class="ms-6"></div>
+				<div class="ms-5">Showing ${pageVO.startPage } to ${pageVO.endPage } of 미구현 entries</div>
 			</div>
-			<div class="col-sm-5 mb-3">
+			<div class="col-sm-5">
 				<ul class="pagination">
-					<c:if test="${pageVO.prev}">
-						<li class="page-link link-container"><a
-							href="javascript:void(0);"
-							onclick="goToPageWithKeyword(${pageVO.startPage - 1})"
-							class="page-link rounded fw-bolder${pageVO.cri.page == pageVO.startPage - 1 ? ' link-white' : ''}"><<</a></li>
+					<c:if test="${pageVO.prev }">
+						<li class="page-link link-container">
+							<a href="/masterdata/${listUrl }?page=${pageVO.endPage-pageVO.displayPageNum }&query=${param.query}" class="link"><<</a>
+						</li>
 					</c:if>
-					<c:forEach var="i" begin="${pageVO.startPage}"
-						end="${pageVO.endPage}" step="1">
-						<c:if test="${i <= pageVO.totalCount / pageVO.cri.pageSize + 1}">
-							<li
-								${pageVO.cri.page == i ? 'class="link-container active"' : 'class="link-container"'}>
-								<a href="javascript:void(0);"
-								onclick="goToPageWithKeyword(${i})"
-								class="page-link rounded fw-bolder${pageVO.cri.page == i ? ' link-white' : ''}">${i}</a>
-							</li>
-						</c:if>
+					<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
+						<li ${pageVO.cri.page == i ? "class='page-link link-container active'" : "class='page-link link-container'"} >
+							<a href="/masterdata/${listUrl }?page=${i }&query=${param.query}" ${pageVO.cri.page == i ? "class='link-white'" : "class=''"}>${i }</a>
+						</li>				
 					</c:forEach>
-					<c:if test="${pageVO.next}">
-						<li class="page-link link-container"><a
-							href="javascript:void(0);"
-							onclick="goToPageWithKeyword(${pageVO.endPage + 1})"
-							class="page-link rounded fw-bolder${pageVO.cri.page == pageVO.endPage + 1 ? ' link-white' : ''}">>></a></li>
+					<c:if test="${pageVO.next }">
+						<li class="page-link link-container">
+							<a href="/masterdata/${listUrl }?page=${pageVO.startPage+pageVO.displayPageNum }&query=${param.query}" class="link">>></a>
+						</li>
 					</c:if>
 				</ul>
-			</div>			
-			<div class="px-0 col w-auto text-end me-5">
-	            <button type="button" id="deleteBtn" class="btn bg-gradient-dark py-2" >선택 삭제</button>
-	        </div>
+			</div>
+			<button id="delbtn" class="btn bg-gradient-dark fs-6 mx-5 py-2 px-0 col">
+				선택 삭제
+			</button>
 		</div>
 	</div>
 </div>
@@ -121,7 +127,7 @@
 			</div>
 			<div class="modal-body p-5">
 				<div id="tableContainer" class="modal-body">
-					<form id="editform" method="post" action="/masterdata/requires" class="d-flex">
+					<form id="editform" method="post" class="d-flex">
 						<table class="table me-3">
 							<tbody>
 								<tr>
@@ -152,7 +158,7 @@
 								<tr>
 									<th class="fs-5 py-3">거래처</th>
 									<td class="fs-5 ps-5">
-										<input type="text" id="company_no_forEdit" name="company_no" class="form-control" readonly="readonly">
+										<input type="text" id="company_name_forEdit" name="company_name" class="form-control" readonly="readonly">
 									</td>
 								</tr>
 								<tr>
@@ -232,49 +238,6 @@
 	</div>
 </div>
 
-<c:if test="${searchError}">
-	<script>
-    
-    swal("검색 오류", "해당하는 검색어가 없습니다!", "error").then(function() {
-        window.history.back(); // 이전 페이지로 이동
-    });
-
-    </script>
-</c:if>
-
-<script>
-window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const keyword = urlParams.get('keyword') || '';
-    const cells = document.querySelectorAll("#productTableBody td"); // 모든 셀을 가져옴
-
-    if (keyword) { // 검색어가 있는 경우에만 실행
-        cells.forEach(cell => {
-            const cellText = cell.textContent.toLowerCase(); // 셀의 텍스트를 소문자로 변환
-
-            if (cellText.includes(keyword.toLowerCase())) { // 검색어를 포함하는 경우
-                const newText = cellText.replace(new RegExp(keyword.toLowerCase(), 'g'), '<span style="background-color: gray; color: white;">' + keyword.toLowerCase() + '</span>');
-                cell.innerHTML = newText;
-            }
-        });
-    }
-};
-</script>
-<script>
-function goToPageWithKeyword(page) {
-    var keyword = new URLSearchParams(window.location.search).get('keyword');
-    var currentUrl = window.location.href;
-    var urlWithoutParams = currentUrl.split('?')[0];
-
-    var url = urlWithoutParams + '?page=' + page;
-
-    if (keyword) {
-        url += '&keyword=' + keyword;
-    }
-
-    window.location.href = url;
-}
-</script>
 <script>
 $(document).ready(function() {    
 	var materialNamesArr;
@@ -291,11 +254,19 @@ $(document).ready(function() {
 		}
 	});
 	
+	if($("#query").val()) {
+		$(".input-group").addClass("focused is-focused");
+	}
+	
 	$('#selectAll').change(function () {
         $('.checkbox').prop('checked', $(this).prop('checked'));
 	});
 	
-	$("#required_table").on("click", "tr td", function(event) {
+	$("#searchbtn").click(function(){
+		$("#searchForm").submit();
+	});
+	
+	$("#required_table").on("click", "tr td:not(:first-child)", function(event) {
         var value = $(this).closest("tr").find("td.identify-no").text();
         $.ajax({
             url: '/masterdata/cimContent?product_no='+value,
@@ -307,7 +278,7 @@ $(document).ready(function() {
 				$("#name_forEdit").val(data.name);
 				$("#category_forEdit").val(data.category);
 				$("#category_detail_forEdit").val(data.category_detail);
-				$("#company_no_forEdit").val(data.company_no);
+				$("#company_name_forEdit").val(data.company_name);
 				$("#unit_forEdit").val(data.unit);
 				$("#unit_quantity_forEdit").val(data.unit_quantity);
 				$("#price_forEdit").val(data.price);
@@ -329,6 +300,28 @@ $(document).ready(function() {
 			}
 		});
     });
+	
+	$(window).click(function(event){
+		if (event.target == document.getElementById("editModal")) {
+			closeEditModal();
+		}
+		
+		if (!$(event.target).closest('.input-group').length) {
+			if (!$("#query").val()) {
+	       		$(".input-group").removeClass("focused is-focused");
+			}
+	    }
+	});	
+	
+	$(".input-group").click(function(){
+		$(this).addClass("focused is-focused");
+	});
+	
+	$(".dropdown-item").click(function(){
+		$("#dropdown-selected").text($(this).text());
+		$("#filter").val($("#dropdown-selected").text());
+		$("#searchForm").submit();
+	});
 	
 	$("#editbtn").click(function(){
 		if ($("#edit-table").hasClass("d-none")) {
@@ -353,10 +346,10 @@ $(document).ready(function() {
 				.then((willDelete) => {
 				  if (willDelete) {
 					swal("당신은 정말 잔인한 사람이에요!", {icon: "success"}).then(function(){
-						/* if('${param.searchword}'!=""){
-							$("#searchword-forSubmit").val('${param.searchword}');
+						if('${param.query}'!=""){
+							$("#query-forSubmit").val('${param.query}');
 						}		
-						$("#filter-forSubmit").val($("#dropdown-selected").text()); */					
+						$("#filter-forSubmit").val($("#dropdown-selected").text());					
 						$("#editform").submit();                
 					});							
 				  } else {
@@ -372,6 +365,25 @@ $(document).ready(function() {
 
 	$("#edit-table").on("click", ".removebtn", function() {
 	    $(this).closest("tr").remove();
+	});
+	
+	$("#delbtn").click(function(){
+		swal({
+			  title: "정말 삭제 하시겠습니까?",
+			  text: "진짜??",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				swal("처리되었습니다!", {icon: "success"}).then(function(){
+					$("#batchForm").submit();
+				});							
+			  } else {
+			    swal("취소되었습니다!");
+			  }
+		});
 	});
 	
 });
@@ -447,17 +459,4 @@ $(document).ready(function() {
         document.getElementById("editModal").style.display = "none";
         location.reload();
     }
-    
-    function validateForm(formId) {
-        const form = document.getElementById(formId);
-        const inputs = form.getElementsByTagName('input');
-
-        for (let i = 0; i < inputs.length; i++) {
-            if (inputs[i].value.trim() === '') {
-                
-                return false;
-            }
-        }
-        return true;
-    }    
 </script>

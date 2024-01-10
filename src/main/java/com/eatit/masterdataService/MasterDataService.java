@@ -74,6 +74,12 @@ public interface MasterDataService {
 	public void QIMTestInsert(MasterdataVO pvo);
 
 	public List<MasterdataVO> dataList();
+	
+	public int getCIMCount();
+	
+	public List<MasterdataVO> getSearchCIMList(Map<String, Object> params);
+	
+	public int getSearchCount(Map<String, Object> params);	
 
 	public MasterdataVO getMDContent(MasterdataVO pvo);
 
@@ -84,4 +90,6 @@ public interface MasterDataService {
 	public List<String> getMaterialNames();
 	
 	public void editRequires(MasterdataVO vo);
+	
+	public void delRequires(MasterdataVO vo);
 }

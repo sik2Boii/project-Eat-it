@@ -154,7 +154,7 @@ public class MasterDataDAOImpl implements MasterDataDAO {
 	@Override
 	public List<MasterdataVO> getCIMListPage(Criteria cri) {
 
-		return sqlSession.selectList(NAMESPACE + ".selectCIMList");
+		return sqlSession.selectList(NAMESPACE + ".selectCIMList",cri);
 	}
 
 	@Override
@@ -288,6 +288,24 @@ public class MasterDataDAOImpl implements MasterDataDAO {
 
 		return sqlSession.selectOne(NAMESPACE + ".selectRecipeContent", pvo);
 	}
+	
+	
+	public List<MasterdataVO> selectSearchCIMList(Map<String, Object> params) {
+		logger.debug("Service(selectCIMCount) 호출");
+		return sqlSession.selectList(NAMESPACE + ".selectSearchCIMList",params);
+	}
+
+	@Override
+	public int selectCIMCount() {
+		logger.debug("Service(selectCIMCount) 호출");
+		return sqlSession.selectOne(NAMESPACE + ".selectCIMCount");
+	}
+
+	@Override
+	public int selectSearchCount(Map<String, Object> params) {
+		logger.debug("Service(selectSearchCount) 호출");
+		return sqlSession.selectOne(NAMESPACE + ".selectSearchCount",params);
+	}
 
 	@Override
 	public MasterdataVO selectCIMContent(MasterdataVO vo) {
@@ -305,6 +323,12 @@ public class MasterDataDAOImpl implements MasterDataDAO {
 	public void updateRequires(MasterdataVO vo) {
 		logger.debug("Service(updateRequires) 호출");
 		sqlSession.update(NAMESPACE + ".updateRequires",vo);
+	}
+
+	@Override
+	public void deleteRequires(MasterdataVO vo) {
+		logger.debug("Service(deleteRequires) 호출");
+		sqlSession.update(NAMESPACE + ".deleteRequires",vo);
 	}
 	
 }

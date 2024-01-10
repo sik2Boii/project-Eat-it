@@ -240,26 +240,6 @@ public class MasterDataController {
 
 		return "/masterdata/FIM";
 	}
-	
-	@RequestMapping(value = "/CIM", method = RequestMethod.GET)
-	public String CIMListPageGet(Model model, HttpSession session, Criteria cri) throws Exception {
-		session.setAttribute("viewcntCheck", true);
-
-		List<MasterdataVO> CIMList = mdService.CIMListPage(cri);
-
-		int totalProductCount = mdService.totalProductCount();
-
-		PageVO pageVO = new PageVO();
-		pageVO.setCri(cri);
-		pageVO.setTotalCount(totalProductCount);
-
-		pageVO.setDisplayPageNum(10);
-
-		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("CIMList", CIMList);
-
-		return "/masterdata/CIM";
-	}
 
 	@RequestMapping(value = "/masterdata/search", method = RequestMethod.GET)
 	public String searchProducts(@RequestParam("keyword") String keyword, Model model, Criteria cri,
@@ -363,6 +343,55 @@ public class MasterDataController {
 	
 	
 	
+	
+	@RequestMapping(value = "/CIM", method = RequestMethod.GET)
+	public void CIMListPageGet(Model model, Criteria cri, Map<String, Object> params,
+		@RequestParam(name = "query", required = false) String query,
+		@RequestParam(name = "filter", required = false) String filter) {
+		logger.debug("/masterdata/CIM 호출 -> CIMListPageGet() 실행");
+
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		List<MasterdataVO> list;
+		logger.debug("query : "+query);
+		logger.debug("filter : "+filter);
+		
+		if(query == null && filter == null) {
+			pageVO.setTotalCount(mdService.getCIMCount());
+			list = mdService.CIMListPage(cri);
+		} else {
+			params.put("cri", cri);
+			params.put("query", query);
+			params.put("filter", filter);
+			pageVO.setTotalCount(mdService.getSearchCount(params));
+			model.addAttribute("query", query);
+			model.addAttribute("filter", filter);
+			list = mdService.getSearchCIMList(params);
+		}
+		
+		model.addAttribute("listUrl", "CIM");
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("CIMList", list);
+	}
+	
+	@RequestMapping(value = "/CIM", method = RequestMethod.POST)
+	public String editRequiresPOST(MasterdataVO vo, @RequestParam("materialGroup") String[] materialGroup,
+		@RequestParam("requiredGroup") String[] requiredGroup, @RequestParam("searchword") String searchWord,
+		@RequestParam("filter") String filter) {
+		logger.debug("/masterdata/CIM 호출 -> editRequiresPOST() 실행");
+		
+		String jsonRecipe = "{\""+vo.getProduct_no()+"\":{";
+		for(int i=0; i<materialGroup.length; i++) {
+			jsonRecipe += "\""+materialGroup[i]+"\":"+requiredGroup[i];
+			if(i != materialGroup.length-1) {
+				jsonRecipe += ",";
+			}
+		}
+		jsonRecipe += "}}";
+		vo.setRecipe(jsonRecipe);
+		mdService.editRequires(vo);
+		return "redirect:/masterdata/CIM";
+	}
 
 	@RequestMapping(value = "/cimContent", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -378,21 +407,13 @@ public class MasterDataController {
 		return mdService.getMaterialNames();
 	}
 	
-	@RequestMapping(value = "/requires", method = RequestMethod.POST)
-	public String editRequiresPOST(MasterdataVO vo, @RequestParam("materialGroup") String[] materialGroup,
-		@RequestParam("requiredGroup") String[] requiredGroup) {
-		logger.debug("/masterdata/materialNames 호출 -> requiresGET() 실행");
-		
-		String jsonRecipe = "{\""+vo.getProduct_no()+"\":{";
-		for(int i=0; i<materialGroup.length; i++) {
-			jsonRecipe += "\""+materialGroup[i]+"\":"+requiredGroup[i];
-			if(i != materialGroup.length-1) {
-				jsonRecipe += ",";
-			}
+	@RequestMapping(value = "/delRequires", method = RequestMethod.POST)
+	public String batchDeletePost(MasterdataVO vo, @RequestParam("checkgroup") int[] product_no_List) {
+		logger.debug("/masterdata/delRequires 호출 -> batchDeletePost() 실행");
+		for(int i : product_no_List) {
+			vo.setProduct_no(i);
+			mdService.delRequires(vo);
 		}
-		jsonRecipe += "}}";
-		vo.setRecipe(jsonRecipe);
-		mdService.editRequires(vo);
 		return "redirect:/masterdata/CIM";
 	}
 }

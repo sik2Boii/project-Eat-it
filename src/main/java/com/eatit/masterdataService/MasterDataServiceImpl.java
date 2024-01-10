@@ -237,6 +237,23 @@ public class MasterDataServiceImpl implements MasterDataService {
 	}
 
 	@Override
+	public int getCIMCount() {
+		logger.debug("Service(getCIMCount) 호출");
+		return mddao.selectCIMCount();
+	}
+	
+	public List<MasterdataVO> getSearchCIMList(Map<String, Object> params) {
+		logger.debug("Service(getSearchCIMList) 호출");
+		return mddao.selectSearchCIMList(params);
+	}
+
+	@Override
+	public int getSearchCount(Map<String, Object> params) {
+		logger.debug("Service(getSearchCount) 호출");
+		return mddao.selectSearchCount(params);
+	}
+
+	@Override
 	public MasterdataVO getCIMContent(MasterdataVO vo) {
 		logger.debug("Service(getCIMContent) 호출");
 		return mddao.selectCIMContent(vo);
@@ -252,5 +269,11 @@ public class MasterDataServiceImpl implements MasterDataService {
 	public void editRequires(MasterdataVO vo) {
 		logger.debug("Service(editRequires) 호출");
 		mddao.updateRequires(vo);
+	}
+
+	@Override
+	public void delRequires(MasterdataVO vo) {
+		logger.debug("Service(delRequires) 호출");
+		mddao.deleteRequires(vo);
 	}
 }

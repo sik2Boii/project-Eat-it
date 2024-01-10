@@ -15,6 +15,7 @@ public class MasterdataVO {
    private String category;
    private String category_detail;
    private int company_no;
+   private String company_name;
    private String unit;
    private String unit_quantity;
    private float price; 

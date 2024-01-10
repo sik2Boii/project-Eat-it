@@ -82,6 +82,12 @@ public interface MasterDataDAO {
 	public void deleteQIM(int quality_no, String product_code);
 
 	public List<MasterdataVO> dataList();
+	
+	public int selectCIMCount();
+	
+	public List<MasterdataVO> selectSearchCIMList(Map<String, Object> params);
+	
+	public int selectSearchCount(Map<String, Object> params);
 
 	public MasterdataVO selectMDContent(MasterdataVO pvo);
 
@@ -92,4 +98,6 @@ public interface MasterDataDAO {
 	public List<String> selectMaterialNames();
 
 	public void updateRequires(MasterdataVO vo);
+	
+	public void deleteRequires(MasterdataVO vo);
 }
