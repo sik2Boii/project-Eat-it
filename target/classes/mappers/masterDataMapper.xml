@@ -481,6 +481,7 @@
 		JOIN company c
 		ON mi.company_no=c.company_no
 		WHERE category='완제품'
+	    ORDER BY product_no DESC
 		LIMIT #{startPage},#{pageSize}
 	</select>
 	
@@ -529,8 +530,6 @@
 	    AND (name LIKE CONCAT('%', #{query}, '%')
 	    OR code LIKE CONCAT('%', #{query}, '%')
 	    OR product_no=#{query})
-	    ORDER BY product_no DESC
-	    LIMIT #{cri.startPage}, #{cri.pageSize}
 	</select>
 	
 	<select id="selectCIMContent" resultType="MasterdataVO">

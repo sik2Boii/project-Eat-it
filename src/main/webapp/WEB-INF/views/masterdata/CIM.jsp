@@ -28,58 +28,60 @@
 			</div>
 		</div>
 
-		<div class="card-body mx-5 px-0 py-3">
-			<div class="table-responsive p-0 mx-4">
-				<form action="/masterdata/delRequires" id="batchForm" method="post">
-					<table id="required_table" class="table table-hover align-items-center mb-0">
-						<thead>
-							<tr>
-								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
-									<input type="checkbox" class="m-1" id="selectAll">
-								</th>
-								<th class="text-center py-3 font-weight-bolder col-1">품목정보번호</th>
-								<th class="text-center font-weight-bolder col-1">품목코드</th>
-								<th class="text-center font-weight-bolder col-2">품목이름</th>
-								<th class="text-center font-weight-bolder col-1">대분류</th>
-								<th class="text-center font-weight-bolder col-1">소분류</th>
-								<th class="text-center font-weight-bolder col-2">거래처</th>
-								<th class="text-center font-weight-bolder col-1">단위</th>
-								<th class="text-center font-weight-bolder col-1">단위 단가</th>
-								<th class="text-center font-weight-bolder col-1">
-									<div class="dropdown">
-										<button class="btn btn-outline-secondary dropdown-toggle mb-0 fs-6"
-										type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-											<span id="dropdown-selected">${empty param.filter ? "전체" : param.filter }</span>
-										</button>
-										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<li><a class="dropdown-item">전체</a></li>
-											<li><a class="dropdown-item">등록</a></li>
-											<li><a class="dropdown-item">미등록</a></li>
-										</ul>
-									</div>
-								</th>
-							</tr>
-						</thead>
-						<tbody id="productTableBody">
-							<c:forEach var="product" items="${CIMList}">
+		<div class="w-100" style="background-image: url('/resources/img/backgroundLogo.png'); background-repeat: no-repeat; background-position: center center; z-index: 0 !important;">
+			<div class="card-body mx-5 px-0 py-0 z-index-1 min-vh-65">
+				<div class="table-responsive p-0 mx-4 overflow-hidden "  style="background-color: white;">
+					<form action="/masterdata/delRequires" id="batchForm" method="post">
+						<input type="hidden" id="query-forDelSubmit" name="query">
+						<input type="hidden" id="filter-forDelSubmit" name="filter">
+						<table id="required_table" class="table table-hover align-items-center mb-0">
+							<thead>
 								<tr>
-									<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
-										<input type="checkbox" class="checkbox m-1" name="checkgroup" value="${product.product_no}">
-									</td>
-									<td class="text-center py-2-3 identify-no">${product.product_no}</td>
-									<td class="text-center py-2-3">${product.code}</td>
-									<td class="text-center py-2-3">${product.name}</td>
-									<td class="text-center py-2-3">${product.category}</td>
-									<td class="text-center py-2-3">${product.category_detail}</td>
-									<td class="text-center py-2-3">${product.company_name}</td>
-									<td class="text-center py-2-3">${product.unit}</td>
-									<td class="text-center py-2-3"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="₩" /></td>							
-									<td class="text-center py-2-3">${product.recipe != "미등록" ? '등록' : product.recipe}</td>
+									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3 col-1">
+										<input type="checkbox" class="m-1" id="selectAll">
+									</th>
+									<th class="text-center py-3 font-weight-bolder col-1">품목정보번호</th>
+									<th class="text-center font-weight-bolder col-1">품목코드</th>
+									<th class="text-center font-weight-bolder col-2">품목이름</th>
+									<th class="text-center font-weight-bolder col-1">분류</th>
+									<th class="text-center font-weight-bolder col-2">거래처</th>
+									<th class="text-center font-weight-bolder col-1">단위</th>
+									<th class="text-center font-weight-bolder col-1">단위 단가</th>
+									<th class="text-center font-weight-bolder col-1">
+										<div class="dropdown">
+											<button class="btn btn-outline-secondary dropdown-toggle mb-0 fs-6"
+											type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+												<span id="dropdown-selected">${empty param.filter ? "전체" : param.filter }</span>
+											</button>
+											<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<li><a class="dropdown-item">전체</a></li>
+												<li><a class="dropdown-item">등록</a></li>
+												<li><a class="dropdown-item">미등록</a></li>
+											</ul>
+										</div>
+									</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</form>
+							</thead>
+							<tbody id="productTableBody" >
+								<c:forEach var="product" items="${CIMList}">
+									<tr>
+										<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3">
+											<input type="checkbox" class="checkbox m-1" name="checkgroup" value="${product.product_no}">
+										</td>
+										<td class="text-center py-2-3 identify-no">${product.product_no}</td>
+										<td class="text-center py-2-3">${product.code}</td>
+										<td class="text-center py-2-3">${product.name}</td>
+										<td class="text-center py-2-3">${product.category_detail}</td>
+										<td class="text-center py-2-3">${product.company_name}</td>
+										<td class="text-center py-2-3">${product.unit}</td>
+										<td class="text-center py-2-3"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="₩" /></td>							
+										<td class="text-center py-2-3">${product.recipe != "미등록" ? '등록' : product.recipe}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</form>
+				</div>
 			</div>
 		</div>
 		<div class="row mb-2">
@@ -90,17 +92,17 @@
 				<ul class="pagination">
 					<c:if test="${pageVO.prev }">
 						<li class="page-link link-container">
-							<a href="/masterdata/${listUrl }?page=${pageVO.endPage-pageVO.displayPageNum }&query=${param.query}" class="link"><<</a>
+							<a href="/masterdata/${listUrl }?page=${pageVO.endPage-pageVO.displayPageNum }&filter=${filter}&query=${query}" class="link"><<</a>
 						</li>
 					</c:if>
 					<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
 						<li ${pageVO.cri.page == i ? "class='page-link link-container active'" : "class='page-link link-container'"} >
-							<a href="/masterdata/${listUrl }?page=${i }&query=${param.query}" ${pageVO.cri.page == i ? "class='link-white'" : "class=''"}>${i }</a>
+							<a href="/masterdata/${listUrl }?page=${i }&filter=${filter}&query=${query}" ${pageVO.cri.page == i ? "class='link-white'" : "class=''"}>${i }</a>
 						</li>				
 					</c:forEach>
 					<c:if test="${pageVO.next }">
 						<li class="page-link link-container">
-							<a href="/masterdata/${listUrl }?page=${pageVO.startPage+pageVO.displayPageNum }&query=${param.query}" class="link">>></a>
+							<a href="/masterdata/${listUrl }?page=${pageVO.startPage+pageVO.displayPageNum }&filter=${filter}&query=${query}" class="link">>></a>
 						</li>
 					</c:if>
 				</ul>
@@ -254,6 +256,10 @@ $(document).ready(function() {
 		}
 	});
 	
+	if (!$(".dropdown-menu").hasClass("show")) {
+		dropItemReposition();
+	}
+	
 	if($("#query").val()) {
 		$(".input-group").addClass("focused is-focused");
 	}
@@ -323,6 +329,10 @@ $(document).ready(function() {
 		$("#searchForm").submit();
 	});
 	
+	$("#dropdownMenuButton").click(function(){
+		dropItemReposition();
+	});
+	
 	$("#editbtn").click(function(){
 		if ($("#edit-table").hasClass("d-none")) {
 			$("#editbtn").text("수정 완료");
@@ -336,26 +346,60 @@ $(document).ready(function() {
 			
 			toggleTable();
 		} else {
-			swal({
-				  title: "정말 수정하시겠습니까?",
-				  text: "이 사람도 누군가의 가장입니다",
-				  icon: "warning",
-				  buttons: true,
-				  dangerMode: true,
-				})
-				.then((willDelete) => {
-				  if (willDelete) {
-					swal("당신은 정말 잔인한 사람이에요!", {icon: "success"}).then(function(){
-						if('${param.query}'!=""){
-							$("#query-forSubmit").val('${param.query}');
-						}		
-						$("#filter-forSubmit").val($("#dropdown-selected").text());					
-						$("#editform").submit();                
-					});							
-				  } else {
-				    swal("우유부단 하시군요!");
-				  }
-			});		    
+			var isEmpty = false;
+			var isDuplication = false;
+			
+			var selectedValues = new Set();
+
+			$('.materialGroup').each(function() {
+			    var selectedValue = $(this).val();
+			    if (selectedValues.has(selectedValue)) {
+			    	isDuplication = true;
+			        return false;
+			    } else {
+			        selectedValues.add(selectedValue);
+			    }
+			});
+			
+			$('.requiredGroup').each(function(){
+				if ($(this).val().trim() === '') {
+					isEmpty = true;
+					return false;
+				}
+			});
+			
+			if(isEmpty){
+				swal({
+					  title: "소요량이 비어있습니다!",
+					  text: "필요없는 자재를 제거하거나 소요량을 입력하세요!",
+					  icon: "warning",
+					  button: "확인",
+					});
+			} else if(isDuplication) {
+		    	swal({
+					  title: "중복된 자재가 있습니다!",
+					  text: "중복된 자재를 제거하거나 변경하세요!",
+					  icon: "warning",
+					  button: "확인",
+					});
+			} else {
+				swal({
+					  title: "정말 수정하시겠습니까?",
+					  text: "이 사람도 누군가의 가장입니다",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+						swal("당신은 정말 잔인한 사람이에요!", {icon: "success"}).then(function(){				
+							$("#editform").submit();                
+						});							
+					  } else {
+					    swal("우유부단 하시군요!");
+					  }
+				});	
+			}
 		}		    
 	});	
 	
@@ -377,16 +421,23 @@ $(document).ready(function() {
 			})
 			.then((willDelete) => {
 			  if (willDelete) {
-				swal("처리되었습니다!", {icon: "success"}).then(function(){
+				swal("처리되었습니다!", {icon: "success"}).then(function(){					
+					$("#query-forDelSubmit").val('${param.query}');
+					$("#filter-forDelSubmit").val('${param.filter}');
 					$("#batchForm").submit();
 				});							
 			  } else {
 			    swal("취소되었습니다!");
 			  }
 		});
-	});
-	
+	});	
 });
+
+	function dropItemReposition(){
+		if (!$(".dropdown-menu").hasClass("show")) {
+			$(".dropdown-menu").css('inset', '0 0 auto auto');
+		}
+	}
 
 	// Modal 에디트 테이블에 데이터 추가
 	function addRequiredEditTr(materialNamesArr, key, value){
@@ -394,7 +445,7 @@ $(document).ready(function() {
         console.log('value:', value);
 		var newRow = $("<tr>").addClass("row");
 	    var selectTd = $("<td>").addClass("col w-50").appendTo(newRow);
-	    var newSelect = $("<select>").attr("name", "materialGroup").addClass("w-100 text-center");
+	    var newSelect = $("<select>").attr("name", "materialGroup").addClass("w-100 text-center materialGroup");
 	    var inputTd = $("<td>").addClass("col w-50").appendTo(newRow);
 	    var buttonTd = $("<td>").addClass("col col-1").appendTo(newRow);
 	    
@@ -402,10 +453,10 @@ $(document).ready(function() {
 		newSelect.appendTo(selectTd);
 	    
 	    $("<input>").attr({
-	        "type": "text",
+	        "type": "number",
 	        "name": "requiredGroup",
 	        "value": (value == "" ? "" : value)
-	    }).addClass("w-100 text-center").appendTo(inputTd);
+	    }).addClass("w-100 text-center requiredGroup").appendTo(inputTd);
 
 	    $("<button>").attr("type", "button").addClass("btn bg-gradient-warning btn-sm fs-6 py-0 px-2 mb-0 removebtn").text("-").appendTo(buttonTd);
 
