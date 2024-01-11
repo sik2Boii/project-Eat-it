@@ -20,7 +20,7 @@
   		LIMIT #{startPage},#{pageSize}
   	</select>
   	
-  	<select id="mtotalCount" resultType="int">
+  	<select id="totalCount" resultType="int">
   		<![CDATA[
 	  		SELECT COUNT(*)
 	  		FROM member

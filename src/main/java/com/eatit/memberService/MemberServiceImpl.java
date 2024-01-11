@@ -25,10 +25,25 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void memberJoin(MemberVO vo) {
-		logger.debug("DAO 회원가입 메서드 호출");
+		logger.debug("Service - 회원가입 메서드 호출");
 		mdao.insertMember(vo);
 		
 	}
+
+	@Override
+	public MemberVO memberProfile(MemberVO vo) {
+		logger.debug("내정보 출력");
+		return mdao.selectProfile(vo);
+	}
+
+	@Override
+	public void memberUpdateProfile(MemberVO vo) {
+		logger.debug("Service - 내정보 수정");
+		mdao.updateProfile(vo);
+	}
+
+	
+	
 	
 	
 }

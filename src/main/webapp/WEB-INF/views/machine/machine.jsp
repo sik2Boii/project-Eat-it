@@ -4,155 +4,151 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/header.jsp" %>
-<style>
-/* 모달 스타일 */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
-}
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-.modal-content {
-	background-color: #fefefe;
-	margin: 5% auto;
-	padding: 20px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	width: 50%;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	cursor: pointer;
-	position: absolute;
-	right: 20px;
-	top: 20px;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-}
-#machine_info {
-	margin-top: 50px;
-}
-</style>
 <!-- 시작 -->
 <div class="col-11 mx-auto">
-	<div class="card my-3 mx-auto pt-5 px-6 pb-2">
-		<div class="card-header p-0 position-relative mx-3 ">
+	<div class="card my-4">
+		<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
 			<div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3 pe-3 d-flex">
-				<h3 class="text-white text-capitalize ps-5 align-items-center mb-0 py-1">설비 관리</h3>
-				<div class="ms-md-auto bg-white rounded p-2 d-flex align-items-center">
-					<div class="align-items-center d-flex flex-column">
+				<h3 class="text-white text-capitalize ps-5 my-2 py-1">설비 관리</h3>
+				<form action="/hr/searchlist" id="search-form" class="ms-md-auto bg-white rounded p-2 mb-0 d-flex align-items-center">
+					<div class="align-items-center d-flex flex-column mx-1">	
 						<div class="input-group input-group-outline">
 							<label class="form-label">검색어</label>
 							<input type="text" id="searchword" name="searchword" class="form-control" value="${param.searchword }">
+							<input type="hidden" id="filter" name="filter" value="${param.filter }">
 						</div>
+					</div>					
+					<div class="align-items-center d-flex flex-column py-1 ct-example">
+						<button type="button" id="searchbtn" class="btn btn-outline-primary mb-0 py-2 mx-1 fs-6">검색</button>
 					</div>
-					<div class="align-items-center d-flex flex-column py-1">
-						<button id="searchbtn" class="btn btn-outline-primary btn-sm mb-0 py-1 ms-2">검색</button>
-					</div>
-				</div>
+				</form>
 			</div>
 		</div>		
 	
 		<div class="card-body mx-5 px-0 pb-4">
 			<div class="table-responsive p-0">
+				<form action="/machine/delete" method="post" id="checkbox_form">
 				<table id="hr-table" class="table table-hover align-items-center mb-0">
 					<thead>
 						<tr>
-							<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"><input type="checkbox"></th>
+							<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"></th>
 							<th class="text-center font-weight-bolder col-2">설비 코드</th>
-							<th class="text-center font-weight-bolder col-1">설비 상태</th>
 							<th class="text-center font-weight-bolder col-2">관리자</th>
 							<th class="text-center font-weight-bolder col-2">작동 목적</th>
 							<th class="text-center font-weight-bolder col-3">설비 설치일</th>
 							<th class="text-center font-weight-bolder col-3">설비 위치</th>
+							<th class="text-center font-weight-bolder col-1">설비 상태</th>
 						</tr>
 					</thead>
 	 				<tbody id="employeeTableBody">
 						<c:forEach var="ml" items="${machinelist}">
 							<tr class="mllist">
-								<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3"><input type="checkbox"></td>
+								<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 py-3"><input type="checkbox" name="code" value="${ml.machine_code}"></td>
 								<td class="text-center">${ml.machine_name}_${ml.machine_code}</td>
-								<td class="text-center"><span class="badge badge-sm bg-gradient-success">${ml.machine_status}</span></td>
 								<td class="text-center">${ml.name}</td>
 								<td class="text-center">${ml.purpose_of_use}</td>
 								<td class="text-center">${ml.installation_date}</td>
 								<td class="text-center">${ml.machine_location}</td>
+								<td class="text-center"><span id="status-badge" class="badge badge-sm bg-gradient-success">${ml.machine_status}</span></td>
 							</tr>
 						</c:forEach>
 					</tbody>
+		
 				</table>
+		</form>
 			</div>
 		</div>
-
 		<div class="col-6 w-100 text-end">
-		<a class="btn bg-gradient-dark mb-0" onclick="openModal()"><i class="material-icons text-sm"></i>&nbsp;&nbsp;설비 추가</a>
-		<a class="btn bg-gradient-dark mb-0" onclick=""><i class="material-icons text-sm"></i>&nbsp;&nbsp;설비 삭제</a>
+		<button class="btn bg-gradient-danger fs-6 mb-0 py-2 px-3" onclick="openModal()">설비 추가</button>
+		<button class="btn bg-gradient-dark fs-6 mb-0 py-2 px-3" id="delete_btn" >설비 삭제</button>
+		<!-- <a class="btn bg-gradient-dark mb-0" onclick="deleteSelected()"><i class="material-icons text-sm"></i>&nbsp;&nbsp;설비 삭제</a> -->
+		</div>
+		<div class="row">
+			<div class="col-sm-5">
+				<%-- <div>Showing ${pageVO.startPage } to ${pageVO.endPage } of 미구현 entries</div> --%>
+			</div>
+			<div class="col-sm-5">
+				<ul class="pagination">
+					<c:if test="${pageVO.prev }">
+						<li class="page-link link-container"><a href="/machine/${listUrl }?page=${pageVO.endPage-pageVO.displayPageNum }&searchword=${searchword}" class="link"><<</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
+						<li ${pageVO.cri.page == i ? "class='page-link link-container active'" : "class='page-link link-container'"} >
+							<a href="/machine/${listUrl }?page=${i }&searchword=${searchword}" ${pageVO.cri.page == i ? "class='link-white'" : "class=''"}>${i }</a>
+						</li>				
+					</c:forEach>
+					<c:if test="${pageVO.next }">
+						<li class="page-link link-container"><a href="/machine/${listUrl }?page=${pageVO.startPage+pageVO.displayPageNum }&searchword=${searchword}" class="link">>></a></li>
+					</c:if>
+				</ul>
+			</div>
 		</div>
 </div>
 </div>
 <!-- 끝 -->
-
-
-
-
-	<div id="myModal" class="modal top-10 position-absolute">
+<div id="myModal" class="modal top-10 position-absolute z-index-3">
 	<div class="modal-dialog">
-		<div class="modal-content">
-			<span class="close" onclick="closeModal()">&times;</span>
-			<form id="myForm" method="post">
-				<table border="1">
-					<tr>
-						<th>설치 장비</th>
-						<th>작업자</th>
-						<th>설비 설치일</th>
-						<th>설비 위치</th>
-					</tr>
-					<tr>
-						<td><select id="machine_name" name="machine_name" onchange="updateMachineCode()" required>
+		<div class="modal-content w-100">
+			<div class="modal-header">
+				<button id="closebtn" class="btn bg-gradient-primary position-absolute py-1 px-2 mt-2 end-5" onclick="closeModal()">X</button>
+				<h3 class="modal-title mx-auto">설비 추가</h3>
+			</div>
+			<div class="modal-body p-5">
+				<div id="tableContainer">
+				<form action="/machine/machine" id="myForm"  method="post">
+					<table id="updatemachinetable" class="table">
+						<tr>
+							<th class="fs-5 w-50">설치 장비</th>
+							<td><select id="machine_name" name="machine_name" onchange="updateMachineCode()" required>
 								<option value="선택">--선택하세요--</option>
-								<option value="Dough">반죽</option>
-								<option value="Topping">토핑</option>
-								<option value="Oven">오븐</option>
-								<option value="Packaging">포장</option>
+								<option value="CAKE">케이크</option>
+								<option value="COOKIE">쿠키</option>
+								<option value="ICECREAM">아이스크림</option>
 							</select></td>
-						<td><input type="text" id="employee_no" name="employee_no" required>
+						</tr>
+						<tr>
+							<th class="fs-5">관리자</th>
+							<td>
+							<select id="employee_no" name="employee_no"  required>
+								<option value="${no }">${name}</option>
+							</select>
 							<input type="hidden" id="machine_code" name="machine_code" value="${code }">
 						</td>
-						<td><input type="text" id="installation_date" name="installation_date"></td>
-						<td><select id="machine_location" name="machine_location">
+						</tr>
+						<tr>
+							<th class="fs-5">설비 설치일</th>
+							<td><input type="text" id="installation_date" name="installation_date"></td>
+						</tr>
+						<tr>
+							<th class="fs-5">설비 위치</th>
+							<td><select id="machine_location" name="machine_location">
 								<option value="선택">--선택하세요--</option>
 								<option value="A">A</option>
 								<option value="B">B</option>
 								<option value="C">C</option>
 								<option value="D">D</option>
 						</select></td>
-					</tr>
-				</table>
-
-				<input type="submit" value="등록"> <input type="button" onclick="closeModal()" value="취소">
-			</form>
+						</tr>		
+					</table>
+					<div class="text-center">
+					<button id="myForm" class="btn bg-gradient-danger fs-6 mb-0 py-2 px-3">등록</button>
+					<input type="button" class="btn bg-gradient-danger fs-6 mb-0 py-2 px-3" onclick="closeModal()" value="취소">
+					</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
+
+
+	
+
 	<!-- 설비 상세보기 -->
-	<div id="Modal" class="modal top-10 position-absolute">
+	<div id="Modal" class="modal top-10 position-absolute z-index-3" >
 	<div class="modal-dialog">
 		<div class="modal-content w-100">
 			<div class="modal-header">
@@ -164,10 +160,10 @@
 					<div class="user-info d-flex w-100">
 						<table class="table">
 							<tr>
-								<th class="fs-5 w-50">설비 코드</th>
-								<td class="fs-5 w-50" id="namecode">
+								<th class="fs-5">설비 코드</th>
+								<td class="fs-5" id="namecode">
 								</td>
-								<td class="fs-5 w-50" id="machineno" ></td>
+								<td class="fs-5" id="machineno" ></td>
 								
 									
 							</tr>
@@ -185,8 +181,8 @@
 				<div id="tableContainer">
 					<table id="view-table" class="table">
 						<tr>
-							<th class="fs-5 w-50">설비 상태</th>
-							<td class="fs-5 w-50" id="status"></td>
+							<th class="fs-5 w-7">설비 상태</th>
+							<td class="fs-5 w-20" id="status"></td>
 						</tr>
 						<tr>
 							<th class="fs-5">관리자</th>
@@ -209,7 +205,9 @@
 										<option value="점검중">점검중</option>
 										<option value="수리중">수리중</option>
 										<option value="고장">고장</option>
-										<option value="설치중">설치중</option>
+										<option value="생산중">생산중</option>
+										<option value="생산 대기">생산 대기</option>
+										<option value="생산 완료">생산 완료</option>
 									</select>
 								</td>
 							</tr>
@@ -248,9 +246,9 @@ $(document).ready(function () {
 	
 	
 	
-    $("#hr-table").on("click", "tr", function () {
+    $("#hr-table").on("click", "tr td:not(:first-child)", function () {
         // 추출한 machine_code
-        var machineCode = $(this).find("td:eq(1)").text().match(/\d+/);
+        var machineCode = $(this).closest("tr").find("td:eq(1)").text().match(/\d+/);
 
         $.ajax({
             url: '/machine/machineinfo?machine_code=' + machineCode, 
@@ -258,12 +256,12 @@ $(document).ready(function () {
             data: { machineCode: machineCode ? parseInt(machineCode[0]) : 0 },
             dataType: 'json',
             success: function (data) {
-                // infolist의 각 항목을 순회
+
                 for (var i = 0; i < data.infolist.length; i++) {
                     var historyData = data.infolist[i];
                 }
-                
-                // 서버에서 받은 데이터를 사용하여 모달에 표시
+
+
                 var namecode = data.machine_name + "_" + historyData.machine_code;
                 $("#namecode").text(namecode);
                 $("#code").text(historyData.machine_code);
@@ -271,19 +269,33 @@ $(document).ready(function () {
                 $("#status").text(data.machine_status);
                 $("#employeename").text(data.name);
                 $("#machineno").val(historyData.machine_code);
-                // formatDate 함수를 AJAX 내부에 직접 정의
-                function formatDate(dateString) {
-                    var formattedDate = dateString.replace(/(\d+)월 (\d+), (\d+)/, '$3-$1-$2');
+
+                function formatDate1(dateString) {
+                	var formattedDate = dateString.replace(/(\d+)월 (\d+), (\d+)/, function(match, p1, p2, p3) {
+                        return p3 + '-' + (p1.length === 1 ? '0' + p1 : p1) + '-' + (p2.length === 1 ? '0' + p2 : p2);
+                    });
                     return formattedDate;
                 }
-                // formatDate 함수를 사용하여 날짜 형식 변환
-                $("#lastchecktime").text(formatDate(historyData.check_time));
+                
+                function formatDate(dateString) {
+                    var date = new Date(dateString);
+
+                    var year = date.getFullYear();
+                    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    var day = date.getDate().toString().padStart(2, '0');
+
+                    var formattedDate = year + '-' + month + '-' + day;
+
+                    return formattedDate;
+                }
+       
+                $("#lastchecktime").text(formatDate1(historyData.check_time));
                 $("#lastoperatingtime").text(formatDate(historyData.operating_time));
                 $("#installationdate").text(formatDate(data.installation_date));
                 $("#machinelocation").text(data.machine_location);
 				
                 console.log(data);
-                // 모달 열기
+              
                 document.getElementById("Modal").style.display = "block";
             },
             error: function (error) {
@@ -389,9 +401,64 @@ $(".input-group").click(function(){
 			    optionToSelect.prop("selected", true);
 		    }
 		}	
-		    
+		
+		$('table tr').each(function() {
+            var statusText = $(this).find('td:last-child #status-badge').text();
+            console.log("span: " + statusText);
+            switch(statusText){
+            case "생산중": $(this).find('td:last-child #status-badge').addClass("bg-gradient-success"); break; // 초록
+            case "생산 대기": $(this).find('td:last-child #status-badge').addClass("bg-gradient-info"); break;	// 파랑
+            case "생산 완료": $(this).find('td:last-child #status-badge').addClass("bg-gradient-danger"); break;	// 빨강
+            case "수리중": $(this).find('td:last-child #status-badge').addClass("bg-gradient-warning"); break;	// 노랑
+            case "점검중": $(this).find('td:last-child #status-badge').addClass("bg-gradient-warning"); break;	// 노랑
+            case "고장": $(this).find('td:last-child #status-badge').addClass("bg-gradient-dark"); break;	// 회색
+            
+            }
+        });
 		
 		
+		
+		$("#delete_btn").click(function (event) {
+		    var selectedCount = $('input[name="code"]:checked').length;
+
+		    if (selectedCount === 0) {
+		        
+		        swal({
+		            title: "알림",
+		            text: "삭제할 설비를 선택하세요.",
+		            icon: "warning",
+		            button: "확인"
+		        });
+		        event.preventDefault();
+		    } else {
+		        
+		        swal({
+		            title: "삭제 확인",
+		            text: "선택한 설비를 삭제하시겠습니까?",
+		            icon: "warning",
+		            buttons: true,
+		            dangerMode: true,
+		        }).then((willDelete) => {
+		            if (willDelete) {
+		             
+		                swal("선택한 설비가 삭제되었습니다.", {
+		                    icon: "success",
+		                    buttons: false,
+		                    timer: 1500
+		                });
+		                $("#checkbox_form").submit();
+		            } else {
+		                // 삭제 취소 시 아무 동작 없음
+		            }
+		        });
+		    }
+		});
+		
+	
+		
+		
+		
+
 		
 	</script>
 

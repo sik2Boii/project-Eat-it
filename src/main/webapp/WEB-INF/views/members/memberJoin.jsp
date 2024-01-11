@@ -4,15 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="${path}/resources/img/logo.png">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/resources/img/logo.png">
 <title>회원 등록</title>
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-<link href="${path}/resources/css/nucleo-icons.css" rel="stylesheet" />
-<link href="${path}/resources/css/nucleo-svg.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath }/resources/css/nucleo-icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath }/resources/css/nucleo-svg.css" rel="stylesheet" />
 <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<link id="pagestyle" href="${path}/resources/css/main.css" rel="stylesheet" />
+<link id="pagestyle" href="${pageContext.request.contextPath }/resources/css/main.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body class="bg-gray-200">
   <main class="main-content  mt-0">
@@ -23,8 +24,8 @@
           <div class="col-lg-4 col-md-8 col-12 mx-auto">
             <div class="card z-index-0 fadeIn3 fadeInBottom">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                  	<h4 class="text-white font-weight-bolder text-center mt-2 mb-0"><a class="text-white" href="${path }/">회원 등록</a></h4>
+                <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+                  	<h4 class="text-white font-weight-bolder text-center mt-2 mb-0 text-white" style="cursor: default;">회원 등록</h4>
                   <div class="row mt-3">
                     <div class="col-2 text-center ms-auto">
                       <a class="btn btn-link px-3" href="javascript:;">
@@ -62,10 +63,11 @@
                     <input type="tel" class="form-control" name="contact" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="휴대전화번호 입력 ex)010-1234-1234" >
                   </div>
                  <div class="input-group input-group-outline mb-3">
-                    <input type="text" class="form-control" name="address" placeholder="주소 입력">
+                    <input type="text" class="form-control" id="sample5_address" placeholder="주소" name="address" style="border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; " readonly>
+					<button type="button" class="btn bg-gradient-dark mb-0" onclick="sample5_execDaumPostcode()">주소 검색</button>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">회원 등록하기</button>
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">회원 등록하기</button>
                   </div>
                   <p class="mt-4 text-sm text-center">
                    	 홈페이지로 이동하시겠습니까?
@@ -86,7 +88,7 @@
                   document.write(new Date().getFullYear())
                 </script>,
                	항상 여러분 곁에는
-                <a href="${path }/" class="font-weight-bold text-white">EatIt</a>
+                <a href="../" class="font-weight-bold text-white">EatIt</a>
                 <i class="fa fa-heart" aria-hidden="true"></i>
                	이 함께합니다.
               </div>
@@ -95,20 +97,24 @@
         </div>
       </footer>
     </div>
+    <%@ include file="../include/js.jsp" %>
   </main>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/core/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/core/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/plugins/smooth-scrollbar.min.js"></script>
   <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+            }
+        }).open();
     }
-  </script>
+</script>
 </body>
 </html>

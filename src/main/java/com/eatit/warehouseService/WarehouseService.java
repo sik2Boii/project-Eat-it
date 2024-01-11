@@ -1,8 +1,12 @@
 package com.eatit.warehouseService;
 
 import java.util.List;
+import java.util.Map;
 
+import com.eatit.mainDomain.Criteria;
 import com.eatit.memberDomain.MemberVO;
+import com.eatit.warehouseDomain.StockInfoVO;
+import com.eatit.warehouseDomain.StockVO;
 import com.eatit.warehouseDomain.WarehouseVO;
 
 public interface WarehouseService {
@@ -39,4 +43,42 @@ public interface WarehouseService {
 	
 	// 창고 삭제
 	public void deleteWarehouse(int[] warehouse_no);
+	
+	//------------------------------------------------------------------------------------//
+	// 창고 재고 정보 현황에 필요한 정보 조회
+	public void getStockList();
+	
+	// 창고 재고 정보 페이징(검색어, 필터x)
+	public List<StockInfoVO> getStockInfoList(Criteria cri);
+	
+	// 창고 재고 정보 페이징(검색어, 필터0)
+	public List<StockInfoVO> findStockInfoList(Map<String, Object> params);
+	
+	// 창고 재고 정보 갯수(검색어 x, 필터 x)
+	public int getTotalCount();
+	
+	// 창고 재고 정보 갯수(검색어 o, 필터 o)
+	public int getFindCount(Map<String, Object> params);
+	
+	// 창고 승인 처리
+	public void stockApprovalProcess(StockInfoVO infoVO);
+	
+	// 창고 취소 처리
+	public void stockCancelProcess(String[] identifyCode);
+	
+	// 창고 조회
+	public List<StockVO> stockListALL();
+	
+	// 창고 리스트 총갯수(검색어 x, 필터 x) - 페이징
+	public int getStockTotalCount(); 
+	
+	// 입출고 정보 테이블 모두 조회(검색어 x, 필터 x) - 페이징
+	public List<StockVO> getStockListAll(Criteria cri);
+
+	// 창고 리스트 총갯수(검색어 o, 필터 o) - 페이징
+	public int getFindStockListCount(Map<String, Object> params);
+	
+	// 입출고 정보 테이블 모두 조회(검색어 o, 필터 o) - 페이징
+	public List<StockVO> findStockList(Map<String, Object> params);
+	
 }

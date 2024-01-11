@@ -2,14 +2,17 @@ package com.eatit.machineController;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.eatit.machineDomain.machineVO;
 import com.eatit.machineDomain.machinehistoryVO;
 import com.eatit.machineService.machineservice;
+import com.eatit.mainDomain.Criteria;
+import com.eatit.mainDomain.PageVO;
+import com.eatit.memberDomain.MemberVO;
 
 
 
@@ -38,11 +44,16 @@ public class machinecontroller {
 	// http://localhost:8088/machine/machine
 	// 기계 정보
 	@RequestMapping(value = "/machine", method = RequestMethod.GET)
-	public void machineGET(Model model) {
+	public void machineGET(Model model,Criteria cri) {
 		logger.debug("  machineGET()  호출 ");
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(mcService.totalCount());
 		
-		model.addAttribute("machinelist",mcService.machinelist());
+		model.addAttribute("machinelist",mcService.machinelist(cri));
 		model.addAttribute("code", mcService.getmachinecode());
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("listUrl", "machine");
 	
 		// 연결된 뷰페이지로 이동
 		logger.debug("/views/machine/machine.jsp 페이지로 이동");
@@ -92,7 +103,19 @@ public class machinecontroller {
 	      return "redirect:/machine/machine";
 	   }
 	
+	  @RequestMapping(value = "/delete", method = RequestMethod.POST)
+	 public String delete(machineVO vo, @RequestParam("code") int[] machine_code) {
+		 
+		  
+		  for(int i : machine_code) {
+			  logger.debug("machine_code : " + i);  
+				vo.setMachine_code(i);	
+			/* mcService.machinedelete(vo); */
+				mcService.machinedeleteupdate(vo);
+			
+	 }
+		  return "redirect:/machine/machine";
 	
-	
-	
+}
+
 }
