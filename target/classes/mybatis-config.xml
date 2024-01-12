@@ -12,5 +12,6 @@
   		<package name="com.eatit.machineDomain"/>
   		<package name="com.eatit.masterdataDomain"/>  		
   		<package name="com.eatit.MaterialDomain"/>
+  		<package name="com.eatit.productionDomain"/>
   	</typeAliases>
   </configuration>

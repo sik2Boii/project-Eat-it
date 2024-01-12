@@ -27,13 +27,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Inject
 	private WarehouseDAO warehousedao;
 	
+	
 	@Inject
 	private machineDAO mDao;
 	
 	@Override
 	// 창고 정보 리스트 가져오기(All)
 	public List<WarehouseVO> warehouseListAll() {
-		logger.debug("S - warehouseListAll() 호출");
 		return warehousedao.getWarehouseListAll();
 	}
 
@@ -64,30 +64,24 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Override
 	// 창고 정보 가져오기(main)
 	public List<WarehouseVO> warehouseListMain() {
-		logger.debug("S - warehouseListMain() 호출");
 		return warehousedao.getWarehouseListMain();
 	}
 
 	@Override
 	// 특정 창고 정보 가져오기 - ajax
 	public WarehouseVO warehouseInfo(WarehouseVO vo) {
-		logger.debug("S - warehouseInfo(WarehouseVO vo) 호출");
-		logger.debug("S vo : " +vo);
-		logger.debug("S 전달해주는 : "+warehousedao.getWarehouseInfo(vo));
 		return warehousedao.getWarehouseInfo(vo);
 	}
 
 	@Override
 	// 창고 등록 할 때 등록페이지에 로그인한 회원 정보 가져오기
 	public MemberVO warehouseInfo(int no) {
-		logger.debug("S - warehouseInfo(int no)");
 		return warehousedao.getWarehouseInfo(no);
 	}
 
 	@Override
 	// 창고 등록
 	public void warehouseRegist(WarehouseVO vo) {
-		logger.debug("S - warehouseRegist(WarehouseVO vo)");
 		warehousedao.insertWarehouse(vo);
 	}
 
@@ -100,15 +94,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Override
 	// 창고 삭제
 	public void deleteWarehouse(int[] warehouse_no) {
-		logger.debug("S - deleteWarehouse(int[] warehouse_no)");
 		warehousedao.deleteWarehouse(warehouse_no);
 	}
 	
 	//-----------------------------------------------------------------------------------------//
-	@Override
 	// 창고 재고 식별 번호 조회 로직
 	// 식별 번호 생성 규칙 : 발주회사번호+품목코드+생산년월일+순번
-	public void getStockList() {
+	private void getStockList() {
 		// 완재품 - 필요 데이터 리스트 불러오기
 	    List<StockInfoVO> finishedProductStockList = warehousedao.getStockOfFinishedProduct();
 //	    logger.debug("완재품 - 식별코드 넣기 전"+finishedProductStockList);
@@ -159,7 +151,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         	finishedProductSeqNumber = FormathistoyNo;
 	        
 	        // 식별 번호 생성 
-	        String identify_code = finishedProductCompanyNo+finishedProductStockInfoVO.getCode()+"-"+ioDate+finishedProductSeqNumber;
+	        String identify_code = finishedProductCompanyNo+finishedProductStockInfoVO.getCode()+"-I"+ioDate+finishedProductSeqNumber;
 	        setStockVO.setIdentify_code(identify_code);
 	        
 	        // 존재하지 않으면(같은 이름의 identify_code가 0개일 때) stock_info 테이블에 insert
@@ -205,7 +197,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         	materialSeqNumber = FormathistoyNo;
 	        
 	        // 식별 번호 생성 
-	        String identify_code = materialCompanyNo+materialStockInfo.getCode()+"-"+ioDate+materialSeqNumber;
+	        String identify_code = materialCompanyNo+materialStockInfo.getCode()+"-I"+ioDate+materialSeqNumber;
 	        setStockVO.setIdentify_code(identify_code);
 	        
 	        // 존재하지 않으면(같은 이름의 identify_code가 0개일 때) stock_info 테이블에 insert
@@ -246,25 +238,23 @@ public class WarehouseServiceImpl implements WarehouseService {
 		
 		// 식별코드에 해당하는 재고 입출고 정보 불러오기
 		StockInfoVO stockInfoVO = warehousedao.getStockInfoByIdentifyCode(infoVO);
-//		logger.debug("stockInfoVO : "+stockInfoVO);
+		logger.debug("식별코드에 해당하는 재고 입출고 내역- stockInfoVO : "+stockInfoVO);
 		
 		// 제품코드 추출
 		String idCode = infoVO.getIdentify_code();
 		String[] idCodeList = idCode.split("-");
 		String resultIdCode = idCodeList[0].substring(3);
-//		logger.debug("resultIdCode"+resultIdCode);
 		infoVO.setCode(resultIdCode);
 		stockInfoVO.setCode(resultIdCode);
 //		logger.debug("서비스 -infoVO : "+infoVO);
-		logger.debug("stockInfoVO : "+stockInfoVO);
+//		logger.debug("stockInfoVO : "+stockInfoVO);
 		
-		
-		// -> 유통기한이 다른 상품은 상품이 같더라도 다른 상품이라 조건 따질 필요없이 바로 insert(현재 로직)
 		// StockInfoVO에 불러온 정보를 StockVO에 넣음
 		StockVO vo = new StockVO();
 		vo.setProduct_code(stockInfoVO.getCode());
 		vo.setIdentify_code(stockInfoVO.getIdentify_code());
 		vo.setWarehouse_no(stockInfoVO.getWarehouse_no());
+		vo.setIo_classification(stockInfoVO.getIo_classification());
 		vo.setCategory(stockInfoVO.getCategory());
 		vo.setProduct_name(stockInfoVO.getName());
 		vo.setProduct_unit(stockInfoVO.getUnit());
@@ -272,26 +262,107 @@ public class WarehouseServiceImpl implements WarehouseService {
 		vo.setQuantity(stockInfoVO.getIo_quantities());
 		logger.debug("vo :" +vo);
 		
-		
-		// 입고!
-		// insert 후 상태 update
-		warehousedao.insertStockInfoIntoStock(vo);
-		warehousedao.updateStockInfoStatusWhenApprovalSuccess(vo);
-		
-		// 식별코드에 대한 품목이름이 재고에 몇개 있는지 카운트 -> 개수 존재 여부에 따라 로직 처리
-		int countStock = warehousedao.countStock(infoVO);
-		logger.debug("countStock :"+countStock);
-		// 해당 창고 번호의 사용여부(상태) 조회
-		String warehouseUseStatus = warehousedao.getWarehouseUseStatusByWarehouseNO(vo);
-		logger.debug("warehouseUseStatus :"+warehouseUseStatus);
-		
-		// 창고에 품목이 있고, 창고 상태가 'N'일때만 창고 상태 'Y'로 update
-		if(countStock > 0 && "N".equals(warehouseUseStatus)) {
-			warehousedao.updateWarehouseUseStatus(vo);
+		// 입고 일때 
+		if(vo.getIo_classification().equals("입고")) {
+			
+			// -> 유통기한이 다른 상품은 상품이 같더라도 다른 상품이라 조건 따질 필요없이 바로 입고(현재 로직)
+			// insert 후 상태 update
+			logger.debug("입고 동작!!");
+			warehousedao.insertStockInfoIntoStock(vo);
+			warehousedao.updateStockInfoStatusWhenApprovalSuccess(vo);
+			
+			// 식별코드에 대한 품목이름이 재고에 몇개 있는지 카운트 -> 개수 존재 여부에 따라 로직 처리
+			int countStock = warehousedao.countStock(infoVO);
+			
+			// 해당 창고 번호의 사용여부(상태) 조회
+			String warehouseUseStatus = warehousedao.getWarehouseUseStatusByWarehouseNO(vo);
+			
+			// 창고에 품목이 있고, 창고 상태가 'N'일때만 창고 상태 'Y'로 update
+			if(countStock > 0 && warehouseUseStatus.equals("N")) {
+				warehousedao.updateWarehouseUseStatus(vo);
+			}
+			logger.debug("입고 동작 완료!");
 		}
 		
-		// 출고!
-		// 
+		// 출고 일때
+		if(vo.getIo_classification().equals("출고")) {
+			logger.debug("출고 동작!!");
+			
+			// 출고 품목에 해당하는 재고 정보 불러오기
+			List<StockVO> stockOrderByExpiryDateList = warehousedao.getStockOrderByExpiryDateList(vo.getProduct_code());
+			
+			// 완제품 출고일 경우
+			if(vo.getCategory().equals("완제품")) {
+				logger.debug("완제품 출고!");
+				
+				// 출고 품목 수량 리스트 
+//				List<Integer> selectQuantityOrderByExpiryDateList = warehousedao.selectQuantityOrderByExpiryDateList(vo.getIdentify_code());
+//				logger.debug("출고 품목 수량 리스트 : "+selectQuantityOrderByExpiryDateList);
+//				logger.debug("출고 품목 수량 리스트 첫번째 인덱스 수량:"+stockOrderByExpiryDateList.get(0).getQuantity());
+//				for(StockVO outVO : stockOrderByExpiryDateList) { // -> outVO이름으로 stockOrderByExpiryDateList 만큼 반복
+//					
+//				}
+				
+			    // 리스트 크기 변수
+			    int listSize = stockOrderByExpiryDateList.size();
+			    // 수량 초기화 변수
+			    int quantity = 0;
+			    // 정보 저장용 객체 초기화
+			    StockVO setOutVO;
+			    // 출고 품목에 해당하는 재고 정보 객체 초기화
+			    StockVO getStockOutVO;
+			    
+			    for (int i = 0; i < listSize; i++) {
+			    	
+			        // 출고 품목에 해당하는 재고의 i번째 인덱스의 수량 StockVO 객체를 가져오기
+			        getStockOutVO = stockOrderByExpiryDateList.get(i);
+			        
+			        // update 할 때 필요한 정보 저장용 객체
+					setOutVO = new StockVO();
+					
+					// 출고수량 < 재고수량 일 때 ex) 50 < 60 => 60 - 50 
+					if(vo.getQuantity() < getStockOutVO.getQuantity()) {
+						quantity = getStockOutVO.getQuantity()-vo.getQuantity(); 
+						setOutVO.setQuantity(quantity);
+						setOutVO.setIdentify_code(getStockOutVO.getIdentify_code());
+						// 해당 재고 업데이트
+						logger.debug("1.출고수량 < 재고수량 일 때 재고 업데이트");
+						logger.debug("quantity : "+quantity);
+						
+					}
+					
+					// 출고수량 = 재고수량 일 때 ex) 50 == 50
+					if(vo.getQuantity() == getStockOutVO.getQuantity()) {
+						// 해당 재고 삭제
+						logger.debug("2.출고수량 == 재고수량 일 때 재고 다씀 삭제!");
+					}
+					
+					// 출고수량 > 재고수량 일 때 ex) 50 > 40 => 50 - 40
+					if(vo.getQuantity() > getStockOutVO.getQuantity()) {
+						quantity = vo.getQuantity() - getStockOutVO.getQuantity();
+						setOutVO.setIdentify_code(getStockOutVO.getIdentify_code());
+						// 해당 재고 업데이트
+						logger.debug("3.출고수량 > 재고수량 일 때 재고 업데이트");
+						logger.debug("quantity : "+quantity);
+					}
+					
+//					logger.debug("자재 수량 : "+getStockOutVO.getQuantity());
+//					logger.debug("출고 수량 : "+vo.getQuantity());
+//					logger.debug("계산된 값 : "+setOutVO.getQuantity());
+			    }
+				
+				logger.debug("완제품 출고 완료!");
+			}
+			
+			// 자재 출고일 경우
+			if(vo.getCategory().equals("자재")) {
+				logger.debug("자재 출고!");
+				
+				
+				logger.debug("자재 출고 완료!");
+			}
+			logger.debug("출고 동작 완료!");
+		}
 	}
 
 	@Override
@@ -315,7 +386,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 	@Override
 	// 입출고 정보 테이블 모두 조회(검색어 x, 필터 x) - 페이징
 	public List<StockVO> getStockListAll(Criteria cri) {
-		// TODO Auto-generated method stub
 		return warehousedao.getStockList(cri);
 	}
 

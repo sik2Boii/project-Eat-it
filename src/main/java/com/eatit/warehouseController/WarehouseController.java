@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.eatit.businessService.OrdersService;
 import com.eatit.mainDomain.Criteria;
 import com.eatit.mainDomain.PageVO;
 import com.eatit.memberDomain.MemberVO;
@@ -39,11 +41,11 @@ public class WarehouseController {
 	@Inject
 	private HumanResourceService hrService;
 	
+	@Inject OrdersService oService;
 ////////////////////////////////////////// 창고 메인 페이지 시작 ///////////////////////////////////////
 	//http://localhost:8088/warehouse/warehouseMain
 	@GetMapping(value = "/warehouseMain")
 	public void warehouseMainGET(Model model,@SessionAttribute("no") int no, HttpSession session) {
-		logger.debug("C - wareHouseMainGET() 호출");
 		// ID 세션값 저장 확인
 //		logger.debug("no : "+no);
 		
@@ -65,7 +67,6 @@ public class WarehouseController {
 	// 창고 모달창에서 정보 수정
    @RequestMapping(value = "/updateDetailInfo", method = RequestMethod.POST)
    public String updateDetailInfo(WarehouseVO vo) {
-      logger.debug("/warehouse/updateDetailInfo 호출 -> updateDetailInfo() 실행");
 //      logger.debug("vo : "+vo);
       
       // 정보 수정
@@ -77,20 +78,18 @@ public class WarehouseController {
 	// 창고등록
 	@RequestMapping(value = "/warehouseRegist", method = RequestMethod.GET)
 	public void warehouseModifyGET(@SessionAttribute("no") int no,Model model) {
-		logger.debug("C - warehouseModifyGET()");
-		logger.debug("no : "+ no);
+//		logger.debug("no : "+ no);
 		
 		// 서비스 - 창고 등록 할 때 등록페이지에 로그인한 회원 정보 가져오기
 		MemberVO warehouseInfo = warehouseService.warehouseInfo(no);
-		logger.debug("@_@"+warehouseInfo);
+		
 		// 데이터를 연결된 뷰페이지로 전달
 		model.addAttribute("warehouseAdminInfo", warehouseInfo);
 	}
 	
 	@RequestMapping(value = "/warehouseRegist", method = RequestMethod.POST)
 	public String warehouseModifyPOST(WarehouseVO vo, RedirectAttributes rttr ) {
-		logger.debug("C - warehouseModifyPOST()");
-		logger.debug("vo : "+vo);
+//		logger.debug("vo : "+vo);
 		
 		// 서비스 - 창고 등록
 		warehouseService.warehouseRegist(vo);
@@ -101,7 +100,6 @@ public class WarehouseController {
 	// 창고삭제
 	@RequestMapping(value = "/deleteWarehouse", method = RequestMethod.POST)
 	public String deleteWarehousePOST(@RequestParam("chk") int[] warehouse_no) {
-		logger.debug("C - deleteWarehousePOST()");
 		logger.debug("vo : "+warehouse_no);
 		
 		// 서비스 - 창고 삭제
@@ -130,7 +128,7 @@ public class WarehouseController {
 									  Map<String, Object> params) {
 		
 		// 페이지 사이즈 변경
-		cri.setPageSize(13);
+		cri.setPageSize(12);
 		List<StockVO> stockList;
 		
 		// 페이징
@@ -168,8 +166,8 @@ public class WarehouseController {
 							@RequestParam(name = "page", required = false) String page,
 							 Map<String, Object> params) {
 //		logger.debug("C - stockInfoGET()");
-		logger.debug("Getpage : "+page);
-		logger.debug("cri :"+cri);
+//		logger.debug("Getpage : "+page);
+//		logger.debug("cri :"+cri);
 		
 		
 		// 페이지 사이즈 변경
@@ -203,7 +201,8 @@ public class WarehouseController {
 								@RequestParam(name="searchword", required = false) String searchword,
 								@RequestParam(name="filter", required = false) String filter,
 								@RequestParam(name="page", required = false) String page) {
-		logger.debug("Postpage : "+page);
+//		logger.debug("Postpage : "+page);
+//		logger.debug("infoVO : "+infoVO);
 		
 	    warehouseService.stockApprovalProcess(infoVO);
 	    
@@ -211,16 +210,17 @@ public class WarehouseController {
 	}
 	
 	@PostMapping(value = "/cancelStockInfo")
-	public String cancelStockInfo(@RequestParam("chk") String[] identifyCode) {
-		logger.debug("C - stockInfoPOST()");
+	public String cancelStockInfo(@RequestParam("chk") String[] identifyCode,
+								  @RequestParam(name="searchword", required = false) String searchword,
+								  @RequestParam(name="filter", required = false) String filter,
+								  @RequestParam(name="page", required = false) String page) {
+		
+		logger.debug("identifyCode"+identifyCode);
 		
 		warehouseService.stockCancelProcess(identifyCode);
 		
-		return "redirect:/warehouse/stockInfo";
+		return "redirect:/warehouse/stockInfo?page="+page;
 	}
 	
 ////////////////////////////////////////// 재고 페이지 끝 //////////////////////////////////////////////
-	
-	
-	
 }

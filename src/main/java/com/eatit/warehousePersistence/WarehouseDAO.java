@@ -1,5 +1,6 @@
 package com.eatit.warehousePersistence;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -103,5 +104,12 @@ public interface WarehouseDAO {
 	
 	// 입출고 정보 테이블 모두 조회(검색어 o, 필터 o) - 페이징
 	public List<StockVO> getFindStockListCount(Map<String, Object> params);
+	
+	// 제품 코드에 대한 재고 리스트
+	public List<StockVO> getStockOrderByExpiryDateList(String productCode);
+	
+	// 제품 코드에 대한 재고 수량 리스트
+	public List<Integer> selectQuantityOrderByExpiryDateList(String identifyCode);
+	
 
 }

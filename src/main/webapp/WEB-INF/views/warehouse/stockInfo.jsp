@@ -46,7 +46,7 @@
 								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">단위</th>
 								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">가격(만원)</th>
 								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">유통기한</th>
-								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">입출고일</th>
+								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">입출고 요청일</th>
 								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 px-1">처리상태</th>
 								<th class="text-center font-weight-bolder col-1 px-1">
 									<div class="dropdown">
@@ -206,7 +206,7 @@ $(document).ready(function(){
 		$("#cancelBtn").click(function(){
 		    var chkboxes = $("input[name='chk']:checked");
 		    var statusVal = chkboxes.closest("tr").find("span[id='status']").text();
-		
+		    
 		    if (chkboxes.length === 0) {
 		        swal({
 		            title: "처리할 사항을 선택해주세요",
@@ -218,7 +218,7 @@ $(document).ready(function(){
 		        return;
 		    }
 		
-		    if (statusVal.trim() !== "대기중") {
+		    if (statusVal.trim() !== "대기중" && (statusVal.includes("취소") || statusVal.includes("승인"))) {
 		        swal({
 		            title: "대기중인 항목만 취소할 수 있습니다",
 		            icon: "warning",

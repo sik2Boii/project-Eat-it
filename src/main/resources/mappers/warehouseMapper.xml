@@ -360,8 +360,8 @@
 	</select>
 	
 	<insert id="insertStock">
-		INSERT INTO stock(product_code,warehouse_no,category,product_name,product_unit,expiry_date,quantity) 
-		VALUES(#{product_code},#{warehouse_no},#{category},#{product_name},#{product_unit},#{expiry_date},#{quantity})
+		INSERT INTO stock(identify_code,product_code,warehouse_no,category,product_name,product_unit,expiry_date,quantity) 
+		VALUES(#{identify_code},#{product_code},#{warehouse_no},#{category},#{product_name},#{product_unit},#{expiry_date},#{quantity})
 	</insert> 
 	
 	<update id="updateStockInfoStatusWhenApprovalSuccess">
@@ -391,6 +391,17 @@
   		WHERE warehouse_no =#{warehouse_no}
   	</update>
   	
+  	<select id="selectStockOrderByExpiryDate" resultType="StockVO">
+  		SELECT * FROM stock 
+  		WHERE product_code = #{productCode}
+  		ORDER BY expiry_date
+  	</select>
   	
+  	<select id="selectQuantityOrderByExpiryDateList" resultType="int">
+  		SELECT io_quantities  
+		FROM stock_info 
+		WHERE identify_code  = #{identify_code} 
+		ORDER BY expiry_date;
+  	</select>
   </mapper>	  
   

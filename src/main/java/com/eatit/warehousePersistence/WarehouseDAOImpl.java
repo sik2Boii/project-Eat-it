@@ -113,7 +113,6 @@ public class WarehouseDAOImpl implements WarehouseDAO {
 	@Override
 	// 입출고 정보 테이블 모두 조회
 	public List<StockInfoVO> getStockInfo(Criteria cri) {
-//		logger.debug("dao - "+sqlsession.selectList(NAMESPACE+"getStockInfo"));
 		return sqlsession.selectList(NAMESPACE+"getStockInfo",cri);
 	}
 	
@@ -191,7 +190,6 @@ public class WarehouseDAOImpl implements WarehouseDAO {
 	
 	@Override
 	public String getWarehouseUseStatusByWarehouseNO(StockVO vo) {
-//		logger.debug("조회한 창고 상태 : "+sqlsession.selectOne(NAMESPACE+"warehouseUseStatusByWarehouseNO",vo));
 		return sqlsession.selectOne(NAMESPACE+"getwarehouseUseStatusByWarehouseNO",vo);
 	}
 	
@@ -231,5 +229,16 @@ public class WarehouseDAOImpl implements WarehouseDAO {
 		return sqlsession.selectList(NAMESPACE+"findStockList", params);
 	}
 
+	@Override
+	// 제품 코드에 대한 재고 리스트
+	public List<StockVO> getStockOrderByExpiryDateList(String productCode) {
+		return sqlsession.selectList(NAMESPACE+"selectStockOrderByExpiryDate",productCode);
+	}
 
+	@Override
+	// 제품 코드에 대한 재고 수량 리스트
+	public List<Integer> selectQuantityOrderByExpiryDateList(String identifyCode) {
+		return sqlsession.selectList(NAMESPACE+"selectQuantityOrderByExpiryDateList", identifyCode);
+	}
+	
 }

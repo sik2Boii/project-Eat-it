@@ -9,7 +9,7 @@
 		<div class="card my-4 mx-4">
 			<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
 				<div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3 pe-3 d-flex align-items-center">
-					<h3 class="text-white text-capitalize ps-5 align-items-center mt-2 py-1">창고 입출고 관리</h3>
+					<h3 class="text-white text-capitalize ps-5 align-items-center mt-2 py-1">창고 재고 현황</h3>
 					<form action="/warehouse/stockMain" id="search-form" class="ms-md-auto bg-white rounded p-1 mb-0 d-flex align-items-center">
 					<div class="align-items-center d-flex flex-column mx-1">	
 						<div class="input-group input-group-outline">
