@@ -29,25 +29,30 @@ public class HumanResourceController {
 
 	// http://localhost:8088/hr/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void hrListGET(Model model, Criteria cri) {
+	public void hrListGET(Model model, Criteria cri, @RequestParam(name = "page", required = false) String page) {
 		logger.debug("/hr/list 호출 -> hrListGET() 실행");
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(hrService.getTotalCount());
 		
+		// 동작 후 리스트 출력 시 페이지 유지를 위해 전달
+		model.addAttribute("page", page);
 		model.addAttribute("listUrl", "list");
 		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("list", hrService.getHrList(cri));
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public String hrListPost(MemberVO vo, @ModelAttribute("searchword") String searchword) {
+	public String hrListPost(MemberVO vo, @ModelAttribute("searchword") String searchword,
+		@ModelAttribute("filter") String filter, @RequestParam(name = "page", required = false) String page) {
+		
 		logger.debug("/hr/list 호출 -> hrListPOST() 실행");		
+		logger.debug(searchword);
 		hrService.editHrContent(vo);
 		if(!searchword.isEmpty()) {
-			return "redirect:/hr/searchlist";
+			return "redirect:/hr/searchlist?page="+page;
 		}
-		return "redirect:/hr/list";
+		return "redirect:/hr/list?page="+page;
 	}
 	
 	@RequestMapping(value = "/content", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
@@ -58,50 +63,64 @@ public class HumanResourceController {
 	}
 	
 	@RequestMapping(value = "/searchlist", method = RequestMethod.GET)
-	public String searchListGET(Model model, Map<String, Object> params, Criteria cri, @ModelAttribute("searchword") String searchword) {
+	public String searchListGET(Model model, Map<String, Object> params, Criteria cri,
+		@ModelAttribute("searchword") String searchword, @RequestParam("filter") String filter, 
+		@RequestParam(name = "page", required = false) String page) {
+		
 		logger.debug("/hr/searchlist 호출 -> searchListGET() 실행");
+		logger.debug("getpage : " + page);
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
-		pageVO.setTotalCount(hrService.getSearchCount(searchword));
 		
 		params.put("cri", cri);
 		params.put("searchword", searchword);
+		params.put("filter", filter);
 		
-		model.addAttribute("searchword",searchword);
+		pageVO.setTotalCount(hrService.getSearchCount(params));
+		
+		model.addAttribute("page", page);
+		model.addAttribute("searchword", searchword);
+		model.addAttribute("filter", filter);
 		model.addAttribute("listUrl", "searchlist");
 		model.addAttribute("pageVO", pageVO);
-		model.addAttribute("list",hrService.getSearchList(params,cri, searchword));		
+		model.addAttribute("list",hrService.getSearchList(params));		
 		return "/hr/list";
 	}
 	
 	// http://localhost:8088/hr/reglist
 	@RequestMapping(value = "/reglist", method = RequestMethod.GET)
-	public void hrRegListGET(Model model, Criteria cri) {
+	public void hrRegListGET(Model model, Criteria cri,
+		@RequestParam(name = "page", required = false) String page) {
 		logger.debug("/hr/reglist 호출 -> hrRegListGET() 실행");
+		logger.debug("getpage : " + page);
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(hrService.getRegCount());
 		
+		model.addAttribute("page", page);
 		model.addAttribute("listUrl", "reglist");
 		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("list", hrService.getHrRegList(cri));
 	}
 	
 	@RequestMapping(value = "/reglist", method = RequestMethod.POST)
-	public String hrRegListPost(MemberVO vo, @RequestParam("ad_identify") String ad_identify) {
+	public String hrRegListPost(MemberVO vo, @RequestParam("ad_identify") String ad_identify,
+		@RequestParam(name = "page", required = false) String page) {
 		logger.debug("/hr/reglist 호출 -> hrRegListPOST() 실행");	
 		hrRegProcessing(vo, ad_identify);
-		return "redirect:/hr/reglist";
+		return "redirect:/hr/reglist?page="+page;
 	}
 	
 	@RequestMapping(value = "/batch", method = RequestMethod.POST)
-	public String hrBatchPost(MemberVO vo, @RequestParam("checkgroup") int[] employee_no_List, @RequestParam("ad_identify") String ad_identify) {
+	public String hrBatchPost(MemberVO vo, @RequestParam("checkgroup") int[] employee_no_List,
+	@RequestParam("ad_identify") String ad_identify, @RequestParam(name = "page", required = false) String page) {
 		logger.debug("/hr/Batch 호출 -> hrBatchPost() 실행");
+		logger.debug("postpage : " + page);
 		for(int i : employee_no_List) {
 			vo.setEmployee_no(i);
 			hrRegProcessing(vo, ad_identify);			
 		}
-		return "redirect:/hr/reglist";
+		return "redirect:/hr/reglist?page="+page;
 	}
 	
 	private void hrRegProcessing(MemberVO vo, String ad_identify) {

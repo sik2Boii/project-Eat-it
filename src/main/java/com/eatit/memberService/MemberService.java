@@ -8,4 +8,10 @@ public interface MemberService {
 	
 	// 회원 등록 메서드
 	public void memberJoin(MemberVO vo);
+	
+	// 내정보 출력 메서드
+	public MemberVO memberProfile(MemberVO vo);
+	
+	// 내정보 수정 메서드
+	public void memberUpdateProfile(MemberVO vo);
 }

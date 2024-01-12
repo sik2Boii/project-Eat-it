@@ -32,13 +32,31 @@
 	<logger name="com.eatit.warehouseService">
 		<level value="debug"/>
 	</logger>
-	<logger name="com.eatit.orderController">
+	<logger name="com.eatit.businessController">
 		<level value="debug"/>
 	</logger>
-	<logger name="com.eatit.orderPersistence">
+	<logger name="com.eatit.businessPersistence">
 		<level value="debug"/>
 	</logger>
-	<logger name="com.eatit.orderService">
+	<logger name="com.eatit.businessService">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.masterdataController">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.masterdataPersistence">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.masterdataService">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.MaterialController">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.MaterialPersistence">
+		<level value="debug"/>
+	</logger>
+	<logger name="com.eatit.MaterialService">
 		<level value="debug"/>
 	</logger>
 	<!-- 3rdparty Loggers -->

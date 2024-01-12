@@ -3,51 +3,67 @@
 
 <%@ include file="../include/header.jsp"%>
 <!-- 본문 시작 -->
-<div class="col-11 mx-auto">
-	<div class="card my-3 mx-auto pt-5 px-6 pb-2">
-		<div class="card-header p-0 position-relative mx-3 z-index-2">
-			<div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3 pe-3 d-flex">
-				<h3 class="text-white text-capitalize ps-5 align-items-center mb-0 py-1">인사 정보 테이블</h3>
-				<div class="ms-md-auto bg-white rounded p-2 d-flex align-items-center">
-					<div class="align-items-center d-flex flex-column">
+<div class="col-12">
+	<div class="card my-4 mx-4">
+		<div class="card-header position-relative p-0 mt-n4 mx-3 z-index-2">
+			<div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-3 d-flex align-items-center">
+				<h3 class="text-white text-capitalize ps-5 my-2 py-1">인사 정보 테이블</h3>
+				<form action="/hr/searchlist" id="search-form" class="ms-md-auto bg-white rounded p-2 mb-0 d-flex align-items-center">
+					<div class="align-items-center d-flex flex-column mx-1">	
 						<div class="input-group input-group-outline">
 							<label class="form-label">검색어</label>
 							<input type="text" id="searchword" name="searchword" class="form-control" value="${param.searchword }">
+							<input type="hidden" id="filter" name="filter" value="${param.filter }">
 						</div>
+					</div>					
+					<div class="align-items-center d-flex flex-column py-1 ct-example">
+						<button type="button" id="searchbtn" class="btn btn-outline-primary mb-0 py-2 mx-1 fs-6">검색</button>
 					</div>
-					<div class="align-items-center d-flex flex-column py-1">
-						<button id="searchbtn" class="btn btn-outline-primary btn-sm mb-0 py-1 ms-2">검색</button>
-					</div>
-				</div>
+				</form>
 			</div>
 		</div>		
 	
 		<div class="card-body mx-5 px-0 pb-4">
-			<div class="table-responsive p-0">
+			<div class="p-0">
 				<table id="hr-table" class="table table-hover align-items-center mb-0">
 					<thead>
 						<tr>
-							<th class="text-center font-weight-bolder col-2">사원번호</th>
+							<th class="text-center py-3 font-weight-bolder col-2">사원번호</th>
 							<th class="text-center font-weight-bolder col-1">이름</th>
 							<th class="text-center font-weight-bolder col-1">부서</th>
 							<th class="text-center font-weight-bolder col-1">직책</th>
-							<th class="text-center font-weight-bolder col-4">이메일</th>
-							<th class="text-center font-weight-bolder col-3">내선번호</th>
+							<th class="text-center font-weight-bolder col-3">이메일</th>
+							<th class="text-center font-weight-bolder col-2">내선번호</th>
 							<th class="text-center font-weight-bolder col-3">연락처</th>
-							<th class="text-center font-weight-bolder col-1">재직상태</th>
+							<th class="text-center font-weight-bolder col-1">
+								<div class="dropdown">
+									<button class="btn btn-outline-secondary dropdown-toggle mb-0 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+										<span id="dropdown-selected">${empty param.filter ? "전체" : param.filter }</span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<li><a class="dropdown-item">전체</a></li>
+										<li><a class="dropdown-item">재직</a></li>
+										<li><a class="dropdown-item">휴가</a></li>
+										<li><a class="dropdown-item">휴직</a></li>
+										<li><a class="dropdown-item">퇴직</a></li>
+									</ul>
+								</div>
+							</th>
 						</tr>
 					</thead>
 	 				<tbody id="employeeTableBody">
 						<c:forEach var="vo" items="${list}">
 							<tr class="memList">
-								<td class="text-center identify-no">${vo.employee_no}</td>
-								<td class="text-center">${vo.name}</td>
-								<td class="text-center">${vo.depart_name}</td>
-								<td class="text-center">${vo.position_name}</td>
-								<td class="text-center">${vo.email}</td>
-								<td class="text-center">${vo.extension_no}</td>
-								<td class="text-center">${vo.contact}</td>
-								<td class="text-center"><span class="badge badge-sm bg-gradient-success">${vo.status}</span></td>
+								<td class="text-center py-2-3 identify-no">${vo.employee_no}</td>
+								<td class="text-center py-2-3">${vo.name}</td>
+								<td class="text-center py-2-3">${vo.depart_name}</td>
+								<td class="text-center py-2-3">${vo.position_name}</td>
+								<td class="text-center py-2-3">${vo.email}</td>
+								<td class="text-center py-2-3">${vo.extension_no}</td>
+								<td class="text-center py-2-3">${vo.contact}</td>
+								<td class="text-center py-2-3">
+									<span id="status-badge" class="badge badge-sm">${vo.status}</span>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -57,20 +73,20 @@
 		
 		<div class="row">
 			<div class="col-sm-5">
-				<div>Showing ${pageVO.startPage } to ${pageVO.endPage } of 미구현 entries</div>
+				<div class="ms-6">${pageVO.startPage } / ${pageVO.endPage } of 미구현</div>
 			</div>
-			<div class="col-sm-5">
+			<div class="col-sm-5 mb-3">
 				<ul class="pagination">
 					<c:if test="${pageVO.prev }">
-						<li class="page-link link-container"><a href="/hr/${listUrl }?page=${pageVO.endPage-pageVO.displayPageNum }&searchword=${searchword}" class="link"><<</a></li>
+						<li class="page-link link-container"><a href="/hr/${listUrl }?page=${pageVO.endPage-pageVO.displayPageNum }&filter=${filter}&searchword=${searchword}" class="link"><<</a></li>
 					</c:if>
 					<c:forEach var="i" begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
-						<li ${pageVO.cri.page == i ? "class='page-link link-container active'" : "class='page-link link-container'"} >
-							<a href="/hr/${listUrl }?page=${i }&searchword=${searchword}" ${pageVO.cri.page == i ? "class='link-white'" : "class=''"}>${i }</a>
+						<li ${pageVO.cri.page == i ? "class='link-container active'" : "class='link-container'"} >
+							<a href="/hr/${listUrl }?page=${i }&filter=${filter}&searchword=${searchword}" ${pageVO.cri.page == i ? "class='page-link rounded fw-bolder link-white'" : "class='page-link rounded fw-bolder'"}>${i }</a>
 						</li>				
 					</c:forEach>
 					<c:if test="${pageVO.next }">
-						<li class="page-link link-container"><a href="/hr/${listUrl }?page=${pageVO.startPage+pageVO.displayPageNum }&searchword=${searchword}" class="link">>></a></li>
+						<li class="page-link link-container"><a href="/hr/${listUrl }?page=${pageVO.startPage+pageVO.displayPageNum }&filter=${filter}&searchword=${searchword}" class="link">>></a></li>
 					</c:if>
 				</ul>
 			</div>
@@ -139,13 +155,15 @@
 					</table>
 					
 					<form action="/hr/list" id="edit-form" method="post">
-						<input type="hidden" name="employee_no" id="employee_no-forSubmit">
-						<input type="hidden" name="searchword" id="searchword-forSubmit">
+						<input type="hidden" id="employee_no-forSubmit" name="employee_no">
+						<input type="hidden" id="searchword-forSubmit" name="searchword">
+						<input type="hidden" id="filter-forSubmit" name="filter">
+						<input type="hidden" id="page-forSubmit" name="page" value="${empty page ? 1 : page }">
 						<table id="edit-table" class="d-none table">
 					    	<tr>
 								<th class="fs-5">부서</th>
 								<td class="fs-6">
-									<select name="depart_name" id="depart_name-select">
+									<select id="depart_name-select" name="depart_name">
 										<option value="미정">미정</option>
 										<option value="관리">관리</option>
 										<option value="생산">생산</option>
@@ -157,37 +175,37 @@
 							<tr>
 								<th class="fs-5">직책</th>
 								<td class="fs-6">
-									<select name="position_name" id="position_name-select"></select>
+									<select id="position_name-select" name="position_name"></select>
 								</td>
 							</tr>
 							<tr>
 								<th class="fs-5">이메일</th>
 								<td class="input-group input-group-dynamic">
-									<input class="fs-6 p-0 form-control" type="email" name="email" id="email-input" required="required">
+									<input id="email-input" class="fs-6 p-0 form-control" type="email" name="email"required="required">
 								</td>
 							</tr>
 							<tr>
 								<th class="fs-5">내선번호</th>
 								<td class="input-group input-group-dynamic">
-									<input class="fs-6 p-0 form-control" type="tel" name="extension_no" id="extension_no-input" required="required">
+									<input id="extension_no-input" class="fs-6 p-0 form-control" type="tel" name="extension_no" required="required">
 								</td>
 							</tr>
 							<tr>
 								<th class="fs-5">연락처</th>
 								<td class="input-group input-group-dynamic" >
-									<input class="fs-6 p-0 form-control" type="tel" name="contact" id="contact-input" required="required">
+									<input id="contact-input" class="fs-6 p-0 form-control" type="tel" name="contact" required="required">
 								</td>
 							</tr>
 							<tr>
 								<th class="fs-5">주소</th>
 								<td class="input-group input-group-dynamic">
-									<input class="fs-6 p-0 form-control" type="text" name="address" id="address-input" required="required">
+									<input id="address-input" class="fs-6 p-0 form-control" type="text" name="address" required="required">
 								</td>
 							</tr>
 							<tr>
 								<th class="fs-5">재직상태</th>
 								<td class="fs-6">
-									<select name="status" id="status-select">
+									<select id="status-select" name="status">
 										<option value="재직">재직</option>
 										<option value="휴가">휴가</option>
 										<option value="휴직">휴직</option>
@@ -217,9 +235,19 @@
 			$(".input-group").addClass("focused is-focused");
 		}
 		
+		$('table tr').each(function() {
+            var statusText = $(this).find('td:last-child #status-badge').text();
+            console.log("span: " + statusText);
+            switch(statusText){
+            case "재직": $(this).find('td:last-child #status-badge').addClass("bg-gradient-success"); break;
+            case "휴가": $(this).find('td:last-child #status-badge').addClass("bg-gradient-info"); break;
+            case "휴직": $(this).find('td:last-child #status-badge').addClass("bg-gradient-warning"); break;
+            case "퇴직": $(this).find('td:last-child #status-badge').addClass("bg-gradient-dark"); break;
+            }
+        });
+		
 		$("#searchbtn").click(function(){
-			var value = $("#searchword").val();
-			location.href = '/hr/searchlist?searchword=' + value;
+			$("#search-form").submit();
 		});		
 		
 		$("#hr-table").on("click", "tr td", function(event) {
@@ -241,7 +269,7 @@
 				    $("#contact").text(data.contact);
 				    $("#address").text(data.address);
 				    $("#status").text(data.status);
-					modal.style.display = "block";
+				    modal.style.display = "block";
 				},
 				error : function(error) {
 					console.log('실패:', error);
@@ -250,7 +278,6 @@
 	    });
 		
 		$("#closebtn").click(function(){
-			var value = $("#searchword").val();
 			modal.style.display = "none";
 			location.reload();
 		});
@@ -272,9 +299,10 @@
 					.then((willDelete) => {
 					  if (willDelete) {
 						swal("당신은 정말 잔인한 사람이에요!", {icon: "success"}).then(function(){
-							if($("#searchword").val()){
-								$("#searchword-forSubmit").val($("#searchword").val());
-							}							
+							if('${param.searchword}'!=""){
+								$("#searchword-forSubmit").val('${param.searchword}');
+							}		
+							$("#filter-forSubmit").val($("#dropdown-selected").text());					
 							$("#edit-form").submit();                
 						});							
 					  } else {
@@ -286,13 +314,14 @@
 		
 		$(window).click(function(event){
 			if (event.target == modal) {
-				modal.style.display = "none";
-				location.reload();
+				$("#closebtn").trigger("click");
 			}
 			
 			if (!$(event.target).closest('.input-group').length) {
 				if (!$("#searchword").val()) {
 		       		$(".input-group").removeClass("focused is-focused");
+				} else {
+					$(".input-group").addClass("focused is-focused");
 				}
 		    }
 		});		
@@ -304,6 +333,12 @@
 		$("#depart_name-select").on("change", function() {			
 			updatePositionNameSelect();
 		});	
+		
+		$(".dropdown-item").click(function(){
+			$("#dropdown-selected").text($(this).text());
+			$("#filter").val($("#dropdown-selected").text());
+			$("#search-form").submit();
+		});
 	});
 	
 	function getEditInfo() {

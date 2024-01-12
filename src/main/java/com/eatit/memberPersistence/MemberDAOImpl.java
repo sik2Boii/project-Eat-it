@@ -36,5 +36,22 @@ public class MemberDAOImpl implements MemberDAO {
 	
 		
 	}
+
+	@Override
+	public MemberVO selectProfile(MemberVO vo) {
+		logger.debug("DAO - 내정보 출력");
+		
+		return sqlSession.selectOne(NAMESPACE+".selectProfile",vo);
+	}
+
+	@Override
+	public void updateProfile(MemberVO vo) {
+		logger.debug("DAO - 내정보 수정");
+		sqlSession.update(NAMESPACE+".updateProfile",vo);
+		
+	}
+
+	
+	
 	
 }

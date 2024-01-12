@@ -45,23 +45,53 @@
 	    SELECT *
 	    FROM member
 	    WHERE active='승인'
+	    <choose>
+	        <when test="filter == '재직'">
+	            AND status='재직'
+	        </when>
+	        <when test="filter == '휴가'">
+	            AND status='휴가'
+	        </when>
+	        <when test="filter == '휴직'">
+	            AND status='휴직'
+	        </when>
+	        <when test="filter == '퇴직'">
+	            AND status='퇴직'
+	        </when>
+	    </choose>
 	    AND (name LIKE CONCAT('%', #{searchword}, '%')
+	    OR depart_name LIKE CONCAT('%', #{searchword}, '%')
 	    OR position_name LIKE CONCAT('%', #{searchword}, '%')
+	    OR status LIKE CONCAT('%', #{searchword}, '%')
 	    OR employee_no=#{searchword})
 	    ORDER BY employee_no DESC, regdate DESC
 	    LIMIT #{cri.startPage}, #{cri.pageSize}
 	</select>
 	
 	<select id="searchCount" resultType="int">
-  		<![CDATA[
-	  		SELECT COUNT(*)
-	  		FROM member
-		    WHERE active='승인'
-		    AND employee_no>0
-		    AND (employee_no=#{searchword}
-		    OR name LIKE CONCAT('%', #{searchword}, '%')
-		    OR position_name LIKE CONCAT('%', #{searchword}, '%'))
-  		]]>
+  		SELECT COUNT(*)
+  		FROM member
+	    WHERE active='승인'
+	    AND employee_no>0
+	    <choose>
+	        <when test="filter == '재직'">
+	            AND status='재직'
+	        </when>
+	        <when test="filter == '휴가'">
+	            AND status='휴가'
+	        </when>
+	        <when test="filter == '휴직'">
+	            AND status='휴직'
+	        </when>
+	        <when test="filter == '퇴직'">
+	            AND status='퇴직'
+	        </when>
+	    </choose>
+	    AND (employee_no=#{searchword}
+	    OR name LIKE CONCAT('%', #{searchword}, '%')
+	    OR depart_name LIKE CONCAT('%', #{searchword}, '%')
+	    OR position_name LIKE CONCAT('%', #{searchword}, '%')
+	    OR status LIKE CONCAT('%', #{searchword}, '%'))
   	</select>
   	
   	<select id="selectHrRegList" resultType="MemberVO">

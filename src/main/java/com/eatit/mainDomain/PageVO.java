@@ -27,6 +27,7 @@ public class PageVO {
 	private boolean prev; 	// 이전링크
 	private boolean next; 	// 다음링크
 	
+	
 	private int displayPageNum = 10; // 페이지 블럭의 크기
 	
 	private Criteria cri;

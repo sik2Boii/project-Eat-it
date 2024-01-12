@@ -30,7 +30,7 @@
 				<div id="tableContainer" class="modal-body">
 					<table id="view-table" class="table">
 						<tr>
-							<th class="fs-5">구분</th>
+							<th class="fs-5 ">구분</th>
 							<td class="fs-6" id="category"></td>
 						</tr>
 						<tr>
@@ -77,7 +77,7 @@
 								<td class="fs-6">
 									<div class="input-group input-group-dynamic">
 									    <input type="text" name="category" id="category-input" 
-									    class="form-control" placeholder="구분" aria-label="구분" aria-describedby="basic-addon1">
+									    class="form-control" placeholder="구분" aria-label="구분" aria-describedby="basic-addon1" readonly>
 									</div>
 								</td>
 							</tr>
@@ -159,12 +159,12 @@
 		<div class="card my-4 mx-4">
 			<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
 				<div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-					<h6 class="text-white text-capitalize ps-3">창고 목록</h6>
+					<h6 class="text-white text-capitalize ps-5 fs-3">창고 목록</h6>
 				</div>
 			</div>
 			
 			<div class="card-body px-0 pb-2">
-				<div class="table-responsive p-0">
+				<div class="table-responsive p-0 min-vh-65">
 					<form role="form" method="post">
 					<table class="table align-items-center mb-0">
 					
@@ -173,12 +173,12 @@
 								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
 									<input type="checkbox" id="cbx_chkAll">
 								</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">창고번호</th>
-								<th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">구분</th>
-								<th class="text-center text-secondary text-xxs font-weight-bolder opacity-7 ">창고명</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">관리자</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">사용여부</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">상세정보</th>
+								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 fs-6">창고번호</th>
+								<th class="text-center text-secondary text-xs font-weight-bolder opacity-7 fs-6">구분</th>
+								<th class="text-center text-secondary text-xs font-weight-bolder opacity-7 fs-6">창고명</th>
+								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 fs-6">관리자</th>
+								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 fs-6">사용여부</th>
+								<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 fs-6">상세정보</th>
 							</tr>
 						</thead>
 						
@@ -189,19 +189,19 @@
 										<input type="checkbox" name="chk" value="${warehouseListMain.warehouse_no}">
 									</td>
 									<td class="text-center">
-                      					<span class="text-secondary text-xs font-weight-bold">${warehouseListMain.warehouse_no}</span>
+                      					<span class="text-secondary text-sm font-weight-bold">${warehouseListMain.warehouse_no}</span>
                      				</td>
 									<td class="text-center">
-                      					<span class="text-secondary text-xs font-weight-bold">${warehouseListMain.category}</span>
+                      					<span class="text-secondary text-sm font-weight-bold">${warehouseListMain.category}</span>
 			                        </td>
 									<td class="text-center">
-				                        <span class="text-secondary text-xs font-weight-bold">${warehouseListMain.warehouse_name}</span>
+				                        <span class="text-secondary text-sm font-weight-bold">${warehouseListMain.warehouse_name}</span>
                       				</td>
 									<td class="text-center">
-										<span class="text-secondary text-xs font-weight-bold">${warehouseListMain.name}</span>
+										<span class="text-secondary text-sm font-weight-bold">${warehouseListMain.name}</span>
 									</td>
 									<td class="text-center text-sm">
-			                        	<span class="badge badge-sm bg-gradient-success">${warehouseListMain.use_status}</span>
+			                        	<span id="wMainStatus" class="badge badge-sm bg-gradient-success">${warehouseListMain.use_status}</span>
 			                      	</td>
 									<td class="text-center text-sm">
 									<!--상세내역 모달버튼 시작  -->
@@ -217,9 +217,9 @@
 					</table>
 					</form>
 				</div>
-				<div>
-	                <button type="button" class="btn bg-gradient-primary" onclick="popup();">창고등록</button>
-	                <button type="button" id="deleteBtn" class="btn bg-gradient-primary" >창고삭제</button>
+				<div class="text-end ">
+	                <button type="button" class="btn bg-gradient-dark py-2" onclick="popup();">창고등록</button>
+	                <button type="button" id="deleteBtn" class="btn bg-gradient-dark py-2 me-3" >창고삭제</button>
 	            </div>
 			</div>
 		</div>
@@ -257,7 +257,7 @@ $(document).ready(function(){
 				  title: "정말 삭제하시겠습니까?",
 				  icon: "warning",
 				  buttons: true,
-				  dangerMode: true,
+				  dangerMode: true
 				})
 				.then((willDelete) => {
 				  if (willDelete) {
@@ -269,6 +269,18 @@ $(document).ready(function(){
 				  }
 			});	
 		});
+		
+		// 상태 변경
+		 $('table tr').each(function() {
+		        var statusText = $(this).find('#wMainStatus').text();
+//		        console.log('Status Text:', statusText);
+		        switch(statusText){
+		        case "Y": $(this).find('#wMainStatus').addClass("bg-gradient-success"); break; // 초록
+		        case "N": $(this).find('#wMainStatus').addClass("bg-gradient-danger"); break;   // 빨강
+		        }
+		 });
+		
 	});
 </script>
 <script src="/resources/js/plugins/warehouseMain.js"></script>
+</html>
