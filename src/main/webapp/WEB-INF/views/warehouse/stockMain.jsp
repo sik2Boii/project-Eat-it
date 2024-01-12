@@ -122,22 +122,6 @@ $(document).ready(function(){
 	 	      dropItemReposition();
  	   	});
  	 	
- 	 	if($("#searchword").val()) {
-			$(".input-group").addClass("focused is-focused");
-		}
- 	 	
- 	 	$(window).click(function(event){
-			if (event.target == modal) {
-				$("#closebtn").trigger("click");
-			}
-			
-			if (!$(event.target).closest('.input-group').length) {
-				if (!$("#searchword").val()) {
-		       		$(".input-group").removeClass("focused is-focused");
-				}
-		    }
-		});
- 	 	
  	 	$(".input-group").click(function(){
 			$(this).addClass("focused is-focused");
 		});

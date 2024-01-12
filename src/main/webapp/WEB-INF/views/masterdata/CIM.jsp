@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -34,6 +33,7 @@
 					<form action="/masterdata/delRequires" id="batchForm" method="post">
 						<input type="hidden" id="query-forDelSubmit" name="query">
 						<input type="hidden" id="filter-forDelSubmit" name="filter">
+						<input type="hidden" id="page-forDelSubmit" name="page" value="${empty page ? 1 : page }">
 						<table id="required_table" class="table table-hover align-items-center mb-0">
 							<thead>
 								<tr>
@@ -315,6 +315,8 @@ $(document).ready(function() {
 		if (!$(event.target).closest('.input-group').length) {
 			if (!$("#query").val()) {
 	       		$(".input-group").removeClass("focused is-focused");
+			} else {
+				$(".input-group").addClass("focused is-focused");
 			}
 	    }
 	});	

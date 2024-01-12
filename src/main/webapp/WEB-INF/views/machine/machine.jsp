@@ -342,6 +342,8 @@ $(window).click(function(event){
 	if (!$(event.target).closest('.input-group').length) {
 		if (!$("#searchword").val()) {
        		$(".input-group").removeClass("focused is-focused");
+		} else {
+			$(".input-group").addClass("focused is-focused");
 		}
     }
 });		

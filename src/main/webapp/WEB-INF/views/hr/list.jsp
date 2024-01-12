@@ -158,6 +158,7 @@
 						<input type="hidden" id="employee_no-forSubmit" name="employee_no">
 						<input type="hidden" id="searchword-forSubmit" name="searchword">
 						<input type="hidden" id="filter-forSubmit" name="filter">
+						<input type="hidden" id="page-forSubmit" name="page" value="${empty page ? 1 : page }">
 						<table id="edit-table" class="d-none table">
 					    	<tr>
 								<th class="fs-5">부서</th>
@@ -319,6 +320,8 @@
 			if (!$(event.target).closest('.input-group').length) {
 				if (!$("#searchword").val()) {
 		       		$(".input-group").removeClass("focused is-focused");
+				} else {
+					$(".input-group").addClass("focused is-focused");
 				}
 		    }
 		});		

@@ -182,6 +182,8 @@
 			if (!$(event.target).closest('.input-group').length) {				
 				if (!$("#query").val()) {
 		       		$(".input-group").removeClass("focused is-focused");
+				} else {
+					$(".input-group").addClass("focused is-focused");
 				}
 		    }
 		});	

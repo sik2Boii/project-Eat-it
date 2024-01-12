@@ -347,7 +347,8 @@ public class MasterDataController {
 	@RequestMapping(value = "/CIM", method = RequestMethod.GET)
 	public void CIMListPageGet(Model model, Criteria cri, Map<String, Object> params,
 		@ModelAttribute(name = "filter") String filter,
-		@ModelAttribute(name = "query") String query) {
+		@ModelAttribute(name = "query") String query,
+		@RequestParam(name = "page", required = false) String page) {
 		logger.debug("/masterdata/CIM 호출 -> CIMListPageGet() 실행");
 
 		PageVO pageVO = new PageVO();
@@ -370,6 +371,9 @@ public class MasterDataController {
 			list = mdService.getSearchCIMList(params);
 		}
 		
+		// 동작 후 리스트 출력 시 페이지 유지를 위해 전달
+		model.addAttribute("page", page);
+		
 		model.addAttribute("listUrl", "CIM");
 		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("CIMList", list);
@@ -378,11 +382,8 @@ public class MasterDataController {
 	@RequestMapping(value = "/CIM", method = RequestMethod.POST)
 	public String editRequiresPOST(MasterdataVO vo, @RequestParam(name = "materialGroup", required = false) String[] materialGroup,
 		@RequestParam(name = "requiredGroup", required = false) String[] requiredGroup, @ModelAttribute("query") String query,
-		@ModelAttribute("filter") String filter) {
+		@ModelAttribute("filter") String filter, @RequestParam(name = "page", required = false) String page) {
 		logger.debug("/masterdata/CIM 호출 -> editRequiresPOST() 실행");
-		
-		logger.debug("materialGroup : "+materialGroup);
-		logger.debug("requiredGroup : "+requiredGroup);
 		
 		String jsonRecipe = "";
 		
@@ -401,7 +402,9 @@ public class MasterDataController {
 		
 		vo.setRecipe(jsonRecipe);
 		mdService.editRequires(vo);
-		return "redirect:/masterdata/CIM";
+		
+		// 동작 컨트롤러 진행 후  리스트 출력 주소로 이동 시 항상 페이지를 붙여서 리다이렉트로 전달 
+		return "redirect:/masterdata/CIM?page="+page;
 	}
 
 	@RequestMapping(value = "/cimContent", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
@@ -420,12 +423,13 @@ public class MasterDataController {
 	
 	@RequestMapping(value = "/delRequires", method = RequestMethod.POST)
 	public String batchDeletePost(MasterdataVO vo, @RequestParam("checkgroup") int[] product_no_List,
-		@ModelAttribute("query") String query, @ModelAttribute("filter") String filter) {
+		@ModelAttribute("query") String query, @ModelAttribute("filter") String filter,
+		@RequestParam(name = "page", required = false) String page) {
 		logger.debug("/masterdata/delRequires 호출 -> batchDeletePost() 실행");
 		for(int i : product_no_List) {
 			vo.setProduct_no(i);
 			mdService.delRequires(vo);
 		}
-		return "redirect:/masterdata/CIM";
+		return "redirect:/masterdata/CIM?page="+page;
 	}
 }

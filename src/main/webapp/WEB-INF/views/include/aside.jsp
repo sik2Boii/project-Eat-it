@@ -11,10 +11,10 @@
    <hr class="horizontal light mt-0 mb-2">
    <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
 		 <div class="dropdown mb-3 mt-3 ms-4-5 w-100">
-			  <button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="checkAccess(event)">
+			  <button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="totalDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="totalCheck()">
 			   	 기준정보 관리
 			  </button>
-			  <ul class="dropdown-menu w-80" aria-labelledby="dropdownMenuButton">
+			  <ul class="dropdown-menu w-80" aria-labelledby="totalDropdownMenuButton">
    			  	<li>
    			  		<a class="dropdown-item fs-6" href="${path}/masterdata/BomMain">BOM 관리</a>
 		  		</li>
@@ -24,10 +24,10 @@
 			  </ul>
 		 </div>
    		 <div class="dropdown mb-3 ms-4-5 w-100">
-	  		<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+	  		<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="materialDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="materialCheck()">
 	   			 자재 관리
  		    </button>
-	  		<ul class="dropdown-menu w-80" aria-labelledby="dropdownMenuButton">
+	  		<ul class="dropdown-menu w-80" aria-labelledby="materialDropdownMenuButton">
 			    <li>
 			    	<a class="dropdown-item fs-6" href="/Material/materialadd">자재 입출고 관리</a>
 			    </li>
@@ -40,10 +40,10 @@
 	  		</ul>
 		 </div>
       	 <div class="dropdown mb-3 ms-4-5 w-100">
-			<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+			<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="machineDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="machineCheck()">
 			   	 설비 & 생산 관리
 			</button>
-  			<ul class="dropdown-menu w-80" aria-labelledby="dropdownMenuButton">
+  			<ul class="dropdown-menu w-80" aria-labelledby="machineDropdownMenuButton">
 			    <li>
 			    	<a class="dropdown-item fs-6" href="/machine/machine">설비 관리</a>
 			    </li>
@@ -56,10 +56,10 @@
 	  		</ul>
 		</div>
       	<div class="dropdown mb-3 ms-4-5 w-100">
-			<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+			<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="warehouseDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="warehouseCheck()">
 			   	창고 관리
 			</button>
-	  		<ul class="dropdown-menu w-80" aria-labelledby="dropdownMenuButton">
+	  		<ul class="dropdown-menu w-80" aria-labelledby="warehouseDropdownMenuButton">
 		    	<li>
 		    		<a class="dropdown-item fs-6" href="/warehouse/warehouseMain">창고 목록</a>
 		    	</li>
@@ -72,10 +72,10 @@
 			</ul>
 		</div>
         <div class="dropdown mb-3 ms-4-5 w-100">
-	  		<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+	  		<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="orderDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="orderCheck()">
 	   			납품 관리
 	  		</button>
-			<ul class="dropdown-menu w-80" aria-labelledby="dropdownMenuButton">
+			<ul class="dropdown-menu w-80" aria-labelledby="orderDropdownMenuButton">
 			  	<li>
 			  		<a class="dropdown-item fs-6" href="/orders/lists">주문 목록</a>
 			  	</li>
@@ -85,10 +85,10 @@
 			</ul>
 		</div>
         <div class="dropdown ms-4-5 w-100">
-			<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+			<button class="btn bg-gradient-secondary dropdown-toggle w-70 fs-6" type="button" id="hrDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="hrCheck()">
 			   	인사 관리
 			</button>
-			<ul class="dropdown-menu w-80" aria-labelledby="dropdownMenuButton">
+			<ul class="dropdown-menu w-80" aria-labelledby="hrDropdownMenuButton">
 			    <li>
 			    	<a class="dropdown-item fs-6" href="/hr/list">인사 정보</a>
 			    </li>

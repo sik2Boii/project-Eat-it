@@ -14,7 +14,7 @@
 					<div class="align-items-center d-flex flex-column mx-1">	
 						<div class="input-group input-group-outline">
 							<label class="form-label">검색어</label>
-							<input type="text" id="stockSearchword" name="searchword" class="form-control" value="${param.searchword }">
+							<input type="text" id="searchword" name="searchword" class="form-control" value="${param.searchword }">
 							<input type="hidden" id="filter" name="filter" value="${param.filter }">
 						</div>
 					</div>					
@@ -30,7 +30,7 @@
 					<form role="form" method="post" class="w-sm-auto">
 					<input type="hidden" id="searchword-forSubmit" name="searchword">
 					<input type="hidden" id="filter-forSubmit" name="filter">
-					<input type="hidden" id="filter-forSubmit" name="page" value="${page}">
+					<input type="hidden" id="page-forSubmit" name="page" value="${empty page ? 1 : page }">
 					<table class="table align-items-center mb-0 ">
 						<thead>
 							<tr>
@@ -158,26 +158,6 @@ $(document).ready(function(){
  	 	$("#dropdownMenuButton").click(function(){
 	 	      dropItemReposition();
  	   	});
- 	 	
- 	 	if($("#stockSearchword").val()) {
-			$(".input-group").addClass("focused is-focused");
-		}
- 	 	
- 	 	$(window).click(function(event){
-			if (event.target == modal) {
-				$("#closebtn").trigger("click");
-			}
-			
-			if (!$(event.target).closest('.input-group').length) {
-				if (!$("#stockSearchword").val()) {
-		       		$(".input-group").removeClass("focused is-focused");
-				}
-		    }
-		});
- 	 	
- 	 	$(".input-group").click(function(){
-			$(this).addClass("focused is-focused");
-		});
  	 	
 		// 체크박스 전체선택 기능
 		$("#cbx_chkAll").click(function() {

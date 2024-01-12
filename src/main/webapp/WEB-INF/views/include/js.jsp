@@ -9,37 +9,86 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-function checkAccess(event) {
-    // JSP에서 가져온 값
-    var departName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
-
-    // "총괄"인 경우에만 메뉴 접근 허용
-    if (departName !== "총괄") {
-        // "총괄"이 아닌 경우 알림창 표시
-        swal("해당 메뉴에 접근할 권한이 없습니다.","다른 메뉴를 선택해주세요","warning");
-
-        // Dropdown 감추기
-        hideDropdown();
-
-        // 특정 클래스 추가
-        document.body.classList.add('no-access');
-
-        // 클릭 이벤트 취소
-        event.stopPropagation();
-        event.preventDefault();
-    }
+function checkAccess(departName, allowedDepartments) {
+    return !allowedDepartments.includes(departName);
 }
 
-function hideDropdown() {
-    // Bootstrap에서 사용되는 Dropdown 클래스를 찾아 강제로 숨김 처리
-    var dropdownButton = document.getElementById('dropdownMenuButton');
-    var dropdownMenu = document.querySelector('.dropdown-menu');
+function handleAccessDenied() {
+	swal("해당 메뉴에 접근할 권한이 없습니다.", "※부서를 이동하시거나 당신 일을 찾아 떠나세요※", "warning");
+    document.body.classList.add('no-access');
+}
+
+function hideDropdown(dropdownButtonId) {
+    var dropdownButton = document.getElementById(dropdownButtonId);
+    var dropdownMenu = dropdownButton.nextElementSibling;
 
     if (dropdownButton && dropdownMenu) {
         dropdownButton.setAttribute('aria-expanded', 'false');
         dropdownMenu.classList.remove('show');
     }
 }
+
+function totalCheck() {
+    var totalDepartName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
+    var allowedDepartments = ["총괄"];
+
+    if (checkAccess(totalDepartName, allowedDepartments)) {
+        hideDropdown('totalDropdownMenuButton');
+        handleAccessDenied();
+    }
+}
+
+function materialCheck() {
+    var materialDepartName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
+    var allowedDepartments = ["총괄", "영업"];
+
+    if (checkAccess(materialDepartName, allowedDepartments)) {
+        hideDropdown('materialDropdownMenuButton');
+        handleAccessDenied();
+    }
+}
+
+function machineCheck() {
+    var machineDepartName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
+    var allowedDepartments = ["총괄", "생산"];
+
+    if (checkAccess(machineDepartName, allowedDepartments)) {
+        hideDropdown('machineDropdownMenuButton');
+        handleAccessDenied();
+    }
+}
+
+function warehouseCheck() {
+    var warehouseDepartName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
+    var allowedDepartments = ["총괄", "관리"];
+
+    if (checkAccess(warehouseDepartName, allowedDepartments)) {
+        hideDropdown('warehouseDropdownMenuButton');
+        handleAccessDenied();
+    }
+}
+
+function orderCheck() {
+    var orderDepartName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
+    var allowedDepartments = ["총괄", "영업"];
+
+    if (checkAccess(orderDepartName, allowedDepartments)) {
+        hideDropdown('orderDropdownMenuButton');
+        handleAccessDenied();
+    }
+}
+
+function hrCheck() {
+    var hrDepartName = '<%= String.valueOf(session.getAttribute("depart_name")) %>';
+    var allowedDepartments = ["총괄"];
+
+    if (checkAccess(hrDepartName, allowedDepartments)) {
+        hideDropdown('hrDropdownMenuButton');
+        handleAccessDenied();
+    }
+}
+
+
 </script>
 
 <script>

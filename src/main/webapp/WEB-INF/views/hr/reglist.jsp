@@ -43,6 +43,7 @@
 							</tbody>
 						</table>
 						<input type="hidden" name="ad_identify" id="batchad_identify-forSubmit">
+						<input type="hidden" name="page" id="batchad_page-forSubmit" value="${empty page ? 1 : page }">
 					</form>
 				</div>
 				<div class="col-lg-auto mt-2">
@@ -126,6 +127,7 @@
 							<form id="edit-form" method="post">
 								<input type="hidden" name="employee_no" id="employee_no-forSubmit">
 								<input type="hidden" name="ad_identify" id="ad_identify-forSubmit">
+								<input type="hidden" name="page" id="page-forSubmit" value="${empty page ? 1 : page }">
 						  	</form>
 						</div>
 						<div class="row d-flex justify-content-center py-3">
