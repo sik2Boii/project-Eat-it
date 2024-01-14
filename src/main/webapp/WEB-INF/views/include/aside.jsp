@@ -16,11 +16,17 @@
 			  </button>
 			  <ul class="dropdown-menu w-80" aria-labelledby="totalDropdownMenuButton">
    			  	<li>
-   			  		<a class="dropdown-item fs-6" href="${path}/masterdata/BomMain">BOM 관리</a>
+   			  		<a class="dropdown-item fs-6" href="${path}/masterdata/PIM">품목정보 관리</a>
 		  		</li>
 				<li>
-					<a class="dropdown-item fs-6" href="${path}/masterdata/QualityManagement">설비정보관리</a>
+					<a class="dropdown-item fs-6" href="${path}/masterdata/MIM">원자재정보 관리</a>
 				</li>
+				<li>
+					<a class="dropdown-item fs-6" href="${path}/masterdata/CIM">소요량 관리</a>
+				</li>
+<!-- 				<li> -->
+<%-- 					<a class="dropdown-item fs-6" href="${path}/masterdata/QIM">품질 관리</a> --%>
+<!-- 				</li> -->
 			  </ul>
 		 </div>
    		 <div class="dropdown mb-3 ms-4-5 w-100">

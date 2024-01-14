@@ -52,4 +52,13 @@ public interface OrdersDAO {
 	public List<OrdersVO> selectproduct(Criteria cri);
 	
 	public int selectproductcount();
+
+	public void updateOrderStatusToShippingPreparation(Integer order_id);
+
+	public void updateOrderStatusToDelivering(Integer delivery_id);
+
+	public void updateOrderComplete(Integer delivery_id);
+
+	public void updateOrderStatusToReleaseComplete(Integer order_id);
+	
 }

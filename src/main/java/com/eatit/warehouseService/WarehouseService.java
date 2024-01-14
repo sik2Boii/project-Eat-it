@@ -45,8 +45,6 @@ public interface WarehouseService {
 	public void deleteWarehouse(int[] warehouse_no);
 	
 	//------------------------------------------------------------------------------------//
-	// 창고 재고 정보 현황에 필요한 정보 조회
-	public void getStockList();
 	
 	// 창고 재고 정보 페이징(검색어, 필터x)
 	public List<StockInfoVO> getStockInfoList(Criteria cri);
@@ -80,5 +78,8 @@ public interface WarehouseService {
 	
 	// 입출고 정보 테이블 모두 조회(검색어 o, 필터 o) - 페이징
 	public List<StockVO> findStockList(Map<String, Object> params);
+	
+	// 창고 재고 삭제
+	public void deleteStock(String[] identifyCode);
 	
 }
