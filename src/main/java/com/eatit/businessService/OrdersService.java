@@ -53,4 +53,12 @@ public interface OrdersService {
 	
 	public int selectproductcount();
 
+	public void changeOrderStatusToShippingPreparation(Integer order_id);
+
+	public void updateOrderStatusToDelivering(Integer delivery_id);
+
+	public void completeOrder(Integer delivery_id);
+
+	public void updateOrderStatusToReleaseComplete(Integer order_id);
+	
 }

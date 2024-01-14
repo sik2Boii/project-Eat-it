@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.eatit.businessPersistence.DeliveryDAO;
+import com.eatit.businessPersistence.OrdersDAO;
 import com.eatit.mainDomain.Criteria;
 import com.eatit.memberDomain.MemberVO;
 import com.eatit.productionDomain.production_warehouseVO;
@@ -26,6 +28,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 	
 	@Inject
 	private WarehouseDAO wDao;
+	
+	@Inject
+	private DeliveryDAO dDao;
+	
+	@Inject
+	private OrdersDAO oDao;
 	
 	@Override
 	// 창고 정보 리스트 가져오기(All)
@@ -204,14 +212,14 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 	
 	// 완제품 출고 - orderId 추출 메서드()
-	private String extractOrderId(String orderId) {
+	private int extractOrderId(String identifyCode) {
         // 주어진 문자열에서 맨 뒤 4자리 숫자 추출하되, 앞에 붙은 0은 무시
-        if (orderId != null && orderId.length() >= 4) {
-            String last4Digits = orderId.substring(orderId.length() - 4);
-            return String.valueOf(Integer.parseInt(last4Digits)); // 앞에 붙은 0 제거
+        if (identifyCode != null && identifyCode.length() >= 4) {
+            String last4Digits = identifyCode.substring(identifyCode.length() - 4);
+            return Integer.parseInt(last4Digits); // 앞에 붙은 0 제거
         } else {
             // 문자열이 4자리 미만인 경우나 null인 경우 처리
-            return null;
+            return 0;
         }
     }
 	
@@ -306,6 +314,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 				
 				// 처리 상태 변경 - '대기중' => '승인'  
 				wDao.updateStockInfoStatusWhenApprovalSuccess(vo);
+				
+				// 승인 시 배송, 주문 상태변경
+				oDao.updateOrderStatusToReleaseComplete(extractOrderId(vo.getIdentify_code()));
+				dDao.updateReleaseComplete(extractOrderId(vo.getIdentify_code()));
 				
 				// 유통기한 기준 선입선출 로직
 			    // 리스트 크기 변수

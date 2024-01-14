@@ -61,7 +61,7 @@
 												</td>
 												<td>
 													<div class="input-group input-group-dynamic mb-4">
-														<input type="text" name="expiry_date" class="form-control"
+														<input type="date" name="expiry_date" class="form-control"
 															placeholder="유통 기한" aria-label="유통 기한"
 															aria-describedby="basic-addon1">
 													</div>

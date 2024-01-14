@@ -221,7 +221,7 @@
 		 	OR product_name LIKE CONCAT('%', #{searchword}, '%') 
 		 	OR status LIKE CONCAT('%', #{searchword}, '%')
 			)
-		ORDER BY io_date 
+		ORDER BY io_date DESC
 		LIMIT #{cri.startPage}, #{cri.pageSize}
 	</select>
   	
@@ -239,7 +239,7 @@
   			io_date,
   			status 
   		FROM stock_info 
-  		ORDER BY io_date 
+  		ORDER BY io_date DESC
   		LIMIT #{startPage},#{pageSize}
   	</select>
   	<!-- stock_info table 조회 -->

@@ -24,8 +24,7 @@
 				</form>
 				</div>
 			</div>
-			
-			<div class="card-body px-0 pb-2 z-index-0">
+			<div class="card-body px-0 pb-2 z-index-1">
 				<div class="table-responsive p-0 min-vh-65">
 					<form role="form" method="post" class="w-sm-auto">
 					<input type="hidden" id="searchword-forSubmit" name="searchword">
