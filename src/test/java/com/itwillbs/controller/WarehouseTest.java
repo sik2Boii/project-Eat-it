@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.eatit.warehouseDomain.StockInfoVO;
 import com.eatit.warehouseDomain.StockVO;
 import com.eatit.warehouseDomain.WarehouseVO;
 import com.eatit.warehousePersistence.WarehouseDAO;
@@ -81,9 +82,14 @@ public class WarehouseTest {
 //		wdao.getStockInfoByIdentifyCode("002F2K1202401090017");
 		StockVO vo = new StockVO();
 		vo.setWarehouse_no(1);
-		vo.setProduct_code("F2K1");
+		vo.setProduct_code("M4S1");
 //		wdao.getWarehouseUseStatusByWarehouseNO(vo);
 		wdao.getStockOrderByExpiryDateList(vo.getProduct_code());
+		StockInfoVO infoVO = new StockInfoVO();
+		infoVO.setIdentify_code("009M4S1-O202401120009");
+//		wdao.getStockInfoByIdentifyCode(infoVO);
 //		wdao.selectQuantityOrderByExpiryDateList(vo.getIdentify_code());
+		wdao.countIdentifyCode("002F1C1-I202401030001");
+		
 	}
 }

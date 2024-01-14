@@ -43,6 +43,9 @@
 					<table class="table align-items-center mb-0 ">
 						<thead>
 						<tr>
+							<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+								<input type="checkbox" id="cbx_chkAll">
+							</th>
 							<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">품목코드</th>
 							<th class="text-center text-secondary text-xs font-weight-bolder opacity-7 px-1">창고번호</th>
 							<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">구분</th>
@@ -55,6 +58,9 @@
 	 				<tbody id="employeeTableBody">
 						<c:forEach var="vo" items="${stockList}">
 							<tr class="memList">
+								<td class="text-uppercase text-secondary text-xxs font-weight-bold opacity-7" style="padding: 0.75rem 1.5rem;">
+									<input type="checkbox" name="chk" value="${vo.identify_code}">
+								</td>
 								<td class="text-center">
                    					<span class="text-secondary text-sm font-weight-bold">${vo.product_code}</span>
                    				</td>
@@ -102,6 +108,9 @@
 							</c:if>
 						</ul>
 					</div>
+					<div class="col-2 text-end ">
+		                <button type="button" id="deleteBtn" class="btn bg-gradient-dark py-2 me-5" >창고 재고 삭제</button>
+		            </div>
 				</div>
 			</div>
 		</div>
@@ -121,6 +130,44 @@ $(document).ready(function(){
  	 	$("#dropdownMenuButton").click(function(){
 	 	      dropItemReposition();
  	   	});
+ 	 	
+ 	 	// 체크박스 전체선택 기능
+		$("#cbx_chkAll").click(function() {
+			if ($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
+			else $("input[name=chk]").prop("checked", false);
+		});
+ 	 	
+		// 삭제 버튼 클릭시, 창고 번호를 사용해서 삭제 처리
+		$("#deleteBtn").click(function(){
+			var chkboxes = $("input[name='chk']:checked");
+			
+			 if (chkboxes.length === 0) {
+		            swal({
+		                title: "삭제할 재고를 선택해주세요",
+		                icon: "warning",
+		                buttons:{
+		                    confirm: true
+		                }
+		            });
+		            return;
+		        }
+			
+			swal({
+				  title: "정말 삭제하시겠습니까?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					swal("삭제 완료", {icon: "success"}).then(function(){
+						$("#closebtn").click();
+						formObj.attr("action","/warehouse/stockMain");
+						formObj.submit();
+					});							
+				  }
+			});	
+		});
  	 	
  	 	$(".input-group").click(function(){
 			$(this).addClass("focused is-focused");

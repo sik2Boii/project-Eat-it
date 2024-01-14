@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.eatit.businessService.OrdersService;
 import com.eatit.mainDomain.Criteria;
 import com.eatit.mainDomain.PageVO;
 import com.eatit.memberDomain.MemberVO;
-import com.eatit.memberService.HumanResourceService;
 import com.eatit.warehouseDomain.StockInfoVO;
 import com.eatit.warehouseDomain.StockVO;
 import com.eatit.warehouseDomain.WarehouseVO;
@@ -36,12 +33,8 @@ public class WarehouseController {
 	private static final Logger logger = LoggerFactory.getLogger(WarehouseController.class);
 	
 	@Inject
-	private WarehouseService warehouseService;
+	private WarehouseService wService;
 	
-	@Inject
-	private HumanResourceService hrService;
-	
-	@Inject OrdersService oService;
 ////////////////////////////////////////// 창고 메인 페이지 시작 ///////////////////////////////////////
 	//http://localhost:8088/warehouse/warehouseMain
 	@GetMapping(value = "/warehouseMain")
@@ -50,13 +43,13 @@ public class WarehouseController {
 //		logger.debug("no : "+no);
 		
 		// 서비스 - 창고 리스트 가져오기
-		List<WarehouseVO> warehouseListMain = warehouseService.warehouseListMain();
+		List<WarehouseVO> warehouseListMain = wService.warehouseListMain();
 		
 		// 서비스 - 회원 리스트 가져오기
-		List<MemberVO> memberList = warehouseService.memberListAll();
+		List<MemberVO> memberList = wService.memberListAll();
 		
 		// 서비스 - 직책 정보 가져오기
-		List<String> positionName = warehouseService.memberGetPositionName();
+		List<String> positionName = wService.memberGetPositionName();
 		
 		// 데이터를 연결된 뷰페이지로 전달
 		model.addAttribute("warehouseListMain", warehouseListMain);
@@ -70,7 +63,7 @@ public class WarehouseController {
 //      logger.debug("vo : "+vo);
       
       // 정보 수정
-      warehouseService.warehouseUpdate(vo);
+      wService.warehouseUpdate(vo);
       
       return "redirect:/warehouse/warehouseMain";
    }
@@ -81,7 +74,7 @@ public class WarehouseController {
 //		logger.debug("no : "+ no);
 		
 		// 서비스 - 창고 등록 할 때 등록페이지에 로그인한 회원 정보 가져오기
-		MemberVO warehouseInfo = warehouseService.warehouseInfo(no);
+		MemberVO warehouseInfo = wService.warehouseInfo(no);
 		
 		// 데이터를 연결된 뷰페이지로 전달
 		model.addAttribute("warehouseAdminInfo", warehouseInfo);
@@ -92,7 +85,7 @@ public class WarehouseController {
 //		logger.debug("vo : "+vo);
 		
 		// 서비스 - 창고 등록
-		warehouseService.warehouseRegist(vo);
+		wService.warehouseRegist(vo);
 		
 		return "redirect:/warehouse/registClose";
 	}
@@ -103,7 +96,7 @@ public class WarehouseController {
 		logger.debug("vo : "+warehouse_no);
 		
 		// 서비스 - 창고 삭제
-		warehouseService.deleteWarehouse(warehouse_no);
+		wService.deleteWarehouse(warehouse_no);
 		
 		return "redirect:/warehouse/warehouseMain";
 	}
@@ -136,14 +129,14 @@ public class WarehouseController {
 		pageVO.setCri(cri);
 		
 		if(searchword == null && filter == null) {
-			pageVO.setTotalCount(warehouseService.getStockTotalCount());
-			stockList = warehouseService.getStockListAll(cri);
+			pageVO.setTotalCount(wService.getStockTotalCount());
+			stockList = wService.getStockListAll(cri);
 		}else {
 			params.put("cri", cri);
 			params.put("searchword", searchword);
 			params.put("filter", filter);
-			pageVO.setTotalCount(warehouseService.getFindStockListCount(params));
-			stockList = warehouseService.findStockList(params);
+			pageVO.setTotalCount(wService.getFindStockListCount(params));
+			stockList = wService.findStockList(params);
 		}
 		model.addAttribute("listUrl", "stockMain");
 		model.addAttribute("pageVO", pageVO);
@@ -151,10 +144,12 @@ public class WarehouseController {
 	}
 	
 	@PostMapping(value = "/stockMain")
-	public String warehouseStockMainPOST(StockInfoVO infoVO,
+	public String warehouseStockMainPOST(StockInfoVO infoVO, @RequestParam("chk") String[] identifyCode,
 										 @RequestParam(name="searchword", required = false) String searchword,
 										 @RequestParam(name="filter", required = false) String filter
 										 ) {
+		
+		wService.deleteStock(identifyCode);
 		
 		return "redirect:/warehouse/stockMain";
 	}
@@ -179,14 +174,14 @@ public class WarehouseController {
 		pageVO.setCri(cri);
 		
 		if(searchword == null && filter == null) {
-			pageVO.setTotalCount(warehouseService.getTotalCount());
-			stockInfoList = warehouseService.getStockInfoList(cri);
+			pageVO.setTotalCount(wService.getTotalCount());
+			stockInfoList = wService.getStockInfoList(cri);
 		}else {
 			params.put("cri", cri);
 			params.put("searchword", searchword);
 			params.put("filter", filter);
-			pageVO.setTotalCount(warehouseService.getFindCount(params));
-			stockInfoList = warehouseService.findStockInfoList(params);
+			pageVO.setTotalCount(wService.getFindCount(params));
+			stockInfoList = wService.findStockInfoList(params);
 		}
 		
 		// 데이터전달
@@ -204,7 +199,7 @@ public class WarehouseController {
 //		logger.debug("Postpage : "+page);
 //		logger.debug("infoVO : "+infoVO);
 		
-	    warehouseService.stockApprovalProcess(infoVO);
+	    wService.stockApprovalProcess(infoVO);
 	    
 	    return "redirect:/warehouse/stockInfo?page="+page;
 	}
@@ -217,7 +212,7 @@ public class WarehouseController {
 		
 		logger.debug("identifyCode"+identifyCode);
 		
-		warehouseService.stockCancelProcess(identifyCode);
+		wService.stockCancelProcess(identifyCode);
 		
 		return "redirect:/warehouse/stockInfo?page="+page;
 	}

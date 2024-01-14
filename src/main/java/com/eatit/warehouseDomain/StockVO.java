@@ -15,5 +15,6 @@ public class StockVO {
 	private String product_name;		// 품목이름
 	private int quantity;				// 재고수량
 	private String product_unit;		// 단위
+	private String unit_quantity;		// 단위에 대한 양 => 크림 1box 10L
 	private Date expiry_date;			// 유통기한
 }
