@@ -174,4 +174,10 @@ public class OrdersServiceImpl implements OrdersService {
 		odao.updateOrderStatusToReleaseComplete(order_id);
 	}
 
+	@Override
+	public void startProduction(Integer order_id) {
+		logger.debug("Service: startProduction(order_id)");
+		odao.updateOrderStatusToProducing(order_id);
+	}
+
 }

@@ -56,9 +56,6 @@
 			    <li>
 			    	<a class="dropdown-item fs-6" href="/production/production">생산 관리</a>
 			    </li>
-			    <li>
-			    	<a class="dropdown-item fs-6" href="#">서브메뉴 3</a>
-			    </li>
 	  		</ul>
 		</div>
       	<div class="dropdown mb-3 ms-4-5 w-100">

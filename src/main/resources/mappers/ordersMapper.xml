@@ -294,5 +294,11 @@
      	UPDATE orders SET order_status = '출고완료', update_date = now()
   		WHERE order_id = #{order_id} 
      </update>
+     
+     <!-- 생산중으로 주문 상태 변경 -->
+     <update id="updateOrderStatusToProducing">
+     	UPDATE orders SET order_status = '생산중', update_date = now()
+  		WHERE order_id = #{order_id} 
+     </update>
 	  	    
   </mapper>

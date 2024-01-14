@@ -187,8 +187,7 @@ public class productioncontroller {
 		
 		pdService.update_machine(machine_code);
 		pdService.update_machinehistory(machine_code);
-		
-		
+			
 		return "redirect:/warehouse/registClose";
 	}
 	
@@ -269,6 +268,7 @@ public class productioncontroller {
 		    mvo.setMachine_code(machine_code);
 		    mvo.setOrder_id(order_id);
 		    
+		    
 		    for (Map<String, String> recipeData : recipeDataList) {
 		        String materialGroup = (String) recipeData.get("materialGroup");
 		        String requiredGroup = recipeData.get("requiredGroup");
@@ -289,6 +289,7 @@ public class productioncontroller {
 		    pdService.start(pvo);
 		    pdService.startproduction(hvo);
 		    pdService.start_machine(mvo);
+		    oService.startProduction(order_id);
 		    
 		    return "redirect:/warehouse/registClose";
 		}
