@@ -175,4 +175,10 @@ public class OrdersDAOImpl implements OrdersDAO {
 		SqlSession.update(NAMESPACE + ".updateOrderStatusToReleaseComplete", order_id);
 	}
 
+	@Override
+	public void updateOrderStatusToProducing(Integer order_id) {
+		logger.debug("DAO : updateOrderStatusToProducing(order_id)");
+		SqlSession.update(NAMESPACE + ".updateOrderStatusToProducing", order_id);
+	}
+
 }

@@ -60,5 +60,7 @@ public interface OrdersDAO {
 	public void updateOrderComplete(Integer delivery_id);
 
 	public void updateOrderStatusToReleaseComplete(Integer order_id);
+
+	public void updateOrderStatusToProducing(Integer order_id);
 	
 }
