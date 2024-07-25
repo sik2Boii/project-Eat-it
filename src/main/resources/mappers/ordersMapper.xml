@@ -28,7 +28,7 @@
 	  
 	  <!-- 전체 내역 조회 -->
 	  <select id="selectOrderlist" resultType="ordersVO">
-	  		SELECT o.*, mi.name "product_name", c.company_name, c.company_tel, s.quantity "stock_quantity"
+	  		SELECT o.*, mi.name "product_name", c.company_name, c.company_tel, s.quantity "stock_quantity", mi.photo_paths
 	  		FROM orders o
 	  			JOIN company c ON o.company_no = c.company_no
 	  			JOIN masterdata_information mi ON o.product_no = mi.product_no
@@ -42,7 +42,7 @@
 	  
 	  <!-- 검색 내역 조회 -->
 	  <select id="findOrderList" resultType="ordersVO" parameterType="map">
-			SELECT o.*, mi.name "product_name", c.company_name, c.company_tel, s.quantity "stock_quantity"
+			SELECT o.*, mi.name "product_name", c.company_name, c.company_tel, s.quantity "stock_quantity", mi.photo_paths
 			FROM orders o
 				JOIN company c ON o.company_no = c.company_no
 				JOIN masterdata_information mi ON o.product_no = mi.product_no
@@ -190,7 +190,7 @@
 	  
 	  <!-- 전체 상품 조회 -->
 	  <select id="selectProductList" resultMap="productMap">
-			SELECT mi.*, s.quantity "stock_quantity"
+			SELECT mi.*, s.quantity
 			FROM masterdata_information mi
 				LEFT JOIN (SELECT product_code, SUM(quantity) AS quantity
 						   FROM stock

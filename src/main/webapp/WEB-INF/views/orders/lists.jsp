@@ -69,7 +69,7 @@
 									<td>
 				                    	<div class="d-flex px-2 py-1 ms-5">
 				                        	<div>
-				                            	<img src="" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+				                            	<img src="${vo.photo_paths }" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
 				                     		</div>
 				                          	<div class="d-flex flex-column justify-content-center">
 				                           		<h6 class="mb-0 text-sm">${vo.product_name }</h6>
@@ -120,7 +120,7 @@
 				                        <p class="text-xs text-secondary mb-0">${vo.company_tel }</p>
                       				</td>             				
 	                      			<c:choose>
-									    <c:when test="${vo.order_status eq '신청완료'}">
+									    <c:when test="${vo.order_status eq '신청완료' or vo.order_status eq '생산중'}">
 									        <c:choose>
 									            <c:when test="${vo.quantity <= vo.stock_quantity}">
 									                <td class="align-middle text-center text-sm">
