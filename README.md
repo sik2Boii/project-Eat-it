@@ -1,7 +1,7 @@
 #  [MES] Eat-it.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b3268ff6-b150-4bc2-9d82-102d0f19468b" alt="Logo" width="500px">
+  <img src="https://github.com/user-attachments/assets/a6ffe1c5-3255-47b4-986e-990ae78b628d" alt="Logo" width="500px">
 
 
 <br>
