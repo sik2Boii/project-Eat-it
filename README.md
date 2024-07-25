@@ -1,7 +1,7 @@
-# 🎬 [영화 예매 플랫폼] METABOX.
+#  [MES] Eat-it.
 
 <p align="center">
-  <img src="https://github.com/cowcat0722/project-metabox/assets/153582126/72fe50dd-5d46-4742-ab6f-ea6de0b69d1a" alt="Logo" width="500px">
+  <img src="https://github.com/user-attachments/assets/b3268ff6-b150-4bc2-9d82-102d0f19468b" alt="Logo" width="500px">
 
 
 <br>
