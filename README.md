@@ -14,11 +14,8 @@
 <br>
 
 # 📽️ 시연영상
-
-- 회원가입 & 로그인
+<h3>회원가입 & 로그인</h3>
 ![로그인](https://github.com/user-attachments/assets/ff62dc4d-560f-4d18-a348-ff0ecd65a6f5).
-
-<br>
 
 - 발주신청
 ![발주신청](https://github.com/user-attachments/assets/3726e99f-067e-407b-9d46-094116714881).
