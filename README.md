@@ -15,13 +15,17 @@
 
 # 📽️ 시연영상
 
-<h3>회원가입 & 로그인</h3>
+<h3>회원가입 및 로그인</h3>
 
 ![로그인](https://github.com/user-attachments/assets/ff62dc4d-560f-4d18-a348-ff0ecd65a6f5).
 
-<h3>발주신청</h3>
+<h3>주문서 작성하기</h3>
 
 ![발주신청](https://github.com/user-attachments/assets/6449fc9f-89f2-43af-a8b4-669d50c2ca41).
+
+<h3>설비 및 생산관리</h3>
+
+![발주신청](https://github.com/user-attachments/assets/7790a73e-967a-439a-98bb-600f1a865d8c).
 
 # 📚 발표자료
 ![image](https://github.com/cowcat0722/project-metabox/assets/153695703/7830fa82-ffa7-4fbb-ab75-ceb6160c8bf7)
