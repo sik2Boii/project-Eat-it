@@ -44,27 +44,14 @@
 
 # ⏰ 프로젝트 기간
 
-- 2024.06.13 ~ 2024.07.03
+- 2023.12.04 ~ 2024.01.15
 
 <br>
 
 # 👨‍👩‍👧‍👧 팀원 소개
 
-### Team-Leader
+![team](https://github.com/user-attachments/assets/c9b5b9b5-a363-44c7-a7a5-5a5f4b9d11b5)
 
-|                                                        박찬혁(팀장)                                                        |
-|:---------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://avatars.githubusercontent.com/u/153582126?v=4" alt="profile" width="100" height="100"> | 
-|                                    [@cowcat0722](https://github.com/cowcat0722)                                     |
-
-### Team-Member
-
-|                                                   박선규                                                    |                                                   송채현                                                    |                                                  이서현                                                   |                                                   임준식                                                    |
-|:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| :-------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:| 
-| <img src="https://avatars.githubusercontent.com/u/153582360?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/148741097?v=4" alt="profile" width="100" height="100"> |  <img src="https://avatars.githubusercontent.com/u/153695703?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/81667935?v=4" alt="profile" width="100" height="100"> | 
-|                                    [@p4rksk](https://github.com/p4rksk)                                    |                              [@codingbb](https://github.com/codingbb)                              |                             [@hyeonnnit](https://github.com/hyeonnnit)                               |                               [@sik2Boii](https://github.com/sik2Boii)                               |
-
-<br>
 
 # ⚙️ 기술 스택
 
