@@ -67,16 +67,19 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=white)
 ![CSS](https://img.shields.io/badge/-CSS3-blue?logo=css3&logoColor=white)
 
-### FrameWork
+### Framework
 
 ![Spring](https://img.shields.io/badge/-Spring-brightgreen?logo=spring&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/BootStrap-%238511FA.svg?style=flat&logo=bootstrap&logoColor=white)
 ![MyBatis](https://img.shields.io/badge/MyBatis-%23E76F00.svg?style=flat&logo=mybatis&logoColor=white)
-![JSP](https://img.shields.io/badge/JSP-blue?logo=java&logoColor=white)
 
 ### Library
 
 ![jQuery](https://img.shields.io/badge/jQuery-blue?logo=jquery&logoColor=white)
+
+### Web Technology
+
+![JSP](https://img.shields.io/badge/JSP-blue?logo=java&logoColor=white)
 ![AJAX](https://img.shields.io/badge/AJAX-%230078D7.svg?style=flat&logo=ajax&logoColor=white)
 
 ### DB
@@ -92,6 +95,7 @@
 
 ![Discord](https://img.shields.io/badge/-Discord-blue?logo=discord&logoColor=white)
 ![Kakao](https://img.shields.io/badge/KakaoTalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
+
 
 <br>
 
