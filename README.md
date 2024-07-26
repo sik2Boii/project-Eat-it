@@ -38,6 +38,7 @@
 # 📚 발표자료
 ![image](https://github.com/user-attachments/assets/73fbf3c9-2495-45e9-8b7c-6c4e1c119ea8).
 [7강_3조_2차프로젝트.pptx](https://github.com/user-attachments/files/16387322/7._3._2.pptx).
+<br>
 [7강_3조_2차프로젝트.pdf](https://github.com/user-attachments/files/16390872/7._3._2.pdf).
 
 <br>
