@@ -56,8 +56,9 @@
 
 ### IDE
 
-![IntelliJ IDEA](https://img.shields.io/badge/-IntelliJ%20IDEA-blue?logo=intellij-idea&logoColor=white)
-![Cursor AI](https://img.shields.io/badge/-Cursor%20AI-black?logo=coursera&logoColor=white)
+![Eclipse](https://img.shields.io/badge/-Eclipse-blue?logo=eclipse&logoColor=white)
+![Workbench](https://img.shields.io/badge/-Workbench-black?logo=oracle&logoColor=white)
+![DBeaver](https://img.shields.io/badge/-DBeaver-green?logo=dbeaver&logoColor=white)
 
 ### Language
 
@@ -96,7 +97,6 @@
 
 ![ERD](https://github.com/user-attachments/assets/4c4cc689-6b91-4bb2-8693-6241c7233b42)
 
-  ERD를 클릭하여 자세히 보기
 </p>
 
 
