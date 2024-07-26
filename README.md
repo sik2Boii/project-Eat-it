@@ -25,7 +25,7 @@
 
 <h3>설비 및 생산관리</h3>
 
-![발주신청](https://github.com/user-attachments/assets/7790a73e-967a-439a-98bb-600f1a865d8c).
+![3-1](https://github.com/user-attachments/assets/f46bfcac-7f06-444c-8829-f1a3a24b8121)
 
 # 📚 발표자료
 ![image](https://github.com/cowcat0722/project-metabox/assets/153695703/7830fa82-ffa7-4fbb-ab75-ceb6160c8bf7)
