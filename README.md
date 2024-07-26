@@ -60,6 +60,9 @@
 
 ![Eclipse](https://img.shields.io/badge/-Eclipse-blue?logo=eclipse&logoColor=white)
 ![VS Code](https://img.shields.io/badge/-VS%20Code-blue?logo=visual-studio-code&logoColor=white)
+
+### DB Tool
+
 ![Workbench](https://img.shields.io/badge/-Workbench-black?logo=oracle&logoColor=white)
 ![DBeaver](https://img.shields.io/badge/-DBeaver-green?logo=dbeaver&logoColor=white)
 
@@ -88,7 +91,7 @@
 
 ![MySQL](https://img.shields.io/badge/MySQL-black?&logo=mysql&logoColor=white)
 
-### 서버 및 클라우드
+### Server and Cloud
 
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=flat&logo=amazon-aws&logoColor=white)
 ![Tomcat](https://img.shields.io/badge/Apache%20Tomcat-%23F8DC75.svg?style=flat&logo=apache-tomcat&logoColor=black)
