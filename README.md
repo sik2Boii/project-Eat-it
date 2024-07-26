@@ -27,6 +27,10 @@
 
 ![3-1](https://github.com/user-attachments/assets/f46bfcac-7f06-444c-8829-f1a3a24b8121)
 
+<h3>창고 관리</h3>
+
+![4](https://github.com/user-attachments/assets/34ae947b-d9f2-41c0-ace6-102526493bfd)
+
 # 📚 발표자료
 ![image](https://github.com/cowcat0722/project-metabox/assets/153695703/7830fa82-ffa7-4fbb-ab75-ceb6160c8bf7)
 [META BOX.pptx](https://github.com/user-attachments/files/16077650/META.BOX.pptx)
