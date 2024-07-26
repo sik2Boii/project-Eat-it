@@ -79,7 +79,6 @@
 
 ### DB
 
-![H2](https://img.shields.io/badge/-H2-orange?logo=amazondocumentdb&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-black?&logo=mysql&logoColor=white)
 
 ### 협업 툴
@@ -92,17 +91,10 @@
 
 <br>
 
-# 🛠️ 브랜치 전략
-
-- 각 이슈 발생 시 `새로운 브랜치`를 생성
-- 작업을 완료 후 Merge 전 `코드 리뷰 진행` 및 `피드백`
-- 브랜치 명은 각 인원별 `이니셜/패키지/기능`으로 컨벤션을 맞춰 진행
-
-<br>
 
 # 🔐 ERD
 
-[![ERD](https://github.com/cowcat0722/project-metabox/assets/153582126/c4ff27ac-1f53-4b96-a919-37522621b405)](https://www.erdcloud.com/d/HWndrYQtQ5sNddp6d)
+![ERD](https://github.com/user-attachments/assets/4c4cc689-6b91-4bb2-8693-6241c7233b42)
 
   ERD를 클릭하여 자세히 보기
 </p>
