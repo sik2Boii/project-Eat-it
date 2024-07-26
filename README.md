@@ -25,15 +25,15 @@
 
 <h3>설비 및 생산관리</h3>
 
-![3-1](https://github.com/user-attachments/assets/f46bfcac-7f06-444c-8829-f1a3a24b8121)
+![3-1](https://github.com/user-attachments/assets/f46bfcac-7f06-444c-8829-f1a3a24b8121).
 
 <h3>창고 관리</h3>
 
-![4](https://github.com/user-attachments/assets/34ae947b-d9f2-41c0-ace6-102526493bfd)
+![4](https://github.com/user-attachments/assets/34ae947b-d9f2-41c0-ace6-102526493bfd).
 
 <h3>배송 관리</h3>
 
-![5](https://github.com/user-attachments/assets/38496e2b-0cc1-4f6d-b094-3b0ed4bafa7b)
+![5](https://github.com/user-attachments/assets/38496e2b-0cc1-4f6d-b094-3b0ed4bafa7b).
 
 # 📚 발표자료
 ![image](https://github.com/cowcat0722/project-metabox/assets/153695703/7830fa82-ffa7-4fbb-ab75-ceb6160c8bf7)
