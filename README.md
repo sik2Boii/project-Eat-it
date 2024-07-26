@@ -21,7 +21,7 @@
 
 <h3>발주신청</h3>
 
-![발주신청](https://github.com/sik2Boii/project-Eat-it/issues/5#issue-2431288743).
+![발주신청](https://github.com/user-attachments/assets/6449fc9f-89f2-43af-a8b4-669d50c2ca41).
 
 # 📚 발표자료
 ![image](https://github.com/cowcat0722/project-metabox/assets/153695703/7830fa82-ffa7-4fbb-ab75-ceb6160c8bf7)
