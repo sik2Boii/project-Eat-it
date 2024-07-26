@@ -83,15 +83,15 @@
 
 ![MySQL](https://img.shields.io/badge/MySQL-black?&logo=mysql&logoColor=white)
 
-### 협업 툴
-
-![Discord](https://img.shields.io/badge/-Discord-blue?logo=discord&logoColor=white)
-![Kakao](https://img.shields.io/badge/KakaoTalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
-
 ### 서버 및 클라우드
 
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=flat&logo=amazon-aws&logoColor=white)
 ![Tomcat](https://img.shields.io/badge/Apache%20Tomcat-%23F8DC75.svg?style=flat&logo=apache-tomcat&logoColor=black)
+
+### 협업 툴
+
+![Discord](https://img.shields.io/badge/-Discord-blue?logo=discord&logoColor=white)
+![Kakao](https://img.shields.io/badge/KakaoTalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
 
 <br>
 
