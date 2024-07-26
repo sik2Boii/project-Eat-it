@@ -31,6 +31,10 @@
 
 ![4](https://github.com/user-attachments/assets/34ae947b-d9f2-41c0-ace6-102526493bfd)
 
+<h3>배송 관리</h3>
+
+![5](https://github.com/user-attachments/assets/38496e2b-0cc1-4f6d-b094-3b0ed4bafa7b)
+
 # 📚 발표자료
 ![image](https://github.com/cowcat0722/project-metabox/assets/153695703/7830fa82-ffa7-4fbb-ab75-ceb6160c8bf7)
 [META BOX.pptx](https://github.com/user-attachments/files/16077650/META.BOX.pptx)
