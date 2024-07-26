@@ -57,26 +57,24 @@
 ### IDE
 
 ![Eclipse](https://img.shields.io/badge/-Eclipse-blue?logo=eclipse&logoColor=white)
+![VS Code](https://img.shields.io/badge/-VS%20Code-blue?logo=visual-studio-code&logoColor=white)
 ![Workbench](https://img.shields.io/badge/-Workbench-black?logo=oracle&logoColor=white)
 ![DBeaver](https://img.shields.io/badge/-DBeaver-green?logo=dbeaver&logoColor=white)
 
 ### Language
 
-![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=flat&logo=openjdk&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=white)
 ![CSS](https://img.shields.io/badge/-CSS3-blue?logo=css3&logoColor=white)
 
 
 ### FrameWork
 
-![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen?logo=spring&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-black?logo=redis&logoColor=white)
-![React](https://img.shields.io/badge/React-blue?logo=react&logoColor=white)
-![JPA](https://img.shields.io/badge/JPA-red?logo=spring&logoColor=white)
-![FFmpeg](https://img.shields.io/badge/FFmpeg-green?logo=ffmpeg&logoColor=white)
-![jQuery](https://img.shields.io/badge/jQuery-blue?logo=jquery&logoColor=white)
-![JUnit](https://img.shields.io/badge/JUnit-green?logo=junit5&logoColor=white)
+![Spring](https://img.shields.io/badge/-Spring-brightgreen?logo=spring&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/BootStrap-%238511FA.svg?style=flat&logo=bootstrap&logoColor=white)
+
+### Library
+![jQuery](https://img.shields.io/badge/jQuery-blue?logo=jquery&logoColor=white)
 
 ### DB
 
@@ -84,11 +82,8 @@
 
 ### 협업 툴
 
-![Notion](https://img.shields.io/badge/-Notion-black?logo=notion&logoColor=white)
-![Git](https://img.shields.io/badge/-Git-red?logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/-GitHub-black?logo=github&logoColor=white)
-![Slack](https://img.shields.io/badge/-Slack-purple?logo=slack&logoColor=white)
-![KakaoTalk](https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
+![Discord](https://img.shields.io/badge/-Discord-blue?logo=discord&logoColor=white)
+![Kakao](https://img.shields.io/badge/KakaoTalk-ffcd00.svg?style=flat&logo=kakaotalk&logoColor=000000)
 
 <br>
 
